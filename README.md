@@ -1,18 +1,18 @@
 # PixelWorld
 
-PixelWorld là game phiêu lưu pixel 2D góc nhìn từ trên xuống, triển khai trên web để có thể phát triển bằng Windows và chơi trên iPhone Safari.
+Game phiêu lưu pixel 2D góc nhìn từ trên xuống, ưu tiên trình duyệt và thiết bị di động.
 
-## Bản cập nhật
-- Bố cục game thiết kế cho màn hình ngang; khi điện thoại đang dọc sẽ hiện lời nhắc xoay máy.
-- Ba lớp nhân vật: Kiếm Vệ, Linh Pháp, Du Hiệp.
-- Bốn kỹ năng theo lớp (phím 1–4; HUD hiện hai nút kỹ năng đầu trên màn hình cảm ứng).
-- Hai khu vực thử nghiệm: Rừng Khởi Nguyên và Hang Pha Lê.
-- Thu thập gỗ, đá, pha lê; chiến đấu slime/dơi; XP, lên cấp, xu, thuốc.
-- Túi đồ và chế tạo kiếm, rìu, thuốc.
-- Lưu cục bộ qua localStorage; service worker cache vỏ game để hỗ trợ mở lại khi offline sau lần tải đầu.
+## Bản hiện tại
+Đây là **prototype đầu tiên**, chưa phải bản game hoàn chỉnh:
+- Bản đồ rừng cuộn camera, nhân vật di chuyển.
+- Điều khiển bàn phím và nút cảm ứng.
+- Thu thập gỗ/đá, chiến đấu slime, nhận XP và lên cấp.
+- Lưu tiến trình cục bộ bằng localStorage.
 
-## Chơi
-Mở https://ndlx05.github.io/-PixelWorld/ trên Safari. Xoay iPhone nằm ngang. Có thể chọn Chia sẻ → Thêm vào Màn hình chính để mở như ứng dụng web.
+## Chạy thử
+Mở `index.html` bằng trình duyệt hiện đại hoặc chạy qua máy chủ web tĩnh. Trên iPhone, cần triển khai HTTPS để truy cập thuận tiện.
 
-## Lưu ý phát triển
-Đây vẫn là bản phát triển alpha, chưa phải game hoàn chỉnh phát hành: cần bổ sung sprite/hoạt ảnh có bản quyền được xác minh, âm thanh, nhiệm vụ, NPC, boss, bản đồ mở rộng, cân bằng chiến đấu, kiểm thử lưu/offline và kiểm thử thực tế trên iPhone. Tư liệu đồ họa đã bàn giao sẽ được tích hợp sau khi kiểm tra lại tệp nguồn.
+## Hướng phát triển
+Tiếp tục bổ sung lớp nhân vật, kỹ năng riêng, hoạt ảnh sprite, bản đồ hang động/làng, túi đồ, chế tạo, nhiệm vụ, âm thanh, PWA/offline cache và kiểm thử Safari iOS.
+
+Tài nguyên đồ họa đã bàn giao sẽ được tích hợp theo từng gói sau khi kiểm tra tệp và giấy phép. Không đưa nguyên bộ dataset lớn vào bản chạy.
