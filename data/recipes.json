@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "recipes": [
+    {
+      "id": "wooden_sword",
+      "name": "Kiếm gỗ",
+      "station": "hand",
+      "inputs": {
+        "wood": 3,
+        "stone": 5
+      },
+      "output": {
+        "item": "wooden_sword",
+        "count": 1
+      }
+    },
+    {
+      "id": "small_potion",
+      "name": "Thuốc hồi phục",
+      "station": "hand",
+      "inputs": {
+        "stone": 2,
+        "coin": 3
+      },
+      "output": {
+        "item": "potion_small",
+        "count": 1
+      }
+    },
+    {
+      "id": "stone_axe",
+      "name": "Rìu đá",
+      "station": "hand",
+      "inputs": {
+        "wood": 4,
+        "stone": 2
+      },
+      "output": {
+        "item": "stone_axe",
+        "count": 1
+      }
+    }
+  ]
+}
