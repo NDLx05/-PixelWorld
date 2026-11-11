@@ -1,18 +1,32 @@
 # PixelWorld
 
-Game phiêu lưu pixel 2D góc nhìn từ trên xuống, ưu tiên trình duyệt và thiết bị di động.
+Game phiêu lưu pixel 2D góc nhìn từ trên xuống, thiết kế màn hình ngang và ưu tiên Safari trên iPhone.
 
 ## Bản hiện tại
-Đây là **prototype đầu tiên**, chưa phải bản game hoàn chỉnh:
-- Bản đồ rừng cuộn camera, nhân vật di chuyển.
-- Điều khiển bàn phím và nút cảm ứng.
-- Thu thập gỗ/đá, chiến đấu slime, nhận XP và lên cấp.
-- Lưu tiến trình cục bộ bằng localStorage.
 
-## Chạy thử
-Mở `index.html` bằng trình duyệt hiện đại hoặc chạy qua máy chủ web tĩnh. Trên iPhone, cần triển khai HTTPS để truy cập thuận tiện.
+Đây vẫn là **prototype/alpha**, không phải bản phát hành hoàn chỉnh. Những phần đang có trong mã:
+- Bản đồ rừng và hang động với camera cuộn.
+- Ba lớp nhân vật và bốn nút kỹ năng.
+- Điều khiển bàn phím và nút cảm ứng.
+- Thu thập tài nguyên, chiến đấu, XP, lên cấp.
+- Túi đồ và một số công thức chế tạo.
+- Lưu tiến trình cục bộ bằng localStorage.
+- PWA app shell: manifest và service worker để lưu vỏ ứng dụng sau lần tải đầu.
+
+## Chơi trên iPhone
+
+1. Mở trang GitHub Pages bằng Safari.
+2. Xoay iPhone nằm ngang.
+3. Tải trang khi đang có kết nối mạng để service worker lưu app shell.
+4. Có thể chọn Chia sẻ → Thêm vào màn hình chính để mở như ứng dụng web.
+
+## Giới hạn hiện tại
+
+- Đồ họa nhân vật/quái vật còn là hình vẽ tạm, chưa tích hợp sprite animation hoàn chỉnh.
+- Chưa có hệ thống nhiệm vụ/NPC/cửa hàng/boss hoàn chỉnh.
+- Cân bằng chiến đấu, lưu trạng thái khu vực và kiểm thử Safari thực tế vẫn cần làm.
+- Offline hiện chỉ nhắm đến app shell; chưa cam kết toàn bộ nội dung game hoạt động offline cho đến khi kiểm thử.
 
 ## Hướng phát triển
-Tiếp tục bổ sung lớp nhân vật, kỹ năng riêng, hoạt ảnh sprite, bản đồ hang động/làng, túi đồ, chế tạo, nhiệm vụ, âm thanh, PWA/offline cache và kiểm thử Safari iOS.
 
-Tài nguyên đồ họa đã bàn giao sẽ được tích hợp theo từng gói sau khi kiểm tra tệp và giấy phép. Không đưa nguyên bộ dataset lớn vào bản chạy.
+Tiếp tục tích hợp tài nguyên pixel đã bàn giao, chuẩn hóa hệ thống nhân vật/hoạt ảnh, chiến đấu, bản đồ, nhiệm vụ, vật phẩm, âm thanh, save/load và kiểm thử trên iPhone. Không đưa nguyên bộ dataset lớn vào bản chạy.
