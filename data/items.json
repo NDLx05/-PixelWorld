@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "wood",
+      "name": "Gỗ",
+      "type": "material",
+      "stack": 999
+    },
+    {
+      "id": "stone",
+      "name": "Đá",
+      "type": "material",
+      "stack": 999
+    },
+    {
+      "id": "crystal",
+      "name": "Pha lê",
+      "type": "material",
+      "stack": 999
+    },
+    {
+      "id": "coin",
+      "name": "Xu",
+      "type": "currency",
+      "stack": 999999
+    },
+    {
+      "id": "potion_small",
+      "name": "Thuốc hồi phục",
+      "type": "consumable",
+      "stack": 99,
+      "effect": {
+        "heal": 45
+      }
+    },
+    {
+      "id": "wooden_sword",
+      "name": "Kiếm gỗ",
+      "type": "weapon",
+      "stack": 1,
+      "stats": {
+        "attack": 1
+      }
+    },
+    {
+      "id": "stone_axe",
+      "name": "Rìu đá",
+      "type": "tool",
+      "stack": 1,
+      "stats": {
+        "gathering": 1
+      }
+    }
+  ]
+}
