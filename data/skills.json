@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "classes": {
+    "warrior": {
+      "name": "Kiếm Vệ",
+      "skills": [
+        {
+          "id": "charge_slash",
+          "name": "Chém Xung Kích",
+          "cost": 12,
+          "cooldown": 4,
+          "target": "forward",
+          "power": 3
+        },
+        {
+          "id": "iron_guard",
+          "name": "Thiết Giáp",
+          "cost": 15,
+          "cooldown": 7,
+          "effect": "damage_reduction",
+          "duration": 3
+        },
+        {
+          "id": "sword_wave",
+          "name": "Kiếm Khí",
+          "cost": 20,
+          "cooldown": 10,
+          "target": "line",
+          "power": 4
+        },
+        {
+          "id": "berserk",
+          "name": "Cuồng Nộ",
+          "cost": 28,
+          "cooldown": 15,
+          "effect": "attack_boost",
+          "duration": 6
+        }
+      ]
+    },
+    "mage": {
+      "name": "Linh Pháp",
+      "skills": [
+        {
+          "id": "fire_orb",
+          "name": "Cầu Lửa",
+          "cost": 12,
+          "cooldown": 4,
+          "target": "projectile",
+          "power": 4
+        },
+        {
+          "id": "ice_bind",
+          "name": "Băng Trói",
+          "cost": 15,
+          "cooldown": 7,
+          "target": "area",
+          "power": 2,
+          "effect": "slow"
+        },
+        {
+          "id": "mend",
+          "name": "Hồi Phục",
+          "cost": 20,
+          "cooldown": 10,
+          "effect": "heal",
+          "amount": 35
+        },
+        {
+          "id": "arcane_storm",
+          "name": "Bão Arcane",
+          "cost": 28,
+          "cooldown": 15,
+          "target": "area",
+          "power": 5
+        }
+      ]
+    },
+    "ranger": {
+      "name": "Du Hiệp",
+      "skills": [
+        {
+          "id": "quick_shot",
+          "name": "Bắn Nhanh",
+          "cost": 12,
+          "cooldown": 4,
+          "target": "projectile",
+          "power": 3
+        },
+        {
+          "id": "roll",
+          "name": "Lộn Né",
+          "cost": 15,
+          "cooldown": 7,
+          "effect": "dash_invulnerable",
+          "duration": 1
+        },
+        {
+          "id": "arrow_rain",
+          "name": "Mưa Tên",
+          "cost": 20,
+          "cooldown": 10,
+          "target": "area",
+          "power": 3
+        },
+        {
+          "id": "poison_arrow",
+          "name": "Độc Tiễn",
+          "cost": 28,
+          "cooldown": 15,
+          "target": "projectile",
+          "power": 5,
+          "effect": "poison"
+        }
+      ]
+    }
+  }
+}
