@@ -9,8 +9,8 @@ Game phiêu lưu pixel 2D góc nhìn từ trên xuống, thiết kế màn hình
 - Ba lớp nhân vật và bốn nút kỹ năng.
 - Điều khiển bàn phím và nút cảm ứng.
 - Thu thập tài nguyên, chiến đấu, XP, lên cấp.
-- Túi đồ và một số công thức chế tạo.
-- Lưu tiến trình cục bộ bằng localStorage.
+- Túi đồ, công thức chế tạo cơ bản và dùng thuốc hồi phục (nút P trên bàn phím / nút cảm ứng).
+- Lưu tiến trình cục bộ bằng localStorage.\n- Danh mục dữ liệu nền ban đầu trong `data/items.json`, `data/recipes.json`, `data/skills.json`; lộ trình triển khai trong `docs/ROADMAP.md`.
 - PWA app shell: manifest và service worker để lưu vỏ ứng dụng sau lần tải đầu.
 
 ## Chơi trên iPhone
