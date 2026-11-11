@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#17251d"><title>PixelWorld — Phiêu lưu pixel</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#101a16;color:#f4f2dc;font-family:system-ui,sans-serif;touch-action:none}
+#app{height:100dvh;display:flex;flex-direction:column;background:radial-gradient(ellipse at top,#263d2c,#101a16 70%)}
+header{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;border-bottom:1px solid #52614c;background:#18251edc}
+.brand{font-weight:900;letter-spacing:1px;color:#d9ed9c}.stats{font-size:12px;color:#d6dfc8;display:flex;gap:12px}
+#stage{position:relative;flex:1;min-height:0;display:grid;place-items:center;padding:8px}
+canvas{display:block;width:min(100%,calc((100dvh - 150px)* 1.72));height:auto;max-height:100%;aspect-ratio:16/9;image-rendering:pixelated;border:3px solid #78845a;border-radius:8px;background:#294d35;box-shadow:0 12px 45px #0009}
+#hint{position:absolute;top:15px;left:50%;transform:translateX(-50%);font-size:11px;background:#101a16c9;padding:6px 10px;border-radius:20px;white-space:nowrap}
+footer{min-height:82px;padding:8px 12px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:space-between;align-items:center;gap:12px;background:#17231df2;border-top:1px solid #52614c}
+.pad{display:grid;grid-template-columns:repeat(3,38px);grid-template-rows:repeat(2,34px);gap:3px}.pad button,.actions button,.menu button{border:1px solid #82906b;background:#354a37;color:#fff;border-radius:8px;font-weight:700;touch-action:none}.pad button{font-size:17px}.pad .empty{visibility:hidden}
+.actions{display:flex;gap:7px;align-items:center}.actions button{width:54px;height:54px;font-size:11px;background:#52613b}.actions button.primary{background:#8b5735}.actions button:active,.pad button:active{filter:brightness(1.4);transform:scale(.96)}
+#panel{position:absolute;inset:0;display:grid;place-items:center;background:#07100dc9;padding:18px}
+.card{width:min(420px,95%);background:#1c2d22;border:2px solid #879566;border-radius:12px;padding:20px;text-align:center;box-shadow:0 12px 40px #0009}
+.card h1{margin:0 0 8px;color:#d9ed9c}.card p{color:#d1d9c8;font-size:13px;line-height:1.5}.menu{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}.menu button{padding:10px 16px}.hidden{display:none!important}
+@media(min-width:800px){footer{justify-content:center;gap:80px}.pad{transform:scale(1.12)}}
+</style></head>
+<body><div id="app">
+<header><div class="brand">PIXELWORLD</div><div class="stats"><span id="hp">♥ 100</span><span id="xp">XP 0</span><span id="level">Lv. 1</span><span id="bag">Gỗ 0 · Đá 0</span></div></header>
+<div id="stage"><canvas id="game" width="480" height="270"></canvas><div id="hint">Khám phá · Thu thập · Chiến đấu</div>
+<div id="panel"><div class="card"><h1>PIXELWORLD</h1><p>Một chuyến phiêu lưu pixel bắt đầu từ khu rừng yên bình. Thu thập tài nguyên, đánh bại quái vật và khám phá vùng đất mới.</p><p>Máy tính: WASD / phím mũi tên để di chuyển · J tấn công · E thu thập</p><div class="menu"><button id="start">Bắt đầu</button><button id="reset">Chơi mới</button></div></div></div>
+</div>
+<footer><div class="pad"><button class="empty">·</button><button data-key="ArrowUp">▲</button><button class="empty">·</button><button data-key="ArrowLeft">◀</button><button data-key="ArrowDown">▼</button><button data-key="ArrowRight">▶</button></div><div class="actions"><button class="primary" data-act="attack">ĐÁNH<br>J</button><button data-act="gather">NHẶT<br>E</button><button data-act="save">LƯU</button></div></footer>
+</div>
+<script>
+(()=>{
+const c=document.querySelector('#game'),x=c.getContext('2d');x.imageSmoothingEnabled=false;
+const W=480,H=270,keys=new Set(),world={w:960,h:720};
+let running=false,player={x:240,y:135,hp:100,xp:0,lv:1,wood:0,stone:0,face:1},enemies=[],nodes=[],toast='',toastAt=0,last=0;
+const rand=(a,b)=>Math.random()*(b-a)+a;
+function seed(){nodes=[];enemies=[];for(let i=0;i<65;i++)nodes.push({x:rand(24,936),y:rand(24,696),type:Math.random()<.58?'tree':'rock',hp:Math.random()<.58?3:2});for(let i=0;i<13;i++)enemies.push({x:rand(60,900),y:rand(60,660),hp:3,wait:rand(0,2)});}
+function say(s){toast=s;toastAt=2.2}
+function save(){localStorage.setItem('pixelworld-save',JSON.stringify({player,nodes,enemies}));say('Đã lưu tiến trình!')}
+function load(){try{let d=JSON.parse(localStorage.getItem('pixelworld-save'));if(d){player=d.player;nodes=d.nodes;enemies=d.enemies}}catch{}}
+function reset(){player={x:240,y:135,hp:100,xp:0,lv:1,wood:0,stone:0,face:1};seed();save();say('Bắt đầu hành trình!')}
+function near(a,b,r){return Math.hypot(a.x-b.x,a.y-b.y)<r}
+function attack(){let e=enemies.filter(e=>near(player,e,28)).sort((a,b)=>near(player,a,100)-near(player,b,100))[0];if(e){e.hp--;say('Trúng đòn!');if(e.hp<=0){enemies.splice(enemies.indexOf(e),1);player.xp+=15;say('+15 XP');if(player.xp>=player.lv*50){player.xp-=player.lv*50;player.lv++;player.hp=Math.min(100,player.hp+20);say('LÊN CẤP '+player.lv+'!')}}}else say('Không có quái vật trong tầm!')}
+function gather(){let n=nodes.find(n=>near(player,n,27));if(!n){say('Đến gần cây hoặc đá để thu thập');return}n.hp--;if(n.hp<=0){if(n.type==='tree')player.wood+=2;else player.stone+=2;nodes.splice(nodes.indexOf(n),1);player.xp+=4;say(n.type==='tree'?'+2 gỗ':' +2 đá')}else say('Đang khai thác…')}
+function act(a){if(!running)return;if(a==='attack')attack();if(a==='gather')gather();if(a==='save')save()}
+document.querySelectorAll('[data-key]').forEach(b=>{let k=b.dataset.key;b.addEventListener('pointerdown',e=>{e.preventDefault();keys.add(k);b.setPointerCapture(e.pointerId)});['pointerup','pointercancel','lostpointercapture'].forEach(t=>b.addEventListener(t,()=>keys.delete(k)))});
+document.querySelectorAll('[data-act]').forEach(b=>b.addEventListener('pointerdown',e=>{e.preventDefault();act(b.dataset.act)}));
+onkeydown=e=>{keys.add(e.key.toLowerCase());keys.add(e.key);if(e.key.toLowerCase()==='j')act('attack');if(e.key.toLowerCase()==='e')act('gather');if(e.key.toLowerCase()==='i')save()};
+onkeyup=e=>{keys.delete(e.key.toLowerCase());keys.delete(e.key)};
+document.querySelector('#start').onclick=()=>{document.querySelector('#panel').classList.add('hidden');running=true};
+document.querySelector('#reset').onclick=()=>{reset();document.querySelector('#panel').classList.add('hidden');running=true};
+function draw(){
+x.clearRect(0,0,W,H);let camX=Math.max(0,Math.min(world.w-W,player.x-W/2)),camY=Math.max(0,Math.min(world.h-H,player.y-H/2));
+x.fillStyle='#477b48';x.fillRect(0,0,W,H);
+for(let yy=0;yy<world.h;yy+=24)for(let xx=0;xx<world.w;xx+=24){let v=(Math.sin(xx*12.9+yy*4.7)*43758.5)%1;x.fillStyle=v>.1?'#4b8049':'#477746';x.fillRect(xx-camX,yy-camY,23,23);if((xx*7+yy*11)%13===0){x.fillStyle='#7a9b54';x.fillRect(xx+8-camX,yy+7-camY,2,2)}}
+x.strokeStyle='#b1a36a';x.lineWidth=5;x.strokeRect(2-camX,2-camY,world.w-4,world.h-4);
+for(const n of nodes){let sx=n.x-camX,sy=n.y-camY;if(sx<-20||sy<-20||sx>W+20||sy>H+20)continue;if(n.type==='tree'){x.fillStyle='#704b2d';x.fillRect(sx-3,sy,6,12);x.fillStyle='#245438';x.fillRect(sx-10,sy-13,20,16);x.fillStyle='#397347';x.fillRect(sx-7,sy-17,14,9)}else{x.fillStyle='#727d7b';x.fillRect(sx-8,sy-5,16,11);x.fillStyle='#a8b4a0';x.fillRect(sx-4,sy-8,7,5)}}
+for(const e of enemies){let sx=e.x-camX,sy=e.y-camY;if(sx<-20||sy<-20||sx>W+20||sy>H+20)continue;x.fillStyle='#253b31';x.fillRect(sx-8,sy-5,16,11);x.fillStyle='#9cdb72';x.fillRect(sx-6,sy-8,12,9);x.fillStyle='#20251d';x.fillRect(sx-4,sy-4,2,2);x.fillRect(sx+3,sy-4,2,2)}
+// player
+let px=player.x-camX,py=player.y-camY;x.fillStyle='#283b58';x.fillRect(px-6,py-5,12,13);x.fillStyle='#e9bd8d';x.fillRect(px-5,py-12,10,9);x.fillStyle='#d6d6d0';x.fillRect(px-6,py-14,12,4);x.fillStyle='#26354a';x.fillRect(px-4,py-2,3,2);x.fillRect(px+2,py-2,3,2);
+x.fillStyle='#17251d';x.fillRect(8,8,126,28);x.fillStyle='#e7f0d7';x.font='10px monospace';x.fillText('RỪNG KHỞI NGUYÊN',15,20);x.fillText('Tọa độ '+Math.floor(player.x)+','+Math.floor(player.y),15,30);
+if(toastAt>0){x.fillStyle='#17251de8';x.fillRect(150,225,180,25);x.fillStyle='#fff';x.textAlign='center';x.fillText(toast,240,241);x.textAlign='left'}
+}
+function update(dt){if(!running)return;let dx=0,dy=0;if(keys.has('w')||keys.has('ArrowUp'))dy--;if(keys.has('s')||keys.has('ArrowDown'))dy++;if(keys.has('a')||keys.has('ArrowLeft'))dx--;if(keys.has('d')||keys.has('ArrowRight'))dx++;if(dx||dy){let l=Math.hypot(dx,dy);player.x+=dx/l*105*dt;player.y+=dy/l*105*dt;player.face=dx||player.face}player.x=Math.max(12,Math.min(world.w-12,player.x));player.y=Math.max(12,Math.min(world.h-12,player.y));
+for(const e of enemies){let d=Math.hypot(player.x-e.x,player.y-e.y);if(d<105&&d>1){e.x+=(player.x-e.x)/d*24*dt;e.y+=(player.y-e.y)/d*24*dt}e.wait-=dt;if(d<17&&e.wait<=0){player.hp=Math.max(0,player.hp-7);e.wait=1.1;say('Bạn bị quái vật tấn công!');if(player.hp===0){running=false;document.querySelector('#panel').classList.remove('hidden');document.querySelector('.card h1').textContent='BẠN ĐÃ GỤC NGÃ';document.querySelector('.card p').textContent='Nhấn Chơi mới để bắt đầu lại.'}}}
+toastAt=Math.max(0,toastAt-dt);document.querySelector('#hp').textContent='♥ '+player.hp;document.querySelector('#xp').textContent='XP '+player.xp;document.querySelector('#level').textContent='Lv. '+player.lv;document.querySelector('#bag').textContent='Gỗ '+player.wood+' · Đá '+player.stone}
+function loop(t){let dt=Math.min(.04,(t-last)/1000||0);last=t;update(dt);draw();requestAnimationFrame(loop)}
+seed();load();requestAnimationFrame(loop);
+})();
+</script></body></html>
