@@ -1,0 +1,13 @@
+{
+  "id": "./",
+  "name": "PixelWorld — Phiêu lưu pixel",
+  "short_name": "PixelWorld",
+  "description": "Game phiêu lưu pixel 2D góc nhìn từ trên xuống.",
+  "lang": "vi",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#101a16",
+  "theme_color": "#17251d"
+}
