@@ -1,0 +1,11 @@
+{
+ "name":"PixelWorld - Phiêu lưu pixel",
+ "short_name":"PixelWorld",
+ "start_url":"./",
+ "scope":"./",
+ "display":"standalone",
+ "orientation":"landscape",
+ "background_color":"#101a16",
+ "theme_color":"#17251d",
+ "description":"Game phiêu lưu pixel 2D offline-first"
+}

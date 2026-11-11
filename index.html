@@ -1,68 +1,100 @@
 <!doctype html>
 <html lang="vi">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#17251d"><title>PixelWorld — Phiêu lưu pixel</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#17251d"><meta name="description" content="PixelWorld — game phiêu lưu pixel 2D offline-first">
+<link rel="manifest" href="./manifest.webmanifest">
+<title>PixelWorld — Phiêu lưu pixel</title>
 <style>
-:root{color-scheme:dark}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#101a16;color:#f4f2dc;font-family:system-ui,sans-serif;touch-action:none}
-#app{height:100dvh;display:flex;flex-direction:column;background:radial-gradient(ellipse at top,#263d2c,#101a16 70%)}
-header{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;border-bottom:1px solid #52614c;background:#18251edc}
-.brand{font-weight:900;letter-spacing:1px;color:#d9ed9c}.stats{font-size:12px;color:#d6dfc8;display:flex;gap:12px}
-#stage{position:relative;flex:1;min-height:0;display:grid;place-items:center;padding:8px}
-canvas{display:block;width:min(100%,calc((100dvh - 150px)* 1.72));height:auto;max-height:100%;aspect-ratio:16/9;image-rendering:pixelated;border:3px solid #78845a;border-radius:8px;background:#294d35;box-shadow:0 12px 45px #0009}
-#hint{position:absolute;top:15px;left:50%;transform:translateX(-50%);font-size:11px;background:#101a16c9;padding:6px 10px;border-radius:20px;white-space:nowrap}
-footer{min-height:82px;padding:8px 12px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:space-between;align-items:center;gap:12px;background:#17231df2;border-top:1px solid #52614c}
-.pad{display:grid;grid-template-columns:repeat(3,38px);grid-template-rows:repeat(2,34px);gap:3px}.pad button,.actions button,.menu button{border:1px solid #82906b;background:#354a37;color:#fff;border-radius:8px;font-weight:700;touch-action:none}.pad button{font-size:17px}.pad .empty{visibility:hidden}
-.actions{display:flex;gap:7px;align-items:center}.actions button{width:54px;height:54px;font-size:11px;background:#52613b}.actions button.primary{background:#8b5735}.actions button:active,.pad button:active{filter:brightness(1.4);transform:scale(.96)}
-#panel{position:absolute;inset:0;display:grid;place-items:center;background:#07100dc9;padding:18px}
-.card{width:min(420px,95%);background:#1c2d22;border:2px solid #879566;border-radius:12px;padding:20px;text-align:center;box-shadow:0 12px 40px #0009}
-.card h1{margin:0 0 8px;color:#d9ed9c}.card p{color:#d1d9c8;font-size:13px;line-height:1.5}.menu{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}.menu button{padding:10px 16px}.hidden{display:none!important}
-@media(min-width:800px){footer{justify-content:center;gap:80px}.pad{transform:scale(1.12)}}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#101a16;color:#f5f1d8;font-family:system-ui,-apple-system,sans-serif;touch-action:none;user-select:none}
+:root{--gold:#e4d18b;--panel:#17251df2;--line:#697b58}
+#app{height:100dvh;height:100svh;display:flex;flex-direction:column;background:#101a16}
+header{height:38px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 10px;background:#17251d;border-bottom:1px solid var(--line);gap:8px}
+.brand{font-size:13px;font-weight:950;letter-spacing:1.5px;color:#d9ed9c;white-space:nowrap}.stats{display:flex;gap:clamp(5px,1.5vw,16px);font-size:clamp(9px,1.5vw,12px);white-space:nowrap;color:#e8ebd6}.stats b{color:var(--gold)}
+#stage{position:relative;flex:1;min-height:0;display:grid;place-items:center;padding:3px}
+canvas{display:block;width:min(100%,calc((100dvh - 132px)*1.7778));width:min(100%,calc((100svh - 132px)*1.7778));height:auto;max-height:100%;aspect-ratio:16/9;image-rendering:pixelated;border:2px solid #74855c;border-radius:4px;background:#31553b}
+#location{position:absolute;top:9px;left:12px;padding:4px 7px;background:#102017c9;border:1px solid #6c8057;border-radius:4px;font:10px monospace}
+#message{position:absolute;bottom:9px;left:50%;transform:translateX(-50%);padding:5px 10px;background:#101a16e8;border:1px solid #7b895e;border-radius:5px;font-size:11px;white-space:nowrap;max-width:85%;overflow:hidden;text-overflow:ellipsis}
+footer{flex:none;min-height:88px;padding:5px max(8px,env(safe-area-inset-right)) max(5px,env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));display:flex;align-items:center;justify-content:space-between;gap:8px;background:#17251d;border-top:1px solid var(--line)}
+.pad{display:grid;grid-template-columns:repeat(3,clamp(30px,5.4vw,48px));grid-template-rows:repeat(2,clamp(28px,4.7vw,40px));gap:3px}.pad button,.actions button,.menu button,.modal button{border:1px solid #82906b;background:#354a37;color:#fff;border-radius:7px;font-weight:750;touch-action:none}.pad button{font-size:17px}.pad .empty{visibility:hidden}
+.actions{display:flex;gap:clamp(3px,1vw,8px);align-items:center}.actions button{width:clamp(40px,7vw,62px);height:clamp(44px,7.5vw,62px);font-size:clamp(8px,1.2vw,11px);background:#52613b;line-height:1.2}.actions .hit{background:#8b5735}.actions .skill{background:#385b78}.actions button:active,.pad button:active,.menu button:active{filter:brightness(1.4);transform:scale(.96)}
+#overlay{position:absolute;inset:0;display:grid;place-items:center;background:#07100dce;padding:12px;z-index:5}
+.modal{width:min(570px,96%);max-height:95%;overflow:auto;background:#1c2d22;border:2px solid #879566;border-radius:10px;padding:clamp(12px,2vw,20px);text-align:center;box-shadow:0 12px 40px #0009}
+.modal h1{margin:0 0 6px;color:#d9ed9c;font-size:clamp(20px,4vw,30px)}.modal p{font-size:12px;color:#d1d9c8;line-height:1.4;margin:6px 0 12px}
+.menu{display:flex;justify-content:center;gap:7px;flex-wrap:wrap}.menu button{padding:9px 12px;min-height:40px}.menu .selected{outline:2px solid var(--gold);background:#667444}
+#rotate{display:none;position:absolute;inset:0;background:#101a16;z-index:10;place-items:center;text-align:center;padding:30px;font-size:18px}
+.panelrow{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:8px 0}.panelrow button{min-width:105px}
+#toast{position:absolute;top:40px;left:50%;transform:translateX(-50%);z-index:3;background:#19271eea;border:1px solid #a0a56c;border-radius:5px;padding:5px 10px;font-size:11px;pointer-events:none}
+@media(orientation:portrait){#rotate{display:grid}#app{visibility:hidden}}
+@media(orientation:landscape) and (max-height:420px){header{height:30px}footer{min-height:66px}.pad{grid-template-rows:repeat(2,27px)}}
+.hidden{display:none!important}
 </style></head>
-<body><div id="app">
-<header><div class="brand">PIXELWORLD</div><div class="stats"><span id="hp">♥ 100</span><span id="xp">XP 0</span><span id="level">Lv. 1</span><span id="bag">Gỗ 0 · Đá 0</span></div></header>
-<div id="stage"><canvas id="game" width="480" height="270"></canvas><div id="hint">Khám phá · Thu thập · Chiến đấu</div>
-<div id="panel"><div class="card"><h1>PIXELWORLD</h1><p>Một chuyến phiêu lưu pixel bắt đầu từ khu rừng yên bình. Thu thập tài nguyên, đánh bại quái vật và khám phá vùng đất mới.</p><p>Máy tính: WASD / phím mũi tên để di chuyển · J tấn công · E thu thập</p><div class="menu"><button id="start">Bắt đầu</button><button id="reset">Chơi mới</button></div></div></div>
+<body>
+<div id="rotate">↻<br><b>Hãy xoay iPhone nằm ngang</b><br><small>PixelWorld được thiết kế để chơi ở chế độ màn hình ngang.</small></div>
+<div id="app">
+<header><div class="brand">PIXELWORLD</div><div class="stats"><span id="hp">♥ 100</span><span id="mp">✦ 40</span><span id="xp">XP 0</span><span id="lv">Lv 1</span><span id="coins">◆ 0</span></div></header>
+<div id="stage"><canvas id="game" width="480" height="270" aria-label="Thế giới game PixelWorld"></canvas><div id="location">RỪNG KHỞI NGUYÊN</div><div id="message">Khám phá · Thu thập · Chiến đấu</div>
+<div id="overlay"><div class="modal" id="home">
+<h1>PIXELWORLD</h1><p>Phiêu lưu trong thế giới pixel. Chọn một lớp nhân vật để bắt đầu. Tiến trình được lưu trên thiết bị này.</p>
+<div class="panelrow" id="classes">
+<button data-class="warrior">⚔ Kiếm Vệ<br><small>Trâu khỏe · Cận chiến</small></button>
+<button data-class="mage">✧ Linh Pháp<br><small>Phép thuật · Tầm xa</small></button>
+<button data-class="ranger">➶ Du Hiệp<br><small>Nhanh · Đánh xa</small></button>
+</div><p id="classdesc">Kiếm Vệ: cân bằng sinh tồn, dùng kiếm gây sát thương mạnh.</p>
+<div class="menu"><button id="play">VÀO THẾ GIỚI</button><button id="continue">TIẾP TỤC</button></div>
+<p>PC: WASD / mũi tên · J đánh · E tương tác · I túi đồ · Q kỹ năng</p>
+</div><div class="modal hidden" id="inventory"><h1>TÚI ĐỒ & CHẾ TẠO</h1><p id="items"></p><div class="menu"><button data-craft="sword">Chế kiếm (gỗ 3, đá 5)</button><button data-craft="potion">Thuốc hồi (đá 2, xu 3)</button><button data-craft="axe">Rìu (gỗ 4, đá 2)</button><button id="closeinv">ĐÓNG</button></div></div>
+<div class="modal hidden" id="dead"><h1>BẠN ĐÃ GỤC NGÃ</h1><p>Bạn hồi sinh tại điểm khởi đầu. Túi đồ và cấp độ được giữ lại.</p><div class="menu"><button id="revive">HỒI SINH</button></div></div>
+</div><div id="toast" class="hidden"></div>
 </div>
-<footer><div class="pad"><button class="empty">·</button><button data-key="ArrowUp">▲</button><button class="empty">·</button><button data-key="ArrowLeft">◀</button><button data-key="ArrowDown">▼</button><button data-key="ArrowRight">▶</button></div><div class="actions"><button class="primary" data-act="attack">ĐÁNH<br>J</button><button data-act="gather">NHẶT<br>E</button><button data-act="save">LƯU</button></div></footer>
+<footer><div class="pad"><button class="empty">·</button><button data-key="ArrowUp">▲</button><button class="empty">·</button><button data-key="ArrowLeft">◀</button><button data-key="ArrowDown">▼</button><button data-key="ArrowRight">▶</button></div><div class="actions"><button class="hit" data-act="attack">ĐÁNH<br>J</button><button data-act="interact">TƯƠNG TÁC<br>E</button><button class="skill" data-skill="0">KỸ NĂNG 1</button><button class="skill" data-skill="1">KỸ NĂNG 2</button><button data-act="bag">TÚI ĐỒ<br>I</button></div></footer>
 </div>
 <script>
-(()=>{
-const c=document.querySelector('#game'),x=c.getContext('2d');x.imageSmoothingEnabled=false;
-const W=480,H=270,keys=new Set(),world={w:960,h:720};
-let running=false,player={x:240,y:135,hp:100,xp:0,lv:1,wood:0,stone:0,face:1},enemies=[],nodes=[],toast='',toastAt=0,last=0;
-const rand=(a,b)=>Math.random()*(b-a)+a;
-function seed(){nodes=[];enemies=[];for(let i=0;i<65;i++)nodes.push({x:rand(24,936),y:rand(24,696),type:Math.random()<.58?'tree':'rock',hp:Math.random()<.58?3:2});for(let i=0;i<13;i++)enemies.push({x:rand(60,900),y:rand(60,660),hp:3,wait:rand(0,2)});}
-function say(s){toast=s;toastAt=2.2}
-function save(){localStorage.setItem('pixelworld-save',JSON.stringify({player,nodes,enemies}));say('Đã lưu tiến trình!')}
-function load(){try{let d=JSON.parse(localStorage.getItem('pixelworld-save'));if(d){player=d.player;nodes=d.nodes;enemies=d.enemies}}catch{}}
-function reset(){player={x:240,y:135,hp:100,xp:0,lv:1,wood:0,stone:0,face:1};seed();save();say('Bắt đầu hành trình!')}
-function near(a,b,r){return Math.hypot(a.x-b.x,a.y-b.y)<r}
-function attack(){let e=enemies.filter(e=>near(player,e,28)).sort((a,b)=>near(player,a,100)-near(player,b,100))[0];if(e){e.hp--;say('Trúng đòn!');if(e.hp<=0){enemies.splice(enemies.indexOf(e),1);player.xp+=15;say('+15 XP');if(player.xp>=player.lv*50){player.xp-=player.lv*50;player.lv++;player.hp=Math.min(100,player.hp+20);say('LÊN CẤP '+player.lv+'!')}}}else say('Không có quái vật trong tầm!')}
-function gather(){let n=nodes.find(n=>near(player,n,27));if(!n){say('Đến gần cây hoặc đá để thu thập');return}n.hp--;if(n.hp<=0){if(n.type==='tree')player.wood+=2;else player.stone+=2;nodes.splice(nodes.indexOf(n),1);player.xp+=4;say(n.type==='tree'?'+2 gỗ':' +2 đá')}else say('Đang khai thác…')}
-function act(a){if(!running)return;if(a==='attack')attack();if(a==='gather')gather();if(a==='save')save()}
+(()=>{'use strict';
+const c=document.querySelector('#game'),g=c.getContext('2d'),W=480,H=270,keys=new Set(),$=s=>document.querySelector(s);
+g.imageSmoothingEnabled=false;
+const defs={warrior:{name:'Kiếm Vệ',hp:140,mp:35,speed:95,damage:2,skills:['Chém Xung Kích','Thiết Giáp','Kiếm Khí','Cuồng Nộ']},mage:{name:'Linh Pháp',hp:90,mp:100,speed:91,damage:1,skills:['Cầu Lửa','Băng Trói','Hồi Phục','Bão Arcane']},ranger:{name:'Du Hiệp',hp:105,mp:65,speed:116,damage:1,skills:['Bắn Nhanh','Lộn Né','Mưa Tên','Độc Tiễn']}};
+let hero={x:240,y:135,hp:100,mp:40,xp:0,lv:1,wood:0,stone:0,coins:0,potion:0,weapon:0,axe:0,cls:'warrior'},world='forest',enemies=[],nodes=[],particles=[],running=false,inventory=false,toastTimer=0,skillTimers=[0,0,0,0],last=0,attackTimer=0,invuln=0;
+const rand=(a,b)=>a+Math.random()*(b-a),clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),near=(a,b,r)=>Math.hypot(a.x-b.x,a.y-b.y)<r;
+function say(t){$('#message').textContent=t;toastTimer=2.5}
+function newWorld(type){world=type;nodes=[];enemies=[];let count=type==='forest'?60:42;for(let i=0;i<count;i++)nodes.push({x:rand(25,935),y:rand(25,695),type:type==='cave'?(Math.random()<.7?'ore':'crystal'):(Math.random()<.62?'tree':'rock'),hp:2+Math.floor(Math.random()*2)});for(let i=0;i<17;i++)enemies.push({x:rand(55,900),y:rand(55,660),hp:type==='cave'?5:3,max:type==='cave'?5:3,kind:type==='cave'?'bat':'slime',wait:rand(0,2),hit:0});hero.x=type==='forest'?240:100;hero.y=type==='forest'?135:350;$('#location').textContent=type==='forest'?'RỪNG KHỞI NGUYÊN':'HANG PHA LÊ';say(type==='forest'?'Bạn đang ở khu rừng khởi nguyên':'Không khí trong hang thật nguy hiểm…')}
+function save(){try{localStorage.setItem('pixelworld-save',JSON.stringify({hero,world}))}catch{}}
+function load(){try{let d=JSON.parse(localStorage.getItem('pixelworld-save'));if(d&&d.hero){hero={...hero,...d.hero};newWorld(d.world==='cave'?'cave':'forest')}}catch{}}
+function stats(){let d=defs[hero.cls];$('#hp').textContent='♥ '+Math.ceil(hero.hp)+'/'+d.hp;$('#mp').textContent='✦ '+Math.ceil(hero.mp);$('#xp').textContent='XP '+hero.xp;$('#lv').textContent='Lv '+hero.lv;$('#coins').textContent='◆ '+hero.coins}
+function start(){let d=defs[hero.cls];hero.hp=d.hp;hero.mp=d.mp;newWorld('forest');running=true;$('#overlay').classList.add('hidden');save();stats()}
+function toggleBag(){if(!running)return;inventory=!inventory;$('#inventory').classList.toggle('hidden',!inventory);if(inventory){$('#items').textContent='Lớp: '+defs[hero.cls].name+' · Gỗ '+hero.wood+' · Đá '+hero.stone+' · Pha lê '+(hero.crystal||0)+' · Xu '+hero.coins+' · Thuốc '+hero.potion+' · Kiếm cấp '+hero.weapon+' · Rìu '+hero.axe}}
+function interact(){if(!running)return;let n=nodes.find(n=>near(hero,n,27));if(n){n.hp--;if(n.hp<=0){if(n.type==='tree')hero.wood+=2;else if(n.type==='rock')hero.stone+=2;else hero.crystal=(hero.crystal||0)+1;nodes.splice(nodes.indexOf(n),1);hero.xp+=5;say('Thu thập thành công! +5 XP');level()}else say('Đang khai thác…');save();stats();return}
+if(world==='forest'&&hero.x>900){newWorld('cave');return}if(world==='cave'&&hero.x<25){newWorld('forest');return}
+let e=enemies.find(e=>near(hero,e,35));if(e){say('Quái vật đang áp sát! Hãy tấn công.');return}say('Không có gì để tương tác gần đây.')}
+function level(){let need=hero.lv*45;if(hero.xp>=need){hero.xp-=need;hero.lv++;hero.hp=Math.min(defs[hero.cls].hp,hero.hp+25);hero.mp=Math.min(defs[hero.cls].mp,hero.mp+20);say('LÊN CẤP '+hero.lv+'!')}}
+function hitEnemy(e,dmg){e.hp-=dmg;e.hit=.15;particles.push({x:e.x,y:e.y,t:.3,txt:'-'+dmg});if(e.hp<=0){enemies.splice(enemies.indexOf(e),1);hero.xp+=12;hero.coins+=1+Math.floor(Math.random()*3);if(Math.random()<.2)hero.potion++;say('Hạ quái! +12 XP · nhận xu');level();save()}}
+function attack(){if(!running||inventory)return;let target=enemies.filter(e=>near(hero,e,hero.cls==='mage'?95:34)).sort((a,b)=>Math.hypot(hero.x-a.x,hero.y-a.y)-Math.hypot(hero.x-b.x,hero.y-b.y))[0];if(target){let d=defs[hero.cls].damage+hero.weapon;hitEnemy(target,d);attackTimer=.2}else say('Tiến gần quái vật để tấn công.')}
+function skill(i){if(!running||inventory)return;let d=defs[hero.cls];if(skillTimers[i]>0){say('Kỹ năng đang hồi chiêu');return}let cost=[12,15,20,28][i];if(hero.mp<cost){say('Không đủ năng lượng!');return}hero.mp-=cost;skillTimers[i]=[4,7,10,15][i];let range=i===0?65:115,damage=d.damage+[3,1,2,5][i];if(hero.cls==='mage'&&i===2){hero.hp=Math.min(d.hp,hero.hp+35);say('Hồi phục +35 máu')}else if(hero.cls==='warrior'&&i===1){hero.hp=Math.min(d.hp,hero.hp+25);invuln=1.4;say('Thiết Giáp: tăng phòng thủ')}else if(hero.cls==='ranger'&&i===1){hero.x=clamp(hero.x+((keys.has('a')||keys.has('ArrowLeft'))?-1:1)*55,10,950);invuln=.8;say('Lộn Né!')}else{let list=enemies.filter(e=>near(hero,e,range));list.slice(0,i===3?8:3).forEach(e=>hitEnemy(e,damage));say(d.skills[i]+'!')}stats()}
+function craft(k){let ok=false;if(k==='sword'&&hero.wood>=3&&hero.stone>=5){hero.wood-=3;hero.stone-=5;hero.weapon++;ok=true}else if(k==='potion'&&hero.stone>=2&&hero.coins>=3){hero.stone-=2;hero.coins-=3;hero.potion++;ok=true}else if(k==='axe'&&hero.wood>=4&&hero.stone>=2){hero.wood-=4;hero.stone-=2;hero.axe++;ok=true}say(ok?'Chế tạo thành công!':'Không đủ nguyên liệu');toggleBag();toggleBag();save();stats()}
+function action(a){if(a==='attack')attack();if(a==='interact')interact();if(a==='bag')toggleBag()}
 document.querySelectorAll('[data-key]').forEach(b=>{let k=b.dataset.key;b.addEventListener('pointerdown',e=>{e.preventDefault();keys.add(k);b.setPointerCapture(e.pointerId)});['pointerup','pointercancel','lostpointercapture'].forEach(t=>b.addEventListener(t,()=>keys.delete(k)))});
-document.querySelectorAll('[data-act]').forEach(b=>b.addEventListener('pointerdown',e=>{e.preventDefault();act(b.dataset.act)}));
-onkeydown=e=>{keys.add(e.key.toLowerCase());keys.add(e.key);if(e.key.toLowerCase()==='j')act('attack');if(e.key.toLowerCase()==='e')act('gather');if(e.key.toLowerCase()==='i')save()};
+document.querySelectorAll('[data-act]').forEach(b=>b.addEventListener('pointerdown',e=>{e.preventDefault();action(b.dataset.act)}));
+document.querySelectorAll('[data-skill]').forEach(b=>b.addEventListener('pointerdown',e=>{e.preventDefault();skill(Number(b.dataset.skill))}));
+onkeydown=e=>{let k=e.key.toLowerCase();keys.add(k);keys.add(e.key);if(k==='j')attack();if(k==='e')interact();if(k==='i')toggleBag();if(k>='1'&&k<='4')skill(Number(k)-1)};
 onkeyup=e=>{keys.delete(e.key.toLowerCase());keys.delete(e.key)};
-document.querySelector('#start').onclick=()=>{document.querySelector('#panel').classList.add('hidden');running=true};
-document.querySelector('#reset').onclick=()=>{reset();document.querySelector('#panel').classList.add('hidden');running=true};
+document.querySelectorAll('[data-class]').forEach(b=>b.onclick=()=>{hero.cls=b.dataset.class;document.querySelectorAll('[data-class]').forEach(q=>q.classList.toggle('selected',q===b));$('#classdesc').textContent=defs[hero.cls].name+' — '+defs[hero.cls].skills.join(' · ')});
+$('#play').onclick=start;$('#continue').onclick=()=>{load();start()};$('#closeinv').onclick=toggleBag;$('#revive').onclick=()=>{hero.hp=defs[hero.cls].hp;hero.mp=defs[hero.cls].mp;hero.x=240;hero.y=135;newWorld('forest');running=true;$('#overlay').classList.add('hidden');$('#dead').classList.add('hidden');save()};document.querySelectorAll('[data-craft]').forEach(b=>b.onclick=()=>craft(b.dataset.craft));
 function draw(){
-x.clearRect(0,0,W,H);let camX=Math.max(0,Math.min(world.w-W,player.x-W/2)),camY=Math.max(0,Math.min(world.h-H,player.y-H/2));
-x.fillStyle='#477b48';x.fillRect(0,0,W,H);
-for(let yy=0;yy<world.h;yy+=24)for(let xx=0;xx<world.w;xx+=24){let v=(Math.sin(xx*12.9+yy*4.7)*43758.5)%1;x.fillStyle=v>.1?'#4b8049':'#477746';x.fillRect(xx-camX,yy-camY,23,23);if((xx*7+yy*11)%13===0){x.fillStyle='#7a9b54';x.fillRect(xx+8-camX,yy+7-camY,2,2)}}
-x.strokeStyle='#b1a36a';x.lineWidth=5;x.strokeRect(2-camX,2-camY,world.w-4,world.h-4);
-for(const n of nodes){let sx=n.x-camX,sy=n.y-camY;if(sx<-20||sy<-20||sx>W+20||sy>H+20)continue;if(n.type==='tree'){x.fillStyle='#704b2d';x.fillRect(sx-3,sy,6,12);x.fillStyle='#245438';x.fillRect(sx-10,sy-13,20,16);x.fillStyle='#397347';x.fillRect(sx-7,sy-17,14,9)}else{x.fillStyle='#727d7b';x.fillRect(sx-8,sy-5,16,11);x.fillStyle='#a8b4a0';x.fillRect(sx-4,sy-8,7,5)}}
-for(const e of enemies){let sx=e.x-camX,sy=e.y-camY;if(sx<-20||sy<-20||sx>W+20||sy>H+20)continue;x.fillStyle='#253b31';x.fillRect(sx-8,sy-5,16,11);x.fillStyle='#9cdb72';x.fillRect(sx-6,sy-8,12,9);x.fillStyle='#20251d';x.fillRect(sx-4,sy-4,2,2);x.fillRect(sx+3,sy-4,2,2)}
-// player
-let px=player.x-camX,py=player.y-camY;x.fillStyle='#283b58';x.fillRect(px-6,py-5,12,13);x.fillStyle='#e9bd8d';x.fillRect(px-5,py-12,10,9);x.fillStyle='#d6d6d0';x.fillRect(px-6,py-14,12,4);x.fillStyle='#26354a';x.fillRect(px-4,py-2,3,2);x.fillRect(px+2,py-2,3,2);
-x.fillStyle='#17251d';x.fillRect(8,8,126,28);x.fillStyle='#e7f0d7';x.font='10px monospace';x.fillText('RỪNG KHỞI NGUYÊN',15,20);x.fillText('Tọa độ '+Math.floor(player.x)+','+Math.floor(player.y),15,30);
-if(toastAt>0){x.fillStyle='#17251de8';x.fillRect(150,225,180,25);x.fillStyle='#fff';x.textAlign='center';x.fillText(toast,240,241);x.textAlign='left'}
+g.clearRect(0,0,W,H);let camX=clamp(hero.x-W/2,0,480),camY=clamp(hero.y-H/2,0,450);
+g.fillStyle=world==='forest'?'#477b48':'#3c5360';g.fillRect(0,0,W,H);
+for(let yy=0;yy<720;yy+=24)for(let xx=0;xx<960;xx+=24){let v=Math.sin(xx*12.9+yy*4.7)*43758.5%1;g.fillStyle=world==='forest'?(v>.1?'#4b8049':'#477746'):(v>.1?'#405967':'#3b5360');g.fillRect(xx-camX,yy-camY,23,23);if((xx*7+yy*11)%13===0){g.fillStyle=world==='forest'?'#7a9b54':'#8a9da0';g.fillRect(xx+8-camX,yy+7-camY,2,2)}}
+g.strokeStyle='#b1a36a';g.lineWidth=5;g.strokeRect(2-camX,2-camY,956,716);
+if(world==='forest'){g.fillStyle='#d6c18a';g.fillRect(943-camX,300-camY,12,90);g.fillStyle='#1b2a1c';g.font='9px monospace';g.fillText('HANG →',900-camX,290-camY)}else{g.fillStyle='#d6c18a';g.fillRect(5-camX,300-camY,12,90);g.fillStyle='#1b2a1c';g.font='9px monospace';g.fillText('← RỪNG',20-camX,290-camY)}
+for(const n of nodes){let sx=n.x-camX,sy=n.y-camY;if(sx<-20||sy<-20||sx>W+20||sy>H+20)continue;if(n.type==='tree'){g.fillStyle='#704b2d';g.fillRect(sx-3,sy,6,12);g.fillStyle='#245438';g.fillRect(sx-10,sy-13,20,16);g.fillStyle='#397347';g.fillRect(sx-7,sy-17,14,9)}else{g.fillStyle=n.type==='crystal'?'#65c8df':'#727d7b';g.fillRect(sx-8,sy-5,16,11);g.fillStyle='#b5d4d4';g.fillRect(sx-4,sy-8,7,5)}}
+for(const e of enemies){let sx=e.x-camX,sy=e.y-camY;if(sx<-20||sy<-20||sx>W+20||sy>H+20)continue;g.fillStyle=e.kind==='bat'?'#4c476d':'#253b31';g.fillRect(sx-8,sy-5,16,11);g.fillStyle=e.kind==='bat'?'#b7a1dc':'#9cdb72';g.fillRect(sx-6,sy-8,12,9);g.fillStyle='#20251d';g.fillRect(sx-4,sy-4,2,2);g.fillRect(sx+3,sy-4,2,2);g.fillStyle='#18231c';g.fillRect(sx-9,sy-14,18,3);g.fillStyle='#e36c5a';g.fillRect(sx-9,sy-14,18*Math.max(0,e.hp/e.max),3)}
+let px=hero.x-camX,py=hero.y-camY;g.fillStyle=hero.cls==='warrior'?'#334c77':hero.cls==='mage'?'#694b91':'#477c54';g.fillRect(px-6,py-5,12,13);g.fillStyle='#e9bd8d';g.fillRect(px-5,py-12,10,9);g.fillStyle=hero.cls==='mage'?'#d5c5f4':'#d6d6d0';g.fillRect(px-6,py-14,12,4);g.fillStyle='#26354a';g.fillRect(px-4,py-2,3,2);g.fillRect(px+2,py-2,3,2);
+for(const p of particles){g.fillStyle='#ffe8a6';g.font='10px monospace';g.fillText(p.txt,p.x-camX,p.y-camY)}
 }
-function update(dt){if(!running)return;let dx=0,dy=0;if(keys.has('w')||keys.has('ArrowUp'))dy--;if(keys.has('s')||keys.has('ArrowDown'))dy++;if(keys.has('a')||keys.has('ArrowLeft'))dx--;if(keys.has('d')||keys.has('ArrowRight'))dx++;if(dx||dy){let l=Math.hypot(dx,dy);player.x+=dx/l*105*dt;player.y+=dy/l*105*dt;player.face=dx||player.face}player.x=Math.max(12,Math.min(world.w-12,player.x));player.y=Math.max(12,Math.min(world.h-12,player.y));
-for(const e of enemies){let d=Math.hypot(player.x-e.x,player.y-e.y);if(d<105&&d>1){e.x+=(player.x-e.x)/d*24*dt;e.y+=(player.y-e.y)/d*24*dt}e.wait-=dt;if(d<17&&e.wait<=0){player.hp=Math.max(0,player.hp-7);e.wait=1.1;say('Bạn bị quái vật tấn công!');if(player.hp===0){running=false;document.querySelector('#panel').classList.remove('hidden');document.querySelector('.card h1').textContent='BẠN ĐÃ GỤC NGÃ';document.querySelector('.card p').textContent='Nhấn Chơi mới để bắt đầu lại.'}}}
-toastAt=Math.max(0,toastAt-dt);document.querySelector('#hp').textContent='♥ '+player.hp;document.querySelector('#xp').textContent='XP '+player.xp;document.querySelector('#level').textContent='Lv. '+player.lv;document.querySelector('#bag').textContent='Gỗ '+player.wood+' · Đá '+player.stone}
+function update(dt){if(!running||inventory)return;let dx=0,dy=0;if(keys.has('w')||keys.has('ArrowUp'))dy--;if(keys.has('s')||keys.has('ArrowDown'))dy++;if(keys.has('a')||keys.has('ArrowLeft'))dx--;if(keys.has('d')||keys.has('ArrowRight'))dx++;if(dx||dy){let l=Math.hypot(dx,dy),speed=defs[hero.cls].speed;hero.x+=dx/l*speed*dt;hero.y+=dy/l*speed*dt}hero.x=clamp(hero.x,10,950);hero.y=clamp(hero.y,10,710);
+for(const e of enemies){let d=Math.hypot(hero.x-e.x,hero.y-e.y);if(d<125&&d>1){e.x+=(hero.x-e.x)/d*27*dt;e.y+=(hero.y-e.y)/d*27*dt}e.wait-=dt;if(d<17&&e.wait<=0&&invuln<=0){hero.hp=Math.max(0,hero.hp-7);e.wait=1.1;say('Bạn bị quái vật tấn công!');if(hero.hp===0){running=false;$('#overlay').classList.remove('hidden');$('#home').classList.add('hidden');$('#dead').classList.remove('hidden')}}}
+skillTimers=skillTimers.map(t=>Math.max(0,t-dt));invuln=Math.max(0,invuln-dt);attackTimer=Math.max(0,attackTimer-dt);particles=particles.filter(p=>(p.t-=dt)>0);if(toastTimer>0)toastTimer-=dt;stats()}
 function loop(t){let dt=Math.min(.04,(t-last)/1000||0);last=t;update(dt);draw();requestAnimationFrame(loop)}
-seed();load();requestAnimationFrame(loop);
+newWorld('forest');$('#overlay').classList.remove('hidden');$('#continue').style.display=localStorage.getItem('pixelworld-save')?'inline-block':'none';requestAnimationFrame(loop);
+if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
 })();
 </script></body></html>
