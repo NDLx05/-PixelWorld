@@ -25,6 +25,12 @@ Ngày ghi nhận: 2026-11-12
 - GitHub Actions `Tests` cho commit `653bd6a` hoàn tất với kết quả `success`: kiểm tra cú pháp browser module, source/test modules, JSON và `npm test` (26 tests, 26 passed).
 - GitHub Actions `Deploy PixelWorld to GitHub Pages` cho commit `653bd6a` hoàn tất với kết quả `success`.
 
+- Tách logic chọn mục tiêu cận chiến và tạo đạn thành `src/combat.js`; game runtime dùng chung hai helper thay cho đoạn xử lý lặp trong `index.html`.
+- Bổ sung bốn unit tests cho vùng đánh phía trước, khoảng cách, hướng đạn và thuộc tính projectile.
+- Thêm `src/combat.js` vào app-shell cache, nâng phiên bản lên `pixelworld-shell-v42`.
+- GitHub Actions `Tests` cho commit `a90280c` hoàn tất `success`: 30 tests, 30 passed.
+- GitHub Actions `Deploy PixelWorld to GitHub Pages` cho commit `a90280c` hoàn tất `success`.
+
 ## Chưa được xác nhận
 - Chưa xác nhận trực tiếp nội dung đã tải trên iPhone Safari sau lần triển khai mới nhất.
 - Chưa chạy trực tiếp trên iPhone Safari iOS 17.6.1; cảm ứng nhiều ngón, orientation, PWA install và offline thực tế còn cần thiết bị thật.
@@ -37,4 +43,4 @@ Ngày ghi nhận: 2026-11-12
 - GitHub Actions `Deploy PixelWorld to GitHub Pages` cho commit `2d25e88` hoàn tất `success`.
 
 ## Kết luận
-Đây vẫn là alpha. CI và triển khai Pages đã thành công cho commit `2d25e88`. Chưa đủ điều kiện công bố bản phát hành hoàn chỉnh vì còn thiếu kiểm thử thiết bị thật, gameplay end-to-end và cân bằng nội dung.
+Đây vẫn là alpha. CI và triển khai Pages đã thành công cho commit `a90280c`. Chưa đủ điều kiện công bố bản phát hành hoàn chỉnh vì còn thiếu kiểm thử thiết bị thật, gameplay end-to-end và cân bằng nội dung.
