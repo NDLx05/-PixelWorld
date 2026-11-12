@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { cameraFollow, moveWithObstacles, canUseCooldown } from "../src/systems.js";
+import { cameraFollow, moveWithObstacles, canUseCooldown, normalizeSave, SAVE_VERSION } from "../src/systems.js";
 
 test("camera clamps to world edges", () => {
   assert.deepEqual(cameraFollow({x:5,y:5},{width:480,height:270},{width:960,height:720}),{x:0,y:0});
@@ -22,4 +22,17 @@ test("movement cannot pass through solid props", () => {
 test("cooldown readiness uses zero threshold", () => {
   assert.equal(canUseCooldown(0),true);
   assert.equal(canUseCooldown(0.1),false);
+});
+
+test("legacy saves migrate into the current versioned shape", () => {
+  const migrated = normalizeSave({version:2,at:123,hero:{wood:"4",stone:2,lv:3},world:"cave",nodes:[],enemies:[]});
+  assert.equal(migrated.version,SAVE_VERSION);
+  assert.equal(migrated.savedAt,123);
+  assert.equal(migrated.hero.wood,4);
+  assert.equal(migrated.world,"cave");
+});
+
+test("invalid saves are rejected safely", () => {
+  assert.equal(normalizeSave(null),null);
+  assert.equal(normalizeSave({world:"forest"}),null);
 });
