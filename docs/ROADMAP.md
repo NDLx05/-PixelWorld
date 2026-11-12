@@ -3,7 +3,7 @@
 ## Trạng thái triển khai hiện tại (alpha)
 
 - **Nền tảng web:** GitHub Pages, PWA manifest, service worker và app-shell cache.
-- **Lưu game:** IndexedDB ưu tiên, localStorage dự phòng, chuẩn hóa save v3 và chuyển đổi save cũ.
+- **Lưu game:** IndexedDB ưu tiên, localStorage dự phòng, chuẩn hóa save v3, chuyển đổi save cũ; có pause, lưu và quay về menu.
 - **Thế giới:** tilemap riêng cho rừng và hang (40×30 ô, 24px/ô), collision layer, lối ra/vào, camera cuộn, spawn tránh tường, respawn tài nguyên/quái và lưu riêng trạng thái khu vực.
 - **Nội dung dữ liệu:** vật phẩm, công thức, kỹ năng, nhiệm vụ, NPC, cửa hàng, quái và boss được tách sang JSON; runtime đọc dữ liệu tương ứng.
 - **NPC/nhiệm vụ/cửa hàng:** Trưởng lão Mira với nhiệm vụ mẫu; Thương nhân Tâm bán thuốc và nâng cấp kiếm/rìu.
@@ -20,7 +20,7 @@
    - [x] Tách hệ thống lưu, camera, va chạm và nội dung thành module.
    - [x] Save có phiên bản, IndexedDB, fallback và migration.
    - [ ] Tách toàn bộ game loop/UI/input thành module độc lập.
-   - [ ] Hoàn thiện input đa điểm chạm, xử lý mất focus và safe-area trên iOS.
+   - [x] Pause/resume và lưu hành trình trước khi về menu.\n   - [ ] Hoàn thiện input đa điểm chạm, xử lý mất focus và safe-area trên iOS.
 
 2. **Thế giới**
    - [x] Hai khu vực rừng/hang, camera và lưu trạng thái khu vực.
