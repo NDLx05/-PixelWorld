@@ -12,7 +12,7 @@ Game phiêu lưu pixel 2D góc nhìn từ trên xuống, thiết kế màn hình
 - Túi đồ, chế tạo, thuốc hồi phục; kiếm tăng sát thương, rìu tăng tốc khai thác, áo giáp giảm sát thương.
 - Lưu tiến trình bằng IndexedDB ưu tiên, localStorage dự phòng; lưu trạng thái từng khu vực.
 - Danh mục dữ liệu vật phẩm, công thức, kỹ năng và nhiệm vụ trong `data/`.
-- NPC Trưởng lão Mira và nhiệm vụ thu thập đầu tiên, có lưu trạng thái hoàn thành.
+- Chuỗi hai nhiệm vụ: thu thập tiếp tế ở rừng, sau đó hạ boss và mang pha lê về hang.
 - Boss Hộ vệ Pha Lê trong hang, có phần thưởng riêng; sprite pixel riêng cho slime, dơi, boss và NPC.
 - Thương nhân Tâm bán thuốc hồi phục và nâng cấp kiếm, rìu, áo giáp bằng xu.
 - Va chạm với tường tile và vật thể thu thập; quái vật cũng bị giới hạn bởi tường.
