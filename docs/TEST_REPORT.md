@@ -31,4 +31,4 @@ Ngày ghi nhận: 2026-11-12
 - Chưa có kiểm thử hiệu năng dài, cân bằng game hoặc kiểm thử end-to-end.
 
 ## Kết luận
-Đây vẫn là alpha. CI và triển khai Pages đã thành công cho commit `b73fb63`. Đây vẫn là alpha; chưa đủ điều kiện công bố bản phát hành hoàn chỉnh vì còn thiếu kiểm thử thiết bị thật, gameplay end-to-end và cân bằng nội dung.
+Đây vẫn là alpha. CI và triển khai Pages đã thành công cho commit `482af70`. Chưa đủ điều kiện công bố bản phát hành hoàn chỉnh vì còn thiếu kiểm thử thiết bị thật, gameplay end-to-end và cân bằng nội dung.
