@@ -10,7 +10,7 @@ Ngày ghi nhận: 2026-11-12
 - Tilemap: làng, rừng và hang đều có kích thước 40×30, collision grid khớp terrain, điểm spawn và lối đi ra/vào nằm trên ô đi được.
 - Tham chiếu nội dung: NPC trỏ đến quest/shop tồn tại; boss definition và danh sách hàng có dữ liệu.
 - DOM: tất cả ID được JavaScript truy vấn đều có phần tử tương ứng.
-- Kiểm tra logic hệ thống: camera, biên thế giới, va chạm vật thể/tile, lối đi, migration save, cooldown và phục hồi bản lưu lỗi đều đạt.
+- Kiểm tra logic hệ thống: camera, biên thế giới, va chạm vật thể/tile, lối đi, migration save, cooldown, phục hồi bản lưu lỗi và state machine AI quái đều đạt.
 - Bổ sung kiểm tra tự động cho cấu trúc ba tilemap, spawn/exits, kết nối làng–rừng–hang, mọi đường dẫn app-shell trong service worker và các import module của trang game.
 - Bổ sung lối thoát tường minh từ Rừng Khởi Nguyên về Làng An Yên trong dữ liệu bản đồ.
 - Chuyển logic đổi khu vực sang đọc đúng ô exit trong tilemap; không còn đổi vùng chỉ vì đứng gần rìa bản đồ.
@@ -21,8 +21,9 @@ Ngày ghi nhận: 2026-11-12
 - Đã kiểm tra bốn chiều kết nối làng–rừng–hang và kiểm tra cửa ra chỉ kích hoạt đúng ô: đều đạt.
 - Đã sửa thời điểm mở khóa AudioContext trên thao tác bắt đầu/tiếp tục game để tương thích chính sách autoplay của trình duyệt.
 - Đã gia cố `normalizeSave`: chuẩn hóa lớp nhân vật, tọa độ, HP/MP, cấp độ, tài nguyên, nhiệm vụ, timestamp và lọc entity/world-state lỗi.
-- GitHub Actions `Tests` cho commit `b73fb63` hoàn tất với kết quả `success`; workflow đã chạy kiểm tra cú pháp browser module, source/test modules, JSON và `npm test`.
-- GitHub Actions `Deploy PixelWorld to GitHub Pages` cho cùng commit hoàn tất với kết quả `success`.
+- Đã tách AI quái sang `src/enemy-ai.js` với trạng thái idle/chase/attack/retreat/dead; quái yếu có thể lùi lại khi máu thấp, boss chuyển pha hai dưới 50% HP và tăng nhịp/tốc độ đạn.
+- GitHub Actions `Tests` cho commit `653bd6a` hoàn tất với kết quả `success`: kiểm tra cú pháp browser module, source/test modules, JSON và `npm test` (20 tests, 20 passed).
+- GitHub Actions `Deploy PixelWorld to GitHub Pages` cho commit `653bd6a` hoàn tất với kết quả `success`.
 
 ## Chưa được xác nhận
 - Chưa xác nhận trực tiếp nội dung đã tải trên iPhone Safari sau lần triển khai mới nhất.
