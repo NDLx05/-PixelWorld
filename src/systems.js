@@ -152,3 +152,11 @@ export function cameraFollow(target, viewport, world) {
 export function canUseCooldown(remaining) {
   return Number(remaining) <= 0;
 }
+
+/** Return the destination for the exact walkable exit tile under a world position. */
+export function findMapExit(map, x, y) {
+  if (!map || !Number.isFinite(map.tileSize) || map.tileSize <= 0 || !Array.isArray(map.exits)) return null;
+  const tileX = Math.floor(x / map.tileSize);
+  const tileY = Math.floor(y / map.tileSize);
+  return map.exits.find(exit => exit.x === tileX && exit.y === tileY) || null;
+}
