@@ -47,6 +47,81 @@
       },
       "aggroRange": 250,
       "attackRange": 20
+    },
+    "wolf": {
+      "name": "Sói Hoang",
+      "hp": 7,
+      "speed": 44,
+      "damage": 9,
+      "xp": 18,
+      "coins": [
+        2,
+        4
+      ],
+      "aggroRange": 210,
+      "attackRange": 18,
+      "retreatAt": 0.06,
+      "retreatDistance": 35
+    },
+    "skeleton": {
+      "name": "Bộ Xương",
+      "hp": 9,
+      "speed": 24,
+      "damage": 11,
+      "xp": 22,
+      "coins": [
+        2,
+        5
+      ],
+      "aggroRange": 190,
+      "attackRange": 19,
+      "retreatAt": 0.04,
+      "retreatDistance": 30
+    },
+    "goblin": {
+      "name": "Goblin",
+      "hp": 8,
+      "speed": 34,
+      "damage": 10,
+      "xp": 20,
+      "coins": [
+        2,
+        5
+      ],
+      "aggroRange": 175,
+      "attackRange": 18,
+      "retreatAt": 0.12,
+      "retreatDistance": 55
+    },
+    "spider": {
+      "name": "Nhện Hang",
+      "hp": 6,
+      "speed": 49,
+      "damage": 8,
+      "xp": 19,
+      "coins": [
+        1,
+        4
+      ],
+      "aggroRange": 160,
+      "attackRange": 16,
+      "retreatAt": 0.02,
+      "retreatDistance": 25
+    },
+    "fire_slime": {
+      "name": "Slime Lửa",
+      "hp": 12,
+      "speed": 29,
+      "damage": 13,
+      "xp": 30,
+      "coins": [
+        4,
+        7
+      ],
+      "aggroRange": 200,
+      "attackRange": 18,
+      "retreatAt": 0.02,
+      "retreatDistance": 20
     }
   }
 }
