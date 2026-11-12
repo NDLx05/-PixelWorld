@@ -10,7 +10,7 @@
 - **Chiến đấu:** Kiếm Vệ đánh cận chiến theo hướng nhìn; Linh Pháp và Du Hiệp bắn projectile; đạn bị chặn bởi tường tile; AI quái có trạng thái idle/chase/attack/retreat/dead; boss có hai pha và đạn tinh thể tăng tốc ở pha hai.
 - **Đồ họa:** sprite sheet nhân vật ba lớp, bốn hướng, bốn frame đi bộ/tấn công/bị thương/gục ngã; có sprite riêng cho slime, dơi hang, boss và hai NPC.
 - **Âm thanh:** SFX tổng hợp và ambient drone theo vùng rừng/hang bằng Web Audio API; có nút bật/tắt. Chưa có bản nhạc nhiều giai điệu và âm thanh thu âm.
-- **Kiểm thử:** 30 unit tests cho AI, save, bản đồ, camera, va chạm, cooldown, offline fallback và giới hạn tiến trình; GitHub Actions kiểm tra cú pháp module, JSON và chạy `npm test`. Commit `a90280c` có CI và triển khai Pages thành công.
+- **Kiểm thử:** 33 unit tests cho AI, save, bản đồ, camera, va chạm, cooldown, offline fallback và giới hạn tiến trình; GitHub Actions kiểm tra cú pháp module, JSON và chạy `npm test`. Commit `b295579` có CI và triển khai Pages thành công.
 
 Đây vẫn là **alpha**, chưa phải game hoàn chỉnh. Đồ họa nhân vật và quái vẫn là hình khối tạm; tilemap mới là bản đầu tiên; mới có một boss, một nhiệm vụ và một cửa hàng mẫu, chưa có nội dung đủ chiều sâu để phát hành.
 
@@ -47,6 +47,7 @@
 4. **Chiến đấu**
    - [x] Projectile và một số hiệu ứng trạng thái cơ bản.
    - [x] AI state machine dùng chung với idle/chase/attack/retreat/dead và kiểm thử chuyển trạng thái.
+   - [x] Cấu hình phát hiện, tốc độ và ngưỡng rút lui khác nhau cho slime, dơi hang và boss; có kiểm thử dữ liệu.
    - [ ] Hitbox theo frame, hướng đánh, knockback và AI chiến thuật riêng theo từng loại quái.
    - [x] Boss Hộ vệ Pha Lê có máu lớn, đòn bắn tinh thể, hai pha chiến đấu và phần thưởng riêng.
    - [ ] Nhiều kiểu tấn công boss, loot table tổng quát, cân bằng và kiểm thử chiến đấu.
