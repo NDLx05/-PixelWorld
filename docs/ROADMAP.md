@@ -21,7 +21,7 @@
    - [x] Save có phiên bản, IndexedDB, fallback và migration.
    - [ ] Tách toàn bộ game loop/UI/input thành module độc lập.
    - [x] Pause/resume và lưu hành trình trước khi về menu.
-   - [ ] Hoàn thiện input đa điểm chạm, xử lý mất focus và safe-area trên iOS.
+   - [x] D-pad dùng pointer events đa điểm chạm và tự xóa phím giữ khi mất focus.\n   - [ ] Kiểm thử cảm ứng nhiều ngón, safe-area và orientation trên iOS thật.
 
 2. **Thế giới**
    - [x] Hai khu vực rừng/hang, camera và lưu trạng thái khu vực.
