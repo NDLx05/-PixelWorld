@@ -10,7 +10,7 @@ Game phiêu lưu pixel 2D góc nhìn từ trên xuống, thiết kế màn hình
 - Điều khiển bàn phím và nút cảm ứng.
 - Thu thập tài nguyên, chiến đấu, XP, lên cấp.
 - Túi đồ, công thức chế tạo cơ bản và dùng thuốc hồi phục (nút P trên bàn phím / nút cảm ứng).
-- Lưu tiến trình cục bộ bằng localStorage.
+- Lưu tiến trình bằng IndexedDB ưu tiên, localStorage dự phòng; lưu trạng thái từng khu vực.
 - Danh mục dữ liệu vật phẩm, công thức, kỹ năng và nhiệm vụ trong `data/`.
 - NPC Trưởng lão Mira và nhiệm vụ thu thập đầu tiên, có lưu trạng thái hoàn thành.
 - Boss Hộ vệ Pha Lê trong hang, có phần thưởng riêng và dữ liệu chỉ số tách riêng.
@@ -31,9 +31,9 @@ Game phiêu lưu pixel 2D góc nhìn từ trên xuống, thiết kế màn hình
 ## Giới hạn hiện tại
 
 - Đồ họa nhân vật/quái vật còn là hình vẽ tạm, chưa tích hợp sprite animation hoặc tilemap hoàn chỉnh.
-- Chưa có hệ thống nhiệm vụ/NPC/cửa hàng/boss hoàn chỉnh.
-- Cân bằng chiến đấu, lưu trạng thái khu vực và kiểm thử Safari thực tế vẫn cần làm.
-- Offline hiện chỉ nhắm đến app shell; chưa cam kết toàn bộ nội dung game hoạt động offline cho đến khi kiểm thử.
+- Hiện mới có một nhiệm vụ mẫu, một cửa hàng và một boss; chưa có chuỗi nhiệm vụ hoặc nội dung phong phú.
+- Cân bằng chiến đấu, hoạt ảnh sprite, mở rộng tilemap và kiểm thử Safari thực tế vẫn cần làm.
+- Service worker cache app shell, module và dữ liệu game; cần kiểm thử offline thực tế trên Safari trước khi cam kết hoàn toàn.
 
 ## Hướng phát triển
 
