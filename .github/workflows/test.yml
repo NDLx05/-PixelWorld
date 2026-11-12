@@ -20,6 +20,6 @@ jobs:
       - name: Check browser module syntax
         run: awk 'index($0, "<script type=\"module\">"){flag=1;next} index($0, "</script>"){flag=0;next} flag' index.html > /tmp/pixelworld.mjs && test -s /tmp/pixelworld.mjs && node --check /tmp/pixelworld.mjs
       - name: Validate game data JSON
-        run: for file in data/*.json manifest.webmanifest; do node -e 'JSON.parse(require("fs").readFileSync(process.argv[1], "utf8"))' "$file"; done
+        run: for file in data/*.json data/maps/*.json manifest.webmanifest; do node -e 'JSON.parse(require("fs").readFileSync(process.argv[1], "utf8"))' "$file"; done
       - name: Run engine tests
         run: npm test
