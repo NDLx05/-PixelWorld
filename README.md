@@ -10,7 +10,7 @@ Game phiêu lưu pixel 2D góc nhìn từ trên xuống, thiết kế màn hình
 - Điều khiển bàn phím và nút cảm ứng.
 - Thu thập tài nguyên, chiến đấu, XP, lên cấp.
 - Túi đồ, công thức chế tạo cơ bản và dùng thuốc hồi phục (nút P trên bàn phím / nút cảm ứng).
-- Lưu tiến trình cục bộ bằng localStorage.\n- Danh mục dữ liệu nền ban đầu trong `data/items.json`, `data/recipes.json`, `data/skills.json`; lộ trình triển khai trong `docs/ROADMAP.md`.
+- Lưu tiến trình cục bộ bằng localStorage.\n- Danh mục dữ liệu vật phẩm, công thức, kỹ năng và nhiệm vụ trong `data/`.\n- NPC Trưởng lão Mira và nhiệm vụ thu thập đầu tiên, có lưu trạng thái hoàn thành.\n- Lưu IndexedDB ưu tiên, tự chuyển về localStorage khi trình duyệt không hỗ trợ; tự nâng cấp save cũ.\n- Va chạm di chuyển cơ bản với vật thể thu thập và camera cuộn có giới hạn bản đồ.\n- Kiểm thử tự động Node.js trong `tests/` và GitHub Actions.
 - PWA app shell: manifest và service worker để lưu vỏ ứng dụng sau lần tải đầu.
 
 ## Chơi trên iPhone
