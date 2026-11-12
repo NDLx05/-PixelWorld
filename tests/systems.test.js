@@ -29,7 +29,8 @@ test("legacy saves migrate into the current versioned shape", () => {
   assert.equal(migrated.version,SAVE_VERSION);
   assert.equal(migrated.savedAt,123);
   assert.equal(migrated.hero.wood,4);
-  assert.equal(migrated.world,"cave");\n  assert.equal(migrated.worldStates.forest.nodes.length,1);
+  assert.equal(migrated.world,"cave");
+  assert.equal(migrated.worldStates.forest.nodes.length,1);
 });
 
 test("invalid saves are rejected safely", () => {
