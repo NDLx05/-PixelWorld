@@ -131,6 +131,27 @@ function craft(k){const ids={sword:'wooden_sword',potion:'small_potion',axe:'sto
 function usePotion(){if(!running||inventory||shopOpen)return;if((hero.potion||0)<1){say('Bạn không có thuốc hồi phục.');return}let max=defs[hero.cls].hp;if(hero.hp>=max){say('Máu đang đầy.');return}hero.potion--;let before=hero.hp;hero.hp=Math.min(max,hero.hp+45);say('Đã dùng thuốc: +'+Math.ceil(hero.hp-before)+' máu');audio.play('potion');save();stats()}
 function action(a){if(a==='attack')attack();if(a==='interact')interact();if(a==='bag')toggleBag();if(a==='potion')usePotion();if(a==='pause')pauseGame()}
 document.querySelectorAll('[data-key]').forEach(b=>{let k=b.dataset.key;b.addEventListener('pointerdown',e=>{audio.unlock();e.preventDefault();input.pressTouch(e.pointerId,k);try{b.setPointerCapture(e.pointerId)}catch{}});['pointerup','pointercancel','lostpointercapture'].forEach(t=>b.addEventListener(t,e=>input.releaseTouch(e.pointerId)))});
+const moveStick=document.getElementById('moveStick'),moveKnob=document.getElementById('moveKnob');
+if(moveStick&&moveKnob){
+ const activeStick=new Map(),directions=['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'];
+ const clearStick=id=>{for(let n=0;n<4;n++)input.releaseTouch(id*10+n);activeStick.delete(id)};
+ const updateStick=e=>{
+  const r=moveStick.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
+  let dx=e.clientX-cx,dy=e.clientY-cy,limit=r.width*.34,len=Math.hypot(dx,dy);
+  if(len>limit){dx=dx/len*limit;dy=dy/len*limit}
+  moveKnob.style.transform=`translate(${dx}px,${dy}px)`;
+  clearStick(e.pointerId);
+  const nx=dx/limit,ny=dy/limit,threshold=.28;
+  if(ny< -threshold)input.pressTouch(e.pointerId*10,'ArrowUp');
+  if(ny> threshold)input.pressTouch(e.pointerId*10+1,'ArrowDown');
+  if(nx< -threshold)input.pressTouch(e.pointerId*10+2,'ArrowLeft');
+  if(nx> threshold)input.pressTouch(e.pointerId*10+3,'ArrowRight');
+ };
+ moveStick.addEventListener('pointerdown',e=>{audio.unlock();e.preventDefault();try{moveStick.setPointerCapture(e.pointerId)}catch{}updateStick(e)});
+ moveStick.addEventListener('pointermove',e=>{if(moveStick.hasPointerCapture?.(e.pointerId))updateStick(e)});
+ const endStick=e=>{clearStick(e.pointerId);moveKnob.style.transform='translate(0px,0px)'};
+ ['pointerup','pointercancel','lostpointercapture'].forEach(t=>moveStick.addEventListener(t,endStick));
+}
 document.querySelectorAll('[data-act]').forEach(b=>b.addEventListener('pointerdown',e=>{audio.unlock();e.preventDefault();action(b.dataset.act)}));
 document.querySelectorAll('[data-skill]').forEach(b=>b.addEventListener('pointerdown',e=>{audio.unlock();e.preventDefault();skill(Number(b.dataset.skill))}));
 
