@@ -35,6 +35,10 @@ Game phiêu lưu pixel 2D góc nhìn từ trên xuống, thiết kế màn hình
 - Cân bằng chiến đấu, hoạt ảnh sprite, mở rộng tilemap và kiểm thử Safari thực tế vẫn cần làm.
 - Service worker cache app shell, module và dữ liệu game; cần kiểm thử offline thực tế trên Safari trước khi cam kết hoàn toàn.
 
+## Kiểm tra
+
+Kết quả kiểm tra alpha và các giới hạn chưa xác nhận được ghi tại [`docs/TEST_REPORT.md`](docs/TEST_REPORT.md). Lộ trình chi tiết tại [`docs/ROADMAP.md`](docs/ROADMAP.md).
+
 ## Hướng phát triển
 
 Tiếp tục tích hợp tài nguyên pixel đã bàn giao, chuẩn hóa hệ thống nhân vật/hoạt ảnh, chiến đấu, bản đồ, nhiệm vụ, vật phẩm, âm thanh, save/load và kiểm thử trên iPhone. Không đưa nguyên bộ dataset lớn vào bản chạy.
