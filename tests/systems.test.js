@@ -55,3 +55,30 @@ test("map exits activate only on their exact tile", () => {
   assert.equal(findMapExit(map, 920, 350), null);
   assert.equal(findMapExit(null, 950, 350), null);
 });
+
+test("save normalization repairs invalid stats and strips malformed world entities", () => {
+  const normalized = normalizeSave({
+    world: "cave",
+    hero: { cls: "unknown", x: "NaN", y: 9999, hp: -20, mp: "bad", lv: 0, wood: "bad", coins: 2.8, quests: [] },
+    nodes: [null, { x: 20, y: 30, hp: 2 }, { x: "bad", y: 4 }],
+    enemies: [{ x: 40, y: 50, hp: "bad", max: 0 }],
+    worldStates: { forest: { nodes: [false, { x: 2, y: 3 }], enemies: "broken" }, unknown: { nodes: [{ x: 1, y: 1 }] } },
+    savedAt: "not-a-date"
+  });
+  assert.equal(normalized.hero.cls, "warrior");
+  assert.equal(normalized.hero.x, 240);
+  assert.equal(normalized.hero.y, 710);
+  assert.equal(normalized.hero.hp, 0);
+  assert.equal(normalized.hero.mp, 35);
+  assert.equal(normalized.hero.lv, 1);
+  assert.equal(normalized.hero.wood, 0);
+  assert.equal(normalized.hero.coins, 2);
+  assert.deepEqual(normalized.hero.quests, {});
+  assert.equal(normalized.nodes.length, 1);
+  assert.equal(normalized.enemies[0].hp, 0);
+  assert.equal(normalized.enemies[0].max, 1);
+  assert.equal(normalized.worldStates.forest.nodes.length, 1);
+  assert.deepEqual(normalized.worldStates.forest.enemies, []);
+  assert.equal("unknown" in normalized.worldStates, false);
+  assert.ok(Number.isFinite(normalized.savedAt));
+});
