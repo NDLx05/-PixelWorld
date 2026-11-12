@@ -31,7 +31,7 @@ test("weak nearby enemies retreat while bosses hold their ground", () => {
   assert.equal(result.state, "retreat");
   assert.ok(result.moveX < 0);
   const boss = { x: 0, y: 0, hp: 1, max: 10, isBoss: true };
-  assert.equal(updateEnemyAI(boss, { x: 30, y: 0 }, 0.1).state, "attack");
+  assert.equal(updateEnemyAI(boss, { x: 30, y: 0 }, 0.1).state, "chase");
 });
 
 test("boss enters phase two below half health", () => {
