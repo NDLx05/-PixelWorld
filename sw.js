@@ -1,5 +1,5 @@
 /* PixelWorld offline app shell. Bump CACHE_VERSION whenever app files change. */
-const CACHE_VERSION = "pixelworld-shell-v12";
+const CACHE_VERSION = "pixelworld-shell-v13";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -12,6 +12,7 @@ const APP_SHELL = [
   "./data/skills.json",
   "./data/quests.json",
   "./data/enemies.json",
+  "./data/shops.json",
   "./data/maps/forest.json",
   "./data/maps/cave.json"
 ];
