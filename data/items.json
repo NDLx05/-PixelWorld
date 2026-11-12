@@ -51,6 +51,15 @@
       "stats": {
         "gathering": 1
       }
+    },
+    {
+      "id": "leather_armor",
+      "name": "Áo giáp da",
+      "type": "armor",
+      "stack": 1,
+      "stats": {
+        "defense": 2
+      }
     }
   ]
 }
