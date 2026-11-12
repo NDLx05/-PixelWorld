@@ -7,7 +7,7 @@
 - **Thế giới:** tilemap riêng cho rừng và hang (40×30 ô, 24px/ô), collision layer, lối ra/vào, camera cuộn, spawn tránh tường, respawn tài nguyên/quái và lưu riêng trạng thái khu vực.
 - **Nội dung dữ liệu:** vật phẩm, công thức, kỹ năng, nhiệm vụ, NPC, cửa hàng, quái và boss được tách sang JSON; runtime đọc dữ liệu tương ứng.
 - **NPC/nhiệm vụ/cửa hàng:** Trưởng lão Mira giao nhiệm vụ thu thập; Nhà thám hiểm Khoa giao nhiệm vụ tiếp theo yêu cầu hạ boss; Thương nhân Tâm bán vật phẩm và nâng cấp.
-- **Chiến đấu:** ba lớp có nhánh kỹ năng khác nhau; projectile; hiệu ứng làm chậm/độc; phòng thủ, buff sát thương và boss Hộ vệ Pha Lê có đòn bắn tinh thể từ xa.
+- **Chiến đấu:** Kiếm Vệ đánh cận chiến theo hướng nhìn; Linh Pháp và Du Hiệp bắn projectile; kỹ năng riêng, hiệu ứng làm chậm/độc, phòng thủ, buff và boss bắn tinh thể.
 - **Đồ họa:** sprite sheet nhân vật ba lớp, bốn hướng, bốn frame đi bộ/tấn công/bị thương/gục ngã; có sprite riêng cho slime, dơi hang, boss và hai NPC.
 - **Âm thanh:** SFX tổng hợp và ambient drone theo vùng rừng/hang bằng Web Audio API; có nút bật/tắt. Chưa có bản nhạc nhiều giai điệu và âm thanh thu âm.
 - **Kiểm thử:** có 7 unit tests cho camera, va chạm, cooldown và migration save; GitHub Actions kiểm tra cú pháp module, JSON và chạy tests. Trạng thái Actions cần xác nhận sau khi workflow hoàn tất.
@@ -47,7 +47,8 @@
 
 5. **Tiến trình**
    - [x] XP, lên cấp, ba lớp, kỹ năng, vật phẩm và chế tạo cơ bản.
-   - [x] Hai nhiệm vụ nối tiếp: thu thập tiếp tế, hạ boss và mang pha lê về.\n   - [x] NPC Trưởng lão, nhà thám hiểm và thương nhân.
+   - [x] Hai nhiệm vụ nối tiếp: thu thập tiếp tế, hạ boss và mang pha lê về.
+   - [x] NPC Trưởng lão, nhà thám hiểm và thương nhân.
    - [x] NPC thương nhân và cửa hàng mua thuốc/nâng cấp kiếm/rìu.
    - [ ] Chuỗi nhiệm vụ, hội thoại nhiều nhánh, nhật ký nhiệm vụ và NPC chức năng khác.
    - [x] Trang bị kiếm/rìu/áo giáp có tác dụng trong chiến đấu và khai thác.
