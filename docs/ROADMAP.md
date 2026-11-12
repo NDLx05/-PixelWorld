@@ -19,7 +19,8 @@
 1. **Nền tảng kỹ thuật**
    - [x] Tách hệ thống lưu, camera, va chạm và nội dung thành module.
    - [x] Save có phiên bản, IndexedDB, fallback và migration.
-   - [ ] Tách toàn bộ game loop/UI/input thành module độc lập.
+   - [ ] Tách toàn bộ game loop/UI thành module độc lập.
+   - [x] Tách keyboard input manager thành module riêng.
    - [x] Pause/resume và lưu hành trình trước khi về menu.
    - [x] D-pad dùng pointer events đa điểm chạm và tự xóa phím giữ khi mất focus.
    - [ ] Kiểm thử cảm ứng nhiều ngón, safe-area và orientation trên iOS thật.
