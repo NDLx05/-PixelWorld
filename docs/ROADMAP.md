@@ -7,7 +7,7 @@
 - **Thế giới:** tilemap riêng cho rừng và hang (40×30 ô, 24px/ô), collision layer, lối ra/vào, camera cuộn, spawn tránh tường, respawn tài nguyên/quái và lưu riêng trạng thái khu vực.
 - **Nội dung dữ liệu:** vật phẩm, công thức, kỹ năng, nhiệm vụ, NPC, cửa hàng, quái và boss được tách sang JSON; runtime đọc dữ liệu tương ứng.
 - **NPC/nhiệm vụ/cửa hàng:** Trưởng lão Mira với nhiệm vụ mẫu; Thương nhân Tâm bán thuốc và nâng cấp kiếm/rìu.
-- **Chiến đấu:** ba lớp có nhánh kỹ năng khác nhau; projectile; hiệu ứng làm chậm/độc; phòng thủ, buff sát thương và boss Hộ vệ Pha Lê có phần thưởng riêng.
+- **Chiến đấu:** ba lớp có nhánh kỹ năng khác nhau; projectile; hiệu ứng làm chậm/độc; phòng thủ, buff sát thương và boss Hộ vệ Pha Lê có đòn bắn tinh thể từ xa.
 - **Đồ họa:** sprite sheet nhân vật ba lớp, bốn hướng, bốn frame đi bộ và bốn frame tấn công; có sprite pixel riêng cho slime, dơi hang, boss và hai NPC.
 - **Âm thanh:** SFX tổng hợp bằng Web Audio API, có nút bật/tắt; chưa có nhạc nền và âm thanh thu âm.
 - **Kiểm thử:** có 7 unit tests cho camera, va chạm, cooldown và migration save; GitHub Actions kiểm tra cú pháp module, JSON và chạy tests. Trạng thái Actions cần xác nhận sau khi workflow hoàn tất.
@@ -40,7 +40,7 @@
 4. **Chiến đấu**
    - [x] Projectile và một số hiệu ứng trạng thái cơ bản.
    - [ ] Hitbox theo frame, hướng đánh, knockback, AI chiến thuật riêng theo từng loại quái.
-   - [x] Boss Hộ vệ Pha Lê đầu tiên, có máu lớn và phần thưởng riêng.
+   - [x] Boss Hộ vệ Pha Lê có máu lớn, đòn bắn tinh thể và phần thưởng riêng.
    - [ ] Nhiều kiểu tấn công boss, loot table tổng quát, cân bằng và kiểm thử chiến đấu.
 
 5. **Tiến trình**
