@@ -4,7 +4,7 @@
 
 - **Nền tảng web:** GitHub Pages, PWA manifest, icon ứng dụng SVG, service worker và app-shell cache.
 - **Lưu game:** IndexedDB ưu tiên, localStorage dự phòng, chuẩn hóa save v4, chuyển đổi save cũ; có pause, lưu và quay về menu.
-- **Thế giới:** tilemap riêng cho rừng và hang (40×30 ô, 24px/ô), collision layer, lối ra/vào, camera cuộn, spawn tránh tường, respawn tài nguyên/quái và lưu riêng trạng thái khu vực.
+- **Thế giới:** ba khu vực Làng An Yên, Rừng Khởi Nguyên và Hang Pha Lê; tilemap 40×30, collision layer, lối nối, camera cuộn, respawn tài nguyên/quái và lưu trạng thái từng khu vực.
 - **Nội dung dữ liệu:** vật phẩm, công thức, kỹ năng, nhiệm vụ, NPC, cửa hàng, quái và boss được tách sang JSON; runtime đọc dữ liệu tương ứng.
 - **NPC/nhiệm vụ/cửa hàng:** Trưởng lão Mira giao nhiệm vụ thu thập; Nhà thám hiểm Khoa giao nhiệm vụ tiếp theo yêu cầu hạ boss; Thương nhân Tâm bán vật phẩm và nâng cấp.
 - **Chiến đấu:** Kiếm Vệ đánh cận chiến theo hướng nhìn; Linh Pháp và Du Hiệp bắn projectile; kỹ năng riêng, hiệu ứng làm chậm/độc, phòng thủ, buff và boss bắn tinh thể.
@@ -25,9 +25,9 @@
    - [ ] Kiểm thử cảm ứng nhiều ngón, safe-area và orientation trên iOS thật.
 
 2. **Thế giới**
-   - [x] Hai khu vực rừng/hang, camera và lưu trạng thái khu vực.
+   - [x] Ba khu vực làng/rừng/hang, camera và lưu trạng thái khu vực.
    - [x] Va chạm cơ bản với vật thể khai thác.
-   - [x] Tilemap dữ liệu 40×30, collision layer, đường đi và lối vào/ra rừng–hang.
+   - [x] Tilemap dữ liệu 40×30, collision layer, đường đi và lối nối làng–rừng–hang.
    - [ ] Thêm điểm hồi sinh, vùng bản đồ mới và chi tiết địa hình phong phú.
    - [x] Respawn tài nguyên và quái theo thời gian.
    - [ ] Thêm nhiều bản đồ và điểm hồi sinh.
