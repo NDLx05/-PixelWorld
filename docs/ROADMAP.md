@@ -40,7 +40,7 @@
 5. **Tiến trình**
    - [x] XP, lên cấp, ba lớp, kỹ năng, vật phẩm và chế tạo cơ bản.
    - [x] Một NPC và một nhiệm vụ mẫu.
-   - [ ] Chuỗi nhiệm vụ, hội thoại, nhật ký nhiệm vụ, cửa hàng, NPC chức năng.
+   - [x] NPC thương nhân và cửa hàng mua thuốc/nâng cấp kiếm/rìu.\n   - [ ] Chuỗi nhiệm vụ, hội thoại nhiều nhánh, nhật ký nhiệm vụ và NPC chức năng khác.
    - [ ] Nhiều công thức, vật phẩm, trang bị và nâng cấp cân bằng.
 
 6. **Âm thanh và nội dung**
