@@ -8,7 +8,7 @@
 - **Nội dung dữ liệu:** vật phẩm, công thức, kỹ năng, nhiệm vụ, NPC, cửa hàng, quái và boss được tách sang JSON; runtime đọc dữ liệu tương ứng.
 - **NPC/nhiệm vụ/cửa hàng:** Trưởng lão Mira với nhiệm vụ mẫu; Thương nhân Tâm bán thuốc và nâng cấp kiếm/rìu.
 - **Chiến đấu:** ba lớp có nhánh kỹ năng khác nhau; projectile; hiệu ứng làm chậm/độc; phòng thủ, buff sát thương và boss Hộ vệ Pha Lê có đòn bắn tinh thể từ xa.
-- **Đồ họa:** sprite sheet nhân vật ba lớp, bốn hướng, bốn frame đi bộ và bốn frame tấn công; có sprite pixel riêng cho slime, dơi hang, boss và hai NPC.
+- **Đồ họa:** sprite sheet nhân vật ba lớp, bốn hướng, bốn frame đi bộ/tấn công/bị thương/gục ngã; có sprite riêng cho slime, dơi hang, boss và hai NPC.
 - **Âm thanh:** SFX tổng hợp và ambient drone theo vùng rừng/hang bằng Web Audio API; có nút bật/tắt. Chưa có bản nhạc nhiều giai điệu và âm thanh thu âm.
 - **Kiểm thử:** có 7 unit tests cho camera, va chạm, cooldown và migration save; GitHub Actions kiểm tra cú pháp module, JSON và chạy tests. Trạng thái Actions cần xác nhận sau khi workflow hoàn tất.
 
@@ -34,7 +34,7 @@
 3. **Nhân vật và đồ họa**
    - [x] Sprite sheet nhân vật ba lớp, bốn hướng, bốn frame bước đi và bốn frame tấn công.
    - [x] Sprite tĩnh cho slime, dơi hang, boss và NPC.
-   - [ ] Bổ sung hurt/death, hoạt ảnh công cụ và hiệu ứng nhân vật.
+   - [x] Bổ sung hoạt ảnh bị thương và gục ngã.\n   - [ ] Hoạt ảnh công cụ, hiệu ứng va chạm và nhiều biến thể nhân vật.
    - [ ] Animation công cụ, vũ khí, hiệu ứng va chạm và UI pixel hoàn chỉnh.
    - [ ] Trang bị, chỉ số phụ, ngoại hình và cây nâng cấp.
 
@@ -54,7 +54,8 @@
 
 6. **Âm thanh và nội dung**
    - [x] SFX tổng hợp và điều khiển âm thanh.
-   - [x] Ambient nền khác nhau giữa rừng và hang, có điều khiển bật/tắt.\n   - [ ] Nhạc nền có giai điệu, ambience tự nhiên và âm thanh bước chân/công cụ/quái.
+   - [x] Ambient nền khác nhau giữa rừng và hang, có điều khiển bật/tắt.
+   - [ ] Nhạc nền có giai điệu, ambience tự nhiên và âm thanh bước chân/công cụ/quái.
    - [ ] Làng, khu vực mới, boss, sự kiện và nội dung cuối game.
 
 7. **Chất lượng và phát hành**
