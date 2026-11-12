@@ -1,9 +1,9 @@
 /* PixelWorld offline app shell. Bump CACHE_VERSION whenever app files change. */
-const CACHE_VERSION = "pixelworld-shell-v1";
+const CACHE_VERSION = "pixelworld-shell-v2";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./manifest.webmanifest"
+  "./manifest.webmanifest",\n  "./src/systems.js",\n  "./data/items.json",\n  "./data/recipes.json",\n  "./data/skills.json"
 ];
 
 self.addEventListener("install", event => {
