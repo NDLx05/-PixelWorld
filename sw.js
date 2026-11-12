@@ -3,7 +3,11 @@ const CACHE_VERSION = "pixelworld-shell-v2";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./manifest.webmanifest",\n  "./src/systems.js",\n  "./data/items.json",\n  "./data/recipes.json",\n  "./data/skills.json"
+  "./manifest.webmanifest",
+  "./src/systems.js",
+  "./data/items.json",
+  "./data/recipes.json",
+  "./data/skills.json"
 ];
 
 self.addEventListener("install", event => {
