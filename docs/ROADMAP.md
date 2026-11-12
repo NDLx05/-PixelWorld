@@ -8,7 +8,7 @@
 - **Nội dung dữ liệu:** vật phẩm, công thức, kỹ năng, nhiệm vụ, NPC, cửa hàng, quái và boss được tách sang JSON; runtime đọc dữ liệu tương ứng.
 - **NPC/nhiệm vụ/cửa hàng:** Trưởng lão Mira với nhiệm vụ mẫu; Thương nhân Tâm bán thuốc và nâng cấp kiếm/rìu.
 - **Chiến đấu:** ba lớp có nhánh kỹ năng khác nhau; projectile; hiệu ứng làm chậm/độc; phòng thủ, buff sát thương và boss Hộ vệ Pha Lê có phần thưởng riêng.
-- **Đồ họa:** sprite sheet nhân vật ba lớp, bốn hướng, bốn frame; có sprite pixel riêng cho slime, dơi hang, boss và hai NPC.
+- **Đồ họa:** sprite sheet nhân vật ba lớp, bốn hướng, bốn frame đi bộ và bốn frame tấn công; có sprite pixel riêng cho slime, dơi hang, boss và hai NPC.
 - **Âm thanh:** SFX tổng hợp bằng Web Audio API, có nút bật/tắt; chưa có nhạc nền và âm thanh thu âm.
 - **Kiểm thử:** có 7 unit tests cho camera, va chạm, cooldown và migration save; GitHub Actions kiểm tra cú pháp module, JSON và chạy tests. Trạng thái Actions cần xác nhận sau khi workflow hoàn tất.
 
@@ -31,9 +31,9 @@
    - [ ] Thêm nhiều bản đồ và điểm hồi sinh.
 
 3. **Nhân vật và đồ họa**
-   - [x] Sprite sheet nhân vật ba lớp, bốn hướng, bốn frame bước đi.
+   - [x] Sprite sheet nhân vật ba lớp, bốn hướng, bốn frame bước đi và bốn frame tấn công.
    - [x] Sprite tĩnh cho slime, dơi hang, boss và NPC.
-   - [ ] Bổ sung idle/attack/hurt/death, hoạt ảnh công cụ và hiệu ứng nhân vật.
+   - [ ] Bổ sung hurt/death, hoạt ảnh công cụ và hiệu ứng nhân vật.
    - [ ] Animation công cụ, vũ khí, hiệu ứng va chạm và UI pixel hoàn chỉnh.
    - [ ] Trang bị, chỉ số phụ, ngoại hình và cây nâng cấp.
 
