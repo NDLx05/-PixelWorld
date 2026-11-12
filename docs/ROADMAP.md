@@ -4,11 +4,11 @@
 
 - **Nền tảng web:** GitHub Pages, PWA manifest, service worker và app-shell cache.
 - **Lưu game:** IndexedDB ưu tiên, localStorage dự phòng, chuẩn hóa save v3 và chuyển đổi save cũ.
-- **Thế giới:** tilemap riêng cho rừng và hang (40×30 ô, 24px/ô), collision layer, lối ra/vào mở đúng vị trí, camera cuộn, spawn tránh tường và lưu riêng trạng thái khu vực.
+- **Thế giới:** tilemap riêng cho rừng và hang (40×30 ô, 24px/ô), collision layer, lối ra/vào, camera cuộn, spawn tránh tường, respawn tài nguyên/quái và lưu riêng trạng thái khu vực.
 - **Nội dung dữ liệu:** vật phẩm, công thức, kỹ năng, nhiệm vụ, NPC, cửa hàng, quái và boss được tách sang JSON; runtime đọc dữ liệu tương ứng.
 - **NPC/nhiệm vụ/cửa hàng:** Trưởng lão Mira với nhiệm vụ mẫu; Thương nhân Tâm bán thuốc và nâng cấp kiếm/rìu.
 - **Chiến đấu:** ba lớp có nhánh kỹ năng khác nhau; projectile; hiệu ứng làm chậm/độc; phòng thủ, buff sát thương và boss Hộ vệ Pha Lê có phần thưởng riêng.
-- **Âm thanh:** SFX tổng hợp bằng Web Audio API, có nút bật/tắt; chưa có nhạc nền và âm thanh thu âm.
+- **Đồ họa:** sprite sheet nhân vật tự tạo gồm ba lớp, bốn hướng và bốn frame chuyển động; quái/NPC vẫn cần sprite riêng.\n- **Âm thanh:** SFX tổng hợp bằng Web Audio API, có nút bật/tắt; chưa có nhạc nền và âm thanh thu âm.
 - **Kiểm thử:** có 7 unit tests cho camera, va chạm, cooldown và migration save; GitHub Actions kiểm tra cú pháp module, JSON và chạy tests. Trạng thái Actions cần xác nhận sau khi workflow hoàn tất.
 
 Đây vẫn là **alpha**, chưa phải game hoàn chỉnh. Đồ họa nhân vật và quái vẫn là hình khối tạm; tilemap mới là bản đầu tiên; mới có một boss, một nhiệm vụ và một cửa hàng mẫu, chưa có nội dung đủ chiều sâu để phát hành.
@@ -30,7 +30,7 @@
    - [ ] Thêm nhiều bản đồ và điểm hồi sinh.
 
 3. **Nhân vật và đồ họa**
-   - [ ] Tích hợp sprite sheet nhân vật đồng bộ, idle/walk/attack/hurt/death theo bốn hướng.
+   - [x] Sprite sheet nhân vật ba lớp, bốn hướng, bốn frame bước đi.\n   - [ ] Bổ sung idle/attack/hurt/death, sprite quái/NPC và hoạt ảnh công cụ.
    - [ ] Animation công cụ, vũ khí, hiệu ứng va chạm và UI pixel hoàn chỉnh.
    - [ ] Trang bị, chỉ số phụ, ngoại hình và cây nâng cấp.
 
