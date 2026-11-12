@@ -10,7 +10,7 @@
 - **Chiến đấu:** Kiếm Vệ đánh cận chiến theo hướng nhìn; Linh Pháp và Du Hiệp bắn projectile; đạn bị chặn bởi tường tile; AI quái có trạng thái idle/chase/attack/retreat/dead; boss có hai pha và đạn tinh thể tăng tốc ở pha hai.
 - **Đồ họa:** sprite sheet nhân vật ba lớp, bốn hướng, bốn frame đi bộ/tấn công/bị thương/gục ngã; có sprite riêng cho slime, dơi hang, boss và hai NPC.
 - **Âm thanh:** SFX tổng hợp và ambient drone theo vùng rừng/hang bằng Web Audio API; có nút bật/tắt. Chưa có bản nhạc nhiều giai điệu và âm thanh thu âm.
-- **Kiểm thử:** 20 unit tests cho AI, save, bản đồ, camera, va chạm, cooldown; GitHub Actions kiểm tra cú pháp module, JSON và chạy `npm test`. Commit `653bd6a` có CI và triển khai Pages thành công.
+- **Kiểm thử:** 22 unit tests cho AI, save, bản đồ, camera, va chạm, cooldown, offline fallback và giới hạn tiến trình; GitHub Actions kiểm tra cú pháp module, JSON và chạy `npm test`. Commit `96164f1` có CI và triển khai Pages thành công.
 
 Đây vẫn là **alpha**, chưa phải game hoàn chỉnh. Đồ họa nhân vật và quái vẫn là hình khối tạm; tilemap mới là bản đầu tiên; mới có một boss, một nhiệm vụ và một cửa hàng mẫu, chưa có nội dung đủ chiều sâu để phát hành.
 
@@ -20,6 +20,7 @@
    - [x] Tách hệ thống lưu, camera, va chạm và nội dung thành module.
    - [x] Save có phiên bản, IndexedDB, fallback và migration.
    - [ ] Tách toàn bộ game loop/UI thành module độc lập.
+   - [x] Giảm tải render tilemap bằng camera culling và giới hạn tần suất cập nhật HUD.
    - [x] Tách keyboard input manager thành module riêng.
    - [x] Pause/resume và lưu hành trình trước khi về menu.
    - [x] D-pad dùng pointer events đa điểm chạm và tự xóa phím giữ khi mất focus.
@@ -66,6 +67,7 @@
 7. **Chất lượng và phát hành**
    - [x] Unit tests cơ bản và workflow CI.
    - [ ] Kiểm thử end-to-end trên trình duyệt desktop và iPhone Safari iOS 17.6.1.
+   - [x] Service worker chỉ dùng HTML app-shell fallback cho navigation; lỗi asset offline trả 503.
    - [ ] Kiểm thử cài PWA, xoay ngang, cảm ứng nhiều ngón, mất mạng, reload và khôi phục save.
    - [ ] Kiểm tra hiệu năng, pin, bộ nhớ, khả năng tương thích và cân bằng.
    - [ ] Chỉ phát hành khi mọi hạng mục bắt buộc được xác minh.
