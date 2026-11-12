@@ -36,7 +36,14 @@ test("browser entry point imports existing local modules", async () => {
   const html = await readFile(resolve(root, "index.html"), "utf8");
   const imports = [...html.matchAll(/^import .* from ['"](.+?)['"];?$/gm)].map(match => match[1]);
   assert.ok(imports.length >= 4);
-  for (const path of imports) await access(resolve(root, path));
+  const sw = await readFile(resolve(root, "sw.js"), "utf8");
+  const shell = sw.match(/const APP_SHELL = \[([\s\S]*?)\];/);
+  assert.ok(shell, "APP_SHELL list must exist");
+  const cachedPaths = new Set([...shell[1].matchAll(/"([^"]+)"/g)].map(match => match[1]));
+  for (const path of imports) {
+    await access(resolve(root, path));
+    assert.ok(cachedPaths.has(path), path + " must be cached for offline loading");
+  }
 });
 
 test("invalid tile maps are rejected", () => {
