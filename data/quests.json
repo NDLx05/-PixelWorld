@@ -43,9 +43,10 @@
     {
       "id": "crystal_guardian_hunt",
       "title": "Mảnh Pha Lê",
-      "description": "Hộ vệ Pha Lê canh giữ khoáng thạch quý. Hãy đánh bại nó và mang về 8 pha lê.",
+      "description": "Đánh bại Hộ vệ Pha Lê và mang về 8 pha lê quý.",
       "prerequisite": "forest_supplies",
       "objectives": {
+        "guardianDefeated": 1,
         "crystal": 8
       },
       "reward": {
