@@ -75,6 +75,17 @@ export class PixelVFX {
     this.burst(x, y - 5, ["#f9e38b", "#fff8d9"], 6, { speed: 22, life: 0.3, gravity: -10 });
   }
 
+  skillBurst(x, y, cls, index, facing = { x: 1, y: 0 }) {
+    const palettes = {
+      warrior: [["#fff0ad","#ffc45e","#df653f"],["#d9f1ff","#83caff","#527acb"],["#fff4bd","#f2c45e","#d9eaff"],["#ffdc68","#ff7c39","#a83245"]],
+      mage: [["#fff0a8","#ff9b45","#e84f37"],["#e6fbff","#8ee8ff","#559dff"],["#dfffe9","#8df0a2","#57c98b"],["#fff2ff","#c18cff","#6d4bd1"]],
+      ranger: [["#fff1b5","#b9eaff","#75cfff"],["#e5f5c2","#8ddf88","#fff0bd"],["#f7f6ff","#b5d7ff","#8ab8ff"],["#e5ffc0","#8fda58","#5b9e43"]]
+    };
+    const palette = palettes[cls][index];
+    this.effects.push({ type:"skill", x, y:y-5, cls, index, angle:Math.atan2(facing.y||0,facing.x||1), t:0, duration:0.58, palette });
+    this.burst(x+facing.x*5,y-5+facing.y*5,palette,cls==="mage"&&index===3?24:14,{speed:58,life:0.42,gravity:cls==="mage"?-24:20});
+  }
+
   update(dt) {
     const step = Math.max(0, Number(dt) || 0);
     for (const p of this.particles) {
@@ -117,6 +128,27 @@ export class PixelVFX {
           ctx.fillRect(Math.round(x + Math.cos(a) * radius), Math.round(y + Math.sin(a) * radius), 2, 2);
         }
         ctx.fillRect(x - 1, y - 1, 3, 3);
+      } else if (fx.type === "skill") {
+        const p=fx.palette, a=fx.angle, r=7+progress*22;
+        ctx.globalAlpha=1-progress;ctx.lineWidth=2;ctx.strokeStyle=p[0];
+        if(fx.cls==="warrior"&&(fx.index===0||fx.index===2)){
+          ctx.beginPath();ctx.arc(x+Math.cos(a)*10,y+Math.sin(a)*10,r,a-1.1,a+1.1);ctx.stroke();
+          ctx.strokeStyle=p[1];ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+Math.cos(a)*(r+16),y+Math.sin(a)*(r+16));ctx.stroke();
+        }else if(fx.cls==="warrior"&&fx.index===1){
+          ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.stroke();ctx.beginPath();ctx.moveTo(x,y-r-5);ctx.lineTo(x+r*.7,y);ctx.lineTo(x,y+r+5);ctx.lineTo(x-r*.7,y);ctx.closePath();ctx.stroke();
+        }else if(fx.cls==="mage"&&fx.index===0){
+          ctx.fillStyle=p[1];ctx.beginPath();ctx.arc(x+Math.cos(a)*r,y+Math.sin(a)*r,r*.55,0,Math.PI*2);ctx.fill();ctx.fillStyle=p[0];ctx.fillRect(x-2,y-2,4,4);
+        }else if(fx.cls==="mage"&&fx.index===1){
+          ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.stroke();for(let n=0;n<8;n++){const q=n*Math.PI/4;ctx.fillStyle=p[n%p.length];ctx.fillRect(Math.round(x+Math.cos(q)*r),Math.round(y+Math.sin(q)*r),3,7)}
+        }else if(fx.cls==="mage"){
+          ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.stroke();ctx.beginPath();ctx.arc(x,y,r*.58,0,Math.PI*2);ctx.stroke();for(let n=0;n<6;n++){const q=n*Math.PI/3-progress*2;ctx.fillStyle=p[n%p.length];ctx.fillRect(Math.round(x+Math.cos(q)*r),Math.round(y+Math.sin(q)*r),3,3)}
+        }else if(fx.cls==="ranger"&&fx.index===2){
+          ctx.strokeStyle=p[1];for(let n=0;n<9;n++){const xx=x-24+n*6;ctx.beginPath();ctx.moveTo(xx,y-28-progress*8);ctx.lineTo(xx-4,y-15+progress*14);ctx.stroke()}
+        }else if(fx.cls==="ranger"&&fx.index===1){
+          for(let n=0;n<4;n++){ctx.fillStyle=p[n%p.length];ctx.fillRect(Math.round(x-Math.cos(a)*n*7),Math.round(y-Math.sin(a)*n*7),4,4)}
+        }else{
+          ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.stroke();for(let n=0;n<10;n++){const q=n*Math.PI/5;ctx.fillStyle=p[n%p.length];ctx.fillRect(Math.round(x+Math.cos(q)*r),Math.round(y+Math.sin(q)*r),3,3)}
+        }
       } else {
         ctx.globalAlpha = 1 - progress;
         const radius = fx.type === "level" ? 8 + progress * 22 : 5 + progress * 12;
