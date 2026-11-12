@@ -19,6 +19,11 @@
           "id": "axe",
           "name": "Nâng cấp rìu",
           "price": 20
+        },
+        {
+          "id": "armor",
+          "name": "Áo giáp da",
+          "price": 30
         }
       ]
     }
