@@ -4,7 +4,8 @@ const DATA_FILES = {
   skills: "./data/skills.json",
   quests: "./data/quests.json",
   forestMap: "./data/maps/forest.json",
-  caveMap: "./data/maps/cave.json"
+  caveMap: "./data/maps/cave.json",
+  enemies: "./data/enemies.json"
 };
 
 async function readJson(path) {
@@ -23,6 +24,7 @@ export async function loadGameContent() {
   if (content.recipes && !Array.isArray(content.recipes.recipes)) content.recipes = null;
   if (content.skills && (!content.skills.classes || typeof content.skills.classes !== "object")) content.skills = null;
   if (content.quests && (!Array.isArray(content.quests.npcs) || !Array.isArray(content.quests.quests))) content.quests = null;
+  if (content.enemies && (!content.enemies.types || typeof content.enemies.types !== "object")) content.enemies = null;
   for (const key of ["forestMap", "caveMap"]) { const map = content[key]; if (map && (!Array.isArray(map.terrain) || !Array.isArray(map.collision) || !Number.isFinite(map.tileSize))) content[key] = null; }
   return content;
 }
