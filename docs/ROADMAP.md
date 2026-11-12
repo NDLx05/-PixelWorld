@@ -7,7 +7,7 @@
 - **Thế giới:** ba khu vực Làng An Yên, Rừng Khởi Nguyên và Hang Pha Lê; tilemap 40×30, collision layer, lối nối, camera cuộn, respawn tài nguyên/quái và lưu trạng thái từng khu vực.
 - **Nội dung dữ liệu:** vật phẩm, công thức, kỹ năng, nhiệm vụ, NPC, cửa hàng, quái và boss được tách sang JSON; runtime đọc dữ liệu tương ứng.
 - **NPC/nhiệm vụ/cửa hàng:** Trưởng lão Mira giao nhiệm vụ thu thập; Nhà thám hiểm Khoa giao nhiệm vụ tiếp theo yêu cầu hạ boss; Thương nhân Tâm bán vật phẩm và nâng cấp.
-- **Chiến đấu:** Kiếm Vệ đánh cận chiến theo hướng nhìn; Linh Pháp và Du Hiệp bắn projectile; kỹ năng riêng, hiệu ứng làm chậm/độc, phòng thủ, buff và boss bắn tinh thể.
+- **Chiến đấu:** Kiếm Vệ đánh cận chiến theo hướng nhìn; Linh Pháp và Du Hiệp bắn projectile; đạn bị chặn bởi tường tile; kỹ năng riêng, hiệu ứng làm chậm/độc, phòng thủ, buff và boss bắn tinh thể.
 - **Đồ họa:** sprite sheet nhân vật ba lớp, bốn hướng, bốn frame đi bộ/tấn công/bị thương/gục ngã; có sprite riêng cho slime, dơi hang, boss và hai NPC.
 - **Âm thanh:** SFX tổng hợp và ambient drone theo vùng rừng/hang bằng Web Audio API; có nút bật/tắt. Chưa có bản nhạc nhiều giai điệu và âm thanh thu âm.
 - **Kiểm thử:** có 7 unit tests cho camera, va chạm, cooldown và migration save; GitHub Actions kiểm tra cú pháp module, JSON và chạy tests. Trạng thái Actions cần xác nhận sau khi workflow hoàn tất.
