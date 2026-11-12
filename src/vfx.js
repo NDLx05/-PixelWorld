@@ -76,7 +76,7 @@ export class PixelVFX {
   }
 
   update(dt) {
-    const step = Math.max(0, Math.min(0.05, Number(dt) || 0));
+    const step = Math.max(0, Number(dt) || 0);
     for (const p of this.particles) {
       p.life -= step;
       p.vx *= Math.pow(p.drag, step * 60);
