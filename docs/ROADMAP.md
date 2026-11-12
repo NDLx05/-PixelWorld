@@ -1,22 +1,68 @@
-# PixelWorld — lộ trình hoàn thiện
+# PixelWorld — lộ trình triển khai và tiêu chí hoàn thành
 
-## Trạng thái hiện tại
-Bản `main` là alpha chạy trên trình duyệt. Đã có màn hình chọn lớp, di chuyển, thu thập tài nguyên, quái cơ bản, túi đồ/chế tạo đơn giản, chuyển rừng–hang, lưu cục bộ và điều khiển cảm ứng. Hình nhân vật/quái hiện vẫn được vẽ bằng hình khối; chưa phải bản đồ tile/sprite animation hoàn chỉnh.
+## Trạng thái triển khai hiện tại (alpha)
 
-## Các giai đoạn bắt buộc trước khi gọi là hoàn chỉnh
-1. **Nền tảng kỹ thuật:** tách mã thành module; hệ thống input đa điểm chạm; camera và va chạm; lưu IndexedDB có phiên bản, khôi phục an toàn và migration.
-2. **Thế giới:** tilemap có collision, vùng chuyển tiếp, điểm hồi sinh, vật thể tương tác, trạng thái tài nguyên bền vững.
-3. **Nhân vật:** sprite sheet nhất quán, idle/walk/attack/hurt/death theo 4 hướng, hoạt ảnh công cụ, chỉ số và trang bị.
-4. **Chiến đấu:** hitbox/projectile, thời gian ra đòn, phòng thủ, hiệu ứng trạng thái, AI từng nhóm quái, loot và respawn.
-5. **Tiến trình:** cấp độ, kỹ năng riêng từng lớp, cây nâng cấp, vật phẩm, chế tạo, nhiệm vụ và hội thoại NPC.
-6. **Nội dung:** làng, rừng, hang, khu vực mới, boss, cửa hàng, âm thanh và nhạc nền.
-7. **Chất lượng:** kiểm thử tự động, kiểm thử lưu/tải, hiệu năng mobile, safe-area, xoay ngang, Safari iOS 17.6.1 và chơi offline sau khi cache.
+- **Nền tảng web:** GitHub Pages, PWA manifest, service worker và app-shell cache.
+- **Lưu game:** IndexedDB ưu tiên, localStorage dự phòng, chuẩn hóa save v3 và chuyển đổi save cũ.
+- **Thế giới:** rừng và hang cuộn camera; va chạm cơ bản với vật thể tài nguyên; lưu riêng trạng thái hai khu vực khi chuyển qua lại.
+- **Nội dung dữ liệu:** vật phẩm, công thức, kỹ năng và nhiệm vụ được tách sang JSON; runtime đã đọc kỹ năng, công thức và quest data.
+- **NPC/nhiệm vụ:** Trưởng lão Mira và một nhiệm vụ thu thập có trạng thái nhận/hoàn thành, phần thưởng XP và xu.
+- **Chiến đấu:** ba lớp có nhánh kỹ năng khác nhau; projectile; hiệu ứng làm chậm/độc; phòng thủ và buff sát thương cơ bản.
+- **Âm thanh:** SFX tổng hợp bằng Web Audio API, có nút bật/tắt; chưa có nhạc nền và âm thanh thu âm.
+- **Kiểm thử:** có 6 unit tests cho camera, va chạm, cooldown và migration save; GitHub Actions kiểm tra cú pháp module, JSON và chạy tests. Trạng thái Actions cần xác nhận sau khi workflow hoàn tất.
 
-## Nguyên tắc
-- Web-first, offline-first, chơi đơn, màn hình ngang 16:9; ưu tiên Safari trên iPhone.
-- Không sửa dự án HTBB hoặc trộn tài nguyên từ dự án khác.
-- Tài nguyên đã bàn giao phải được rà soát giấy phép và tính nhất quán trước khi tích hợp. Không coi sprite tĩnh là animation.
-- Chỉ công bố hoàn thành sau khi các giai đoạn trên đã được triển khai và kiểm thử trên thiết bị thật.
+Đây vẫn là **alpha**, chưa phải game hoàn chỉnh. Đồ họa nhân vật và quái vẫn là hình khối tạm; không có sprite animation thực, tilemap hoàn chỉnh, thị trấn, boss, cửa hàng hay chuỗi nhiệm vụ.
 
-## Data-driven content
-Các tệp `data/*.json` là danh mục dữ liệu chuẩn ban đầu. Runtime sẽ được chuyển dần sang đọc các định nghĩa này thay vì hard-code trong `index.html`.
+## Các giai đoạn bắt buộc
+
+1. **Nền tảng kỹ thuật**
+   - [x] Tách hệ thống lưu, camera, va chạm và nội dung thành module.
+   - [x] Save có phiên bản, IndexedDB, fallback và migration.
+   - [ ] Tách toàn bộ game loop/UI/input thành module độc lập.
+   - [ ] Hoàn thiện input đa điểm chạm, xử lý mất focus và safe-area trên iOS.
+
+2. **Thế giới**
+   - [x] Hai khu vực rừng/hang, camera và lưu trạng thái khu vực.
+   - [x] Va chạm cơ bản với vật thể khai thác.
+   - [ ] Tilemap thật với collision layer, đường đi, vật cản, lối vào/ra và điểm hồi sinh.
+   - [ ] Respawn tài nguyên/quái theo thời gian; bản đồ mới và trạng thái thế giới bền vững.
+
+3. **Nhân vật và đồ họa**
+   - [ ] Tích hợp sprite sheet nhân vật đồng bộ, idle/walk/attack/hurt/death theo bốn hướng.
+   - [ ] Animation công cụ, vũ khí, hiệu ứng va chạm và UI pixel hoàn chỉnh.
+   - [ ] Trang bị, chỉ số phụ, ngoại hình và cây nâng cấp.
+
+4. **Chiến đấu**
+   - [x] Projectile và một số hiệu ứng trạng thái cơ bản.
+   - [ ] Hitbox theo frame, hướng đánh, knockback, AI theo từng loại quái.
+   - [ ] Boss, nhiều kiểu tấn công, loot table, cân bằng và kiểm thử chiến đấu.
+
+5. **Tiến trình**
+   - [x] XP, lên cấp, ba lớp, kỹ năng, vật phẩm và chế tạo cơ bản.
+   - [x] Một NPC và một nhiệm vụ mẫu.
+   - [ ] Chuỗi nhiệm vụ, hội thoại, nhật ký nhiệm vụ, cửa hàng, NPC chức năng.
+   - [ ] Nhiều công thức, vật phẩm, trang bị và nâng cấp cân bằng.
+
+6. **Âm thanh và nội dung**
+   - [x] SFX tổng hợp và điều khiển âm thanh.
+   - [ ] Nhạc nền theo vùng, ambience, âm thanh bước chân/công cụ/quái.
+   - [ ] Làng, khu vực mới, boss, sự kiện và nội dung cuối game.
+
+7. **Chất lượng và phát hành**
+   - [x] Unit tests cơ bản và workflow CI.
+   - [ ] Kiểm thử end-to-end trên trình duyệt desktop và iPhone Safari iOS 17.6.1.
+   - [ ] Kiểm thử cài PWA, xoay ngang, cảm ứng nhiều ngón, mất mạng, reload và khôi phục save.
+   - [ ] Kiểm tra hiệu năng, pin, bộ nhớ, khả năng tương thích và cân bằng.
+   - [ ] Chỉ phát hành khi mọi hạng mục bắt buộc được xác minh.
+
+## Nguyên tắc dự án
+
+- Web-first, offline-first, chơi đơn, 2D pixel góc nhìn từ trên xuống, màn hình ngang 16:9.
+- Ưu tiên Safari trên iPhone; phát triển và kiểm thử mã nguồn trên Windows.
+- Không sửa dự án HTBB và không trộn tài nguyên từ các dự án khác.
+- Chỉ tích hợp tài nguyên có thể xác minh nguồn và giấy phép; sprite tĩnh không được coi là animation.
+- Không tuyên bố hoàn thành khi chưa kiểm thử trên thiết bị thật.
+
+## Phụ thuộc cần thiết
+
+Gói tài nguyên pixel đã bàn giao trước đây hiện không nằm trong workspace của phiên làm việc này. Khi đến giai đoạn tích hợp sprite/tile/audio gốc, cần có lại đúng gói tài nguyên tương ứng; không tải lại hoặc thay thế bằng tài nguyên khác khi chưa được yêu cầu.
