@@ -3,6 +3,8 @@ export class AudioEngine {
     this.context = null;
     this.enabled = true;
     this.master = null;
+    this.musicNodes = [];
+    this.musicArea = "forest";
   }
 
   unlock() {
@@ -16,12 +18,50 @@ export class AudioEngine {
       this.master.connect(this.context.destination);
     }
     if (this.context.state === "suspended") this.context.resume().catch(() => {});
+    if (!this.musicNodes.length) this.startMusic(this.musicArea);
   }
 
   toggle() {
     this.enabled = !this.enabled;
     if (this.master) this.master.gain.value = this.enabled ? 0.16 : 0;
+    if (!this.enabled) this.stopMusic();
+    else if (this.context) this.startMusic(this.musicArea);
     return this.enabled;
+  }
+
+  startMusic(area = "forest") {
+    this.musicArea = area === "cave" ? "cave" : "forest";
+    if (!this.enabled || !this.context || this.context.state === "closed") return;
+    this.stopMusic();
+    const notes = this.musicArea === "cave" ? [55, 82.41, 110] : [110, 164.81, 220];
+    const pad = this.context.createGain();
+    pad.gain.value = this.musicArea === "cave" ? 0.12 : 0.075;
+    const filter = this.context.createBiquadFilter();
+    filter.type = "lowpass";
+    filter.frequency.value = this.musicArea === "cave" ? 380 : 620;
+    pad.connect(filter);
+    filter.connect(this.master);
+    this.musicNodes.push(pad, filter);
+    notes.forEach((frequency, index) => {
+      const osc = this.context.createOscillator();
+      const voice = this.context.createGain();
+      osc.type = index === 1 ? "triangle" : "sine";
+      osc.frequency.value = frequency;
+      osc.detune.value = index === 2 ? 4 : -2;
+      voice.gain.value = index === 0 ? 0.42 : 0.2;
+      osc.connect(voice);
+      voice.connect(pad);
+      osc.start();
+      this.musicNodes.push(osc, voice);
+    });
+  }
+
+  stopMusic() {
+    for (const node of this.musicNodes) {
+      try { if (typeof node.stop === "function") node.stop(); } catch {}
+      try { node.disconnect(); } catch {}
+    }
+    this.musicNodes = [];
   }
 
   play(name) {
