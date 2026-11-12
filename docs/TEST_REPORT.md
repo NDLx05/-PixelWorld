@@ -16,6 +16,12 @@ Ngày ghi nhận: 2026-11-12
 - Chuyển logic đổi khu vực sang đọc đúng ô exit trong tilemap; không còn đổi vùng chỉ vì đứng gần rìa bản đồ.
 - Lưu lại trạng thái quái vật ngay cả khi khu vực không còn node tài nguyên.
 
+## Kiểm tra bổ sung sau cập nhật
+- Đã chạy kiểm tra trực tiếp các hàm xác thực tilemap trên cả ba bản đồ: đều hợp lệ.
+- Đã kiểm tra bốn chiều kết nối làng–rừng–hang và kiểm tra cửa ra chỉ kích hoạt đúng ô: đều đạt.
+- Đã kiểm tra cú pháp module game và hai tệp test mới: hợp lệ.
+- Chưa chạy lệnh `npm test` trên runner độc lập trong phiên này.
+
 ## Chưa được xác nhận
 - Kết quả GitHub Actions của commit mới nhất chưa đọc được từ connector trong phiên này; không ghi nhận workflow là xanh.
 - GitHub Pages chưa được xác nhận đã triển khai commit mới nhất.
