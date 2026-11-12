@@ -26,7 +26,8 @@
    - [x] Va chạm cơ bản với vật thể khai thác.
    - [x] Tilemap dữ liệu 40×30, collision layer, đường đi và lối vào/ra rừng–hang.
    - [ ] Thêm điểm hồi sinh, vùng bản đồ mới và chi tiết địa hình phong phú.
-   - [x] Respawn tài nguyên và quái theo thời gian.\n   - [ ] Thêm nhiều bản đồ và điểm hồi sinh.
+   - [x] Respawn tài nguyên và quái theo thời gian.
+   - [ ] Thêm nhiều bản đồ và điểm hồi sinh.
 
 3. **Nhân vật và đồ họa**
    - [ ] Tích hợp sprite sheet nhân vật đồng bộ, idle/walk/attack/hurt/death theo bốn hướng.
