@@ -1,5 +1,5 @@
 /* PixelWorld offline app shell. Bump CACHE_VERSION whenever app files change. */
-const CACHE_VERSION = "pixelworld-shell-v50";
+const CACHE_VERSION = "pixelworld-shell-v51";
 const APP_SHELL = [
   "./",
   "./index.html",
