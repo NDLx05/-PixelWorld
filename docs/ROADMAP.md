@@ -3,7 +3,7 @@
 ## Trạng thái triển khai hiện tại (alpha)
 
 - **Nền tảng web:** GitHub Pages, PWA manifest, service worker và app-shell cache.
-- **Lưu game:** IndexedDB ưu tiên, localStorage dự phòng, chuẩn hóa save v3, chuyển đổi save cũ; có pause, lưu và quay về menu.
+- **Lưu game:** IndexedDB ưu tiên, localStorage dự phòng, chuẩn hóa save v4, chuyển đổi save cũ; có pause, lưu và quay về menu.
 - **Thế giới:** tilemap riêng cho rừng và hang (40×30 ô, 24px/ô), collision layer, lối ra/vào, camera cuộn, spawn tránh tường, respawn tài nguyên/quái và lưu riêng trạng thái khu vực.
 - **Nội dung dữ liệu:** vật phẩm, công thức, kỹ năng, nhiệm vụ, NPC, cửa hàng, quái và boss được tách sang JSON; runtime đọc dữ liệu tương ứng.
 - **NPC/nhiệm vụ/cửa hàng:** Trưởng lão Mira giao nhiệm vụ thu thập; Nhà thám hiểm Khoa giao nhiệm vụ tiếp theo yêu cầu hạ boss; Thương nhân Tâm bán vật phẩm và nâng cấp.
