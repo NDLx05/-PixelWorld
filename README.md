@@ -6,7 +6,7 @@ Game phiêu lưu pixel 2D góc nhìn từ trên xuống, thiết kế màn hình
 
 Đây vẫn là **prototype/alpha**, không phải bản phát hành hoàn chỉnh. Những phần đang có trong mã:
 - Bản đồ tile riêng cho rừng và hang, camera cuộn, lối đi và va chạm theo tile.
-- Ba lớp nhân vật, sprite sheet 4 hướng/4 frame bước đi và bốn kỹ năng riêng theo lớp.
+- Ba lớp nhân vật, sprite sheet 4 hướng với hoạt ảnh đi bộ, tấn công, bị thương và gục ngã; bốn kỹ năng riêng theo lớp.
 - Điều khiển bàn phím và nút cảm ứng; có menu tạm dừng, tiếp tục và lưu về menu.
 - Thu thập tài nguyên, chiến đấu, XP, lên cấp.
 - Túi đồ, chế tạo, thuốc hồi phục; kiếm tăng sát thương, rìu tăng tốc khai thác, áo giáp giảm sát thương.
