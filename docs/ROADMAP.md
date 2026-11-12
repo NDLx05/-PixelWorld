@@ -4,7 +4,7 @@
 
 - **Nền tảng web:** GitHub Pages, PWA manifest, service worker và app-shell cache.
 - **Lưu game:** IndexedDB ưu tiên, localStorage dự phòng, chuẩn hóa save v3 và chuyển đổi save cũ.
-- **Thế giới:** rừng và hang cuộn camera; va chạm cơ bản với vật thể tài nguyên; lưu riêng trạng thái hai khu vực khi chuyển qua lại.
+- **Thế giới:** tilemap riêng cho rừng và hang (40×30 ô, 24px/ô), collision layer, lối ra/vào mở đúng vị trí, camera cuộn, spawn tránh tường và lưu riêng trạng thái khu vực.
 - **Nội dung dữ liệu:** vật phẩm, công thức, kỹ năng và nhiệm vụ được tách sang JSON; runtime đã đọc kỹ năng, công thức và quest data.
 - **NPC/nhiệm vụ:** Trưởng lão Mira và một nhiệm vụ thu thập có trạng thái nhận/hoàn thành, phần thưởng XP và xu.
 - **Chiến đấu:** ba lớp có nhánh kỹ năng khác nhau; projectile; hiệu ứng làm chậm/độc; phòng thủ và buff sát thương cơ bản.
@@ -24,8 +24,8 @@
 2. **Thế giới**
    - [x] Hai khu vực rừng/hang, camera và lưu trạng thái khu vực.
    - [x] Va chạm cơ bản với vật thể khai thác.
-   - [ ] Tilemap thật với collision layer, đường đi, vật cản, lối vào/ra và điểm hồi sinh.
-   - [ ] Respawn tài nguyên/quái theo thời gian; bản đồ mới và trạng thái thế giới bền vững.
+   - [x] Tilemap dữ liệu 40×30, collision layer, đường đi và lối vào/ra rừng–hang.\n   - [ ] Thêm điểm hồi sinh, vùng bản đồ mới và chi tiết địa hình phong phú.
+   - [ ] Respawn tài nguyên/quái theo thời gian và thêm nhiều bản đồ.
 
 3. **Nhân vật và đồ họa**
    - [ ] Tích hợp sprite sheet nhân vật đồng bộ, idle/walk/attack/hurt/death theo bốn hướng.
