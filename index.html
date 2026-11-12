@@ -8,15 +8,15 @@
 <style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080d22;color:#f4f1ff;font-family:system-ui,-apple-system,sans-serif;touch-action:none;user-select:none}
 :root{--gold:#ffe28a;--panel:#111a3df2;--line:#596bb5;--cyan:#62dfff;--violet:#a58aff}
-#app{height:100dvh;height:100svh;display:flex;flex-direction:column;background:radial-gradient(ellipse at 50% -20%,#263b83 0,#111936 48%,#080d20 100%)}
+#app{height:100dvh;height:100svh;width:100vw;display:flex;flex-direction:column;overflow:hidden;background:#080d22}
 header{height:44px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(10px,2vw,26px);background:linear-gradient(90deg,#111a3b,#1c2452 50%,#101832);border-bottom:1px solid #6675c5;box-shadow:0 3px 16px #0008;gap:8px}
 .brand{font-size:clamp(14px,2vw,21px);font-weight:1000;letter-spacing:2px;color:#ffe68c;text-shadow:0 2px 0 #713f91,0 0 12px #8d8cff;white-space:nowrap}.stats{display:flex;gap:clamp(6px,1.8vw,22px);font-size:clamp(10px,1.5vw,14px);white-space:nowrap;color:#eef2ff}.stats span{padding:4px 7px;border:1px solid #45599a;border-radius:7px;background:#111b3d}.stats b{color:var(--gold)}
-#stage{position:relative;flex:1;min-height:0;display:grid;place-items:center;padding:clamp(5px,1vw,12px);background:radial-gradient(ellipse at 50% 48%,#253b69 0,#111b38 62%,#0b1126 100%)}
-canvas{display:block;width:min(100%,calc((100dvh - 148px)*1.7778));width:min(100%,calc((100svh - 148px)*1.7778));height:auto;max-height:100%;aspect-ratio:16/9;image-rendering:pixelated;border:2px solid #7888d7;border-radius:9px;background:#263f3a;box-shadow:0 0 0 3px #202b57,0 12px 35px #0009}
+#stage{position:relative;flex:1;min-height:0;min-width:0;display:block;padding:0;margin:0;overflow:hidden;background:#080d22}
+canvas{display:block;width:100%;height:100%;max-width:none;max-height:none;aspect-ratio:auto;image-rendering:pixelated;border:0;border-radius:0;background:#263f3a;box-shadow:none}
 #location{position:absolute;top:12px;left:clamp(12px,2vw,28px);padding:6px 11px;background:linear-gradient(135deg,#17234feF,#25215bE8);border:1px solid #8b8ee0;border-radius:8px;font:700 10px monospace;letter-spacing:1px;box-shadow:0 4px 12px #0007}
 #questTracker{position:absolute;top:12px;right:clamp(12px,2vw,28px);max-width:55%;padding:6px 10px;background:#141d46eF;border:1px solid #6e7bd1;border-radius:8px;font:10px monospace;text-align:right;pointer-events:none}
 #message{position:absolute;bottom:13px;left:50%;transform:translateX(-50%);padding:7px 13px;background:#111936ed;border:1px solid #9a8ee5;border-radius:9px;font-size:clamp(10px,1.5vw,13px);white-space:nowrap;max-width:85%;overflow:hidden;text-overflow:ellipsis;box-shadow:0 4px 16px #0008}
-footer{flex:none;min-height:90px;padding:7px max(10px,env(safe-area-inset-right)) max(7px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left));display:flex;align-items:center;justify-content:space-between;gap:clamp(7px,1.3vw,18px);background:linear-gradient(90deg,#111936,#1b2146 50%,#111936);border-top:1px solid #6474c4;box-shadow:0 -5px 18px #0006}
+footer{flex:none;min-height:102px;height:clamp(96px,22vh,126px);padding:6px max(9px,env(safe-area-inset-right)) max(6px,env(safe-area-inset-bottom)) max(9px,env(safe-area-inset-left));display:flex;align-items:center;justify-content:space-between;gap:10px;background:linear-gradient(90deg,#101936,#1b2856 50%,#101936);border-top:1px solid #6279d6;box-shadow:0 -4px 18px #0008;overflow:hidden}
 .pad{display:grid;grid-template-columns:repeat(3,clamp(32px,5.4vw,52px));grid-template-rows:repeat(2,clamp(28px,4.7vw,42px));gap:4px;flex:none}.pad button,.actions button,.menu button,.modal button{border:1px solid #7787d2;background:linear-gradient(145deg,#354879,#202d57);color:#fff;border-radius:9px;font-weight:800;touch-action:none;box-shadow:inset 0 1px #ffffff22,0 3px 8px #0005}.pad button{font-size:18px}.pad .empty{visibility:hidden}
 .actions{display:flex;gap:clamp(4px,.8vw,10px);align-items:center;justify-content:flex-end;min-width:0}.actions button{width:clamp(46px,7.2vw,76px);height:clamp(48px,8vw,70px);font-size:clamp(8px,1.15vw,12px);background:linear-gradient(145deg,#36558a,#26365f);line-height:1.2;border-color:#7288d8}.actions .hit{background:linear-gradient(145deg,#d56b45,#88452f);border-color:#ffb17b}.actions .skill{background:linear-gradient(145deg,#425bb4,#293d79);border-color:#8a9fff}.actions button:active,.pad button:active,.menu button:active{filter:brightness(1.45);transform:scale(.96)}.actions #soundToggle{min-width:58px;height:40px;padding:3px 5px;font-size:8px;background:linear-gradient(145deg,#34496e,#202e50);border:1px solid #8190cf;border-radius:8px;color:#fff;font-weight:800}
 #overlay{position:absolute;inset:0;display:grid;place-items:center;background:linear-gradient(135deg,#070b1dcc,#111a43d9);backdrop-filter:blur(5px);padding:12px;z-index:5}
@@ -29,7 +29,25 @@ footer{flex:none;min-height:90px;padding:7px max(10px,env(safe-area-inset-right)
 @media(orientation:portrait){#rotate{display:grid}#app{visibility:hidden}}
 @media(orientation:landscape) and (max-height:430px){header{height:34px}footer{min-height:72px;padding-top:4px;padding-bottom:4px}.pad{grid-template-rows:repeat(2,27px)}.actions button{height:48px}.modal{padding:10px}.modal p{margin:4px 0 8px}}
 .hidden{display:none!important}
-</style></head>
+</style>
+.move-zone{width:clamp(90px,17vw,145px);height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;flex:none}
+.stick-label{font:800 9px system-ui;letter-spacing:1.3px;color:#b9c9ff;text-shadow:0 1px 4px #000}
+.joystick{position:relative;width:clamp(72px,15vw,108px);height:clamp(72px,15vw,108px);border-radius:50%;background:radial-gradient(circle,#344c86 0,#1b2b58 62%,#111b3b 64%);border:2px solid #8da4ff;box-shadow:inset 0 0 0 5px #ffffff12,0 0 18px #4b75ff55;touch-action:none}
+.joy-ring{position:absolute;inset:12%;border:1px dashed #9aafff88;border-radius:50%;pointer-events:none}
+.joy-knob{position:absolute;width:42%;height:42%;left:29%;top:29%;border-radius:50%;background:radial-gradient(circle at 35% 28%,#a9c7ff,#526fc5 52%,#273e82);border:2px solid #d4e1ff;box-shadow:0 4px 12px #0009,inset 0 2px 4px #fff8;pointer-events:none}
+.actions{display:flex;align-items:center;justify-content:space-between;gap:clamp(4px,.9vw,12px);min-width:0;flex:1;height:100%}
+.actions button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;flex:none;width:clamp(42px,6.4vw,68px);height:clamp(42px,6.4vw,68px);border-radius:50%;font-size:clamp(16px,2.2vw,24px);line-height:1;background:radial-gradient(circle at 35% 25%,#506fc1,#263d7e 65%,#152550);border:2px solid #9bb0ff;box-shadow:inset 0 2px 5px #ffffff33,0 4px 10px #0007;color:#fff;touch-action:none}
+.actions button small{font-size:clamp(6px,.75vw,9px);font-weight:900;line-height:1.1;white-space:nowrap}
+.actions .hit{background:radial-gradient(circle at 35% 25%,#ffad71,#b84d39 68%,#733326);border-color:#ffd0a1}
+.actions .round-action{background:radial-gradient(circle at 35% 25%,#6079b8,#263d70 68%,#17254a)}
+.skill-wheel{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:0;flex:1}
+.skill-row{display:flex;align-items:center;justify-content:center;gap:clamp(3px,.6vw,8px);width:100%}
+.actions .skill{width:clamp(40px,5.8vw,62px);height:clamp(40px,5.8vw,62px);font-size:clamp(11px,1.5vw,16px);background:radial-gradient(circle at 35% 25%,#7d65d2,#413b9b 65%,#24245f);border-color:#c0adff}
+#soundToggle{width:clamp(38px,5vw,54px);height:clamp(38px,5vw,54px);font-size:17px;background:radial-gradient(circle at 35% 25%,#4d7188,#243d59);border-color:#8eb8d3}
+#soundToggle small{font-size:6px}
+@media(orientation:landscape) and (max-height:430px){header{height:34px;min-height:34px}footer{height:clamp(76px,23vh,94px);min-height:76px;padding-top:3px;padding-bottom:3px}.joystick{width:min(19vh,76px);height:min(19vh,76px)}.actions button{width:min(16vh,58px);height:min(16vh,58px)}.actions .skill{width:min(15vh,54px);height:min(15vh,54px)}}
+@media(max-width:700px){.stats{gap:3px}.stats span{padding:3px 4px}.move-zone{width:78px}.actions{gap:3px}.actions button{width:clamp(36px,7vw,50px);height:clamp(36px,7vw,50px)}.actions .skill{width:clamp(34px,6.5vw,47px);height:clamp(34px,6.5vw,47px)}.actions button small{font-size:6px}}
+</head>
 <body>
 <div id="rotate">↻<br><b>Hãy xoay iPhone nằm ngang</b><br><small>PixelWorld được thiết kế để chơi ở chế độ màn hình ngang.</small></div>
 <div id="app">
@@ -50,7 +68,17 @@ footer{flex:none;min-height:90px;padding:7px max(10px,env(safe-area-inset-right)
 <div class="modal hidden" id="dead"><h1>BẠN ĐÃ GỤC NGÃ</h1><p>Bạn hồi sinh tại điểm khởi đầu. Túi đồ và cấp độ được giữ lại.</p><div class="menu"><button id="revive">HỒI SINH</button></div></div>
 </div><div id="toast" class="hidden"></div>
 </div>
-<footer><div class="pad"><button class="empty">·</button><button data-key="ArrowUp">▲</button><button class="empty">·</button><button data-key="ArrowLeft">◀</button><button data-key="ArrowDown">▼</button><button data-key="ArrowRight">▶</button></div><div class="actions"><button class="hit" data-act="attack">ĐÁNH<br>J</button><button data-act="interact">TƯƠNG TÁC<br>E</button><button class="skill" data-skill="0">KỸ NĂNG 1</button><button class="skill" data-skill="1">KỸ NĂNG 2</button><button class="skill" data-skill="2">KỸ NĂNG 3</button><button class="skill" data-skill="3">KỸ NĂNG 4</button><button data-act="bag">TÚI ĐỒ<br>I</button><button data-act="pause">DỪNG<br>Esc</button><button data-act="potion">UỐNG THUỐC<br>P</button><button id="soundToggle">ÂM THANH: BẬT</button></div></footer>
+<footer>
+<div class="move-zone"><div class="stick-label">DI CHUYỂN</div><div id="moveStick" class="joystick" aria-label="Cần điều khiển di chuyển"><div class="joy-ring"></div><div class="joy-knob" id="moveKnob"></div></div></div>
+<div class="actions">
+<button class="hit" data-act="attack" aria-label="Đánh">⚔<small>ĐÁNH</small></button>
+<button class="round-action" data-act="interact" aria-label="Tương tác">✋<small>TƯƠNG TÁC</small></button>
+<div class="skill-wheel"><div class="stick-label">KỸ NĂNG</div><div class="skill-row"><button class="skill" data-skill="0">Q<small>SKILL 1</small></button><button class="skill" data-skill="1">W<small>SKILL 2</small></button><button class="skill" data-skill="2">E<small>SKILL 3</small></button><button class="skill" data-skill="3">R<small>SKILL 4</small></button></div></div>
+<button class="round-action" data-act="bag" aria-label="Túi đồ">▣<small>TÚI ĐỒ</small></button>
+<button class="round-action" data-act="pause" aria-label="Tạm dừng">Ⅱ<small>DỪNG</small></button>
+<button class="round-action" data-act="potion" aria-label="Uống thuốc">♥<small>THUỐC</small></button>
+<button id="soundToggle">♪<small>ÂM THANH</small></button>
+</div></footer>
 </div>
 <script type="module">
 import { SaveStore, moveWithObstacles, cameraFollow, findMapExit } from './src/systems.js';
