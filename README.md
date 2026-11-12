@@ -13,7 +13,6 @@ Game phiêu lưu pixel 2D góc nhìn từ trên xuống, thiết kế màn hình
 - Lưu tiến trình cục bộ bằng localStorage.
 - Danh mục dữ liệu vật phẩm, công thức, kỹ năng và nhiệm vụ trong `data/`.
 - NPC Trưởng lão Mira và nhiệm vụ thu thập đầu tiên, có lưu trạng thái hoàn thành.
-- Lưu IndexedDB ưu tiên, tự chuyển về localStorage khi trình duyệt không hỗ trợ; tự nâng cấp save cũ.
 - Va chạm di chuyển cơ bản với vật thể thu thập và camera cuộn có giới hạn bản đồ.
 - Kiểm thử tự động Node.js trong `tests/` và GitHub Actions.
 - PWA app shell: manifest và service worker để lưu vỏ ứng dụng sau lần tải đầu.
