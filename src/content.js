@@ -5,6 +5,7 @@ const DATA_FILES = {
   quests: "./data/quests.json",
   forestMap: "./data/maps/forest.json",
   caveMap: "./data/maps/cave.json",
+  villageMap: "./data/maps/village.json",
   enemies: "./data/enemies.json",
   shops: "./data/shops.json"
 };
@@ -27,6 +28,6 @@ export async function loadGameContent() {
   if (content.quests && (!Array.isArray(content.quests.npcs) || !Array.isArray(content.quests.quests))) content.quests = null;
   if (content.enemies && (!content.enemies.types || typeof content.enemies.types !== "object")) content.enemies = null;
   if (content.shops && !Array.isArray(content.shops.shops)) content.shops = null;
-  for (const key of ["forestMap", "caveMap"]) { const map = content[key]; if (map && (!Array.isArray(map.terrain) || !Array.isArray(map.collision) || !Number.isFinite(map.tileSize))) content[key] = null; }
+  for (const key of ["forestMap", "caveMap", "villageMap"]) { const map = content[key]; if (map && (!Array.isArray(map.terrain) || !Array.isArray(map.collision) || !Number.isFinite(map.tileSize))) content[key] = null; }
   return content;
 }
