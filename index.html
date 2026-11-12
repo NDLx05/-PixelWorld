@@ -96,7 +96,7 @@ function update(dt){if(!running||inventory)return;let dx=0,dy=0;if(keys.has('w')
 for(const e of enemies){let d=Math.hypot(hero.x-e.x,hero.y-e.y);if(d<125&&d>1){e.x+=(hero.x-e.x)/d*27*dt;e.y+=(hero.y-e.y)/d*27*dt}e.wait-=dt;if(d<17&&e.wait<=0&&invuln<=0){hero.hp=Math.max(0,hero.hp-7);e.wait=1.1;say('Bạn bị quái vật tấn công!');if(hero.hp===0){running=false;$('#overlay').classList.remove('hidden');$('#home').classList.add('hidden');$('#dead').classList.remove('hidden')}}}
 skillTimers=skillTimers.map(t=>Math.max(0,t-dt));invuln=Math.max(0,invuln-dt);attackTimer=Math.max(0,attackTimer-dt);particles=particles.filter(p=>(p.t-=dt)>0);if(toastTimer>0)toastTimer-=dt;stats()}
 function loop(t){let dt=Math.min(.04,(t-last)/1000||0);last=t;update(dt);draw();requestAnimationFrame(loop)}
-newWorld('forest');$('#overlay').classList.remove('hidden');$('#continue').style.display=localStorage.getItem('pixelworld-save')?'inline-block':'none';document.addEventListener('visibilitychange',()=>{if(document.hidden)save()});window.addEventListener('pagehide',save);setInterval(()=>{if(running&&!inventory)save()},10000);requestAnimationFrame(loop);
+newWorld('forest');$('#overlay').classList.remove('hidden');$('#continue').style.display='none';saveStore.load().then(data=>{if(data)$('#continue').style.display='inline-block'});document.addEventListener('visibilitychange',()=>{if(document.hidden)save()});window.addEventListener('pagehide',save);setInterval(()=>{if(running&&!inventory)save()},10000);requestAnimationFrame(loop);
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
 })();
 </script></body></html>
