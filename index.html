@@ -49,13 +49,48 @@ footer{flex:none;min-height:102px;height:clamp(96px,22vh,126px);padding:6px max(
 @media(max-width:700px){.stats{gap:3px}.stats span{padding:3px 4px}.move-zone{width:78px}.actions{gap:3px}.actions button{width:clamp(36px,7vw,50px);height:clamp(36px,7vw,50px)}.actions .skill{width:clamp(34px,6.5vw,47px);height:clamp(34px,6.5vw,47px)}.actions button small{font-size:6px}}
 
 .actions .skill{position:relative;overflow:hidden}.actions .skill span{font-size:clamp(16px,2.3vw,23px);line-height:1}.actions .skill small{font-size:clamp(5px,.68vw,8px);max-width:100%;overflow:hidden;text-overflow:ellipsis}.actions .skill.cooldown{filter:grayscale(.55);border-color:#7180a8}.actions .hit{font-size:clamp(18px,2.6vw,26px)}.actions .round-action{font-size:clamp(16px,2.2vw,22px)}#game{image-rendering:pixelated;object-fit:fill}
+
+/* MMORPG touch HUD inspired by the supplied reference */
+#app{position:relative;display:block;height:100dvh;height:100svh;width:100vw;background:#07130e}
+.game-hud{position:absolute;z-index:4;top:max(5px,env(safe-area-inset-top));left:max(7px,env(safe-area-inset-left));right:max(7px,env(safe-area-inset-right));height:auto;min-height:54px;padding:4px 8px;background:linear-gradient(90deg,#101a17eF,#1a261de8 58%,#101a17d9);border:1px solid #a78b52;border-radius:8px;box-shadow:0 3px 12px #0009;pointer-events:none}
+.player-card{display:flex;align-items:center;gap:7px;min-width:155px}.avatar-mark{width:34px;height:38px;display:grid;place-items:center;border:1px solid #d5b86e;border-radius:5px;background:linear-gradient(145deg,#6e5732,#1e382c);color:#ffe7a0;font-size:21px;text-shadow:0 2px 5px #000}.player-info{min-width:130px}.brand{font-size:clamp(12px,1.8vw,17px);letter-spacing:1.5px}.player-level{display:flex;gap:8px;color:#f2d99a;font-size:9px;font-weight:800}.stats{margin-left:auto}.stats span{padding:4px 9px;background:#14221bd9;border:1px solid #b49a60;border-radius:5px;color:#ffe5a1}.bar{position:relative;width:clamp(115px,19vw,185px);height:7px;margin-top:3px;border:1px solid #b5a274;background:#17201c;border-radius:5px;overflow:hidden}.bar i{position:absolute;inset:0;background:linear-gradient(90deg,#a52e2e,#ed6960);width:100%}.mp-bar i{background:linear-gradient(90deg,#226e9b,#59c9e5)}.bar b{position:absolute;inset:-4px 0 0;text-align:center;font:700 7px system-ui;color:#fff;text-shadow:0 1px 2px #000}
+#stage{position:absolute;inset:0;padding:0;margin:0;width:100%;height:100%;overflow:hidden;background:#182b21}
+#game{width:100%;height:100%;max-width:none;max-height:none;aspect-ratio:auto;border:0;border-radius:0;box-shadow:none;image-rendering:pixelated}
+#location{top:70px;left:10px;background:#18271de8;border:1px solid #c3a568;color:#ffe6ac;border-radius:5px;font-size:9px;padding:5px 8px}
+#questTracker{top:70px;left:50%;right:auto;transform:translateX(-50%);max-width:42%;background:#1b261de8;border:1px solid #9b885a;color:#fff0c5}
+#message{bottom:calc(112px + env(safe-area-inset-bottom));background:#18241de8;border:1px solid #b69a5e;color:#fff0c7;border-radius:5px;font-size:10px}
+.mini-map{position:absolute;top:max(7px,env(safe-area-inset-top));right:max(8px,env(safe-area-inset-right));width:clamp(82px,13vw,132px);height:clamp(58px,10vw,84px);border:2px solid #bca36b;border-radius:5px;background:linear-gradient(35deg,transparent 43%,#b6a36b 44% 48%,transparent 49%),linear-gradient(120deg,#315d38 0 31%,#467847 32% 54%,#2c6245 55% 70%,#42764b 71%);box-shadow:0 3px 10px #0009;overflow:hidden;pointer-events:none}
+.mini-map:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 12px,#152b2040 13px),repeating-linear-gradient(90deg,transparent 0 15px,#14291d40 16px)}
+.map-river{position:absolute;left:48%;top:-15%;width:15%;height:140%;transform:rotate(24deg);background:#459bb1;border-left:2px solid #a4d2b6;border-right:2px solid #a4d2b6;opacity:.8}
+.map-player{position:absolute;left:52%;top:48%;width:7px;height:7px;border:1px solid white;border-radius:50%;background:#ffdf66;box-shadow:0 0 6px #fff}
+.mini-map span{position:absolute;bottom:1px;left:3px;right:3px;text-align:center;font:700 6px system-ui;color:#fff;text-shadow:0 1px 3px #000}
+.touch-hud{position:absolute;z-index:4;inset:0;min-height:0;height:auto;padding:0;border:0;background:none;box-shadow:none;overflow:visible;pointer-events:none}
+.move-zone{position:absolute;left:max(12px,env(safe-area-inset-left));bottom:calc(15px + env(safe-area-inset-bottom));width:clamp(112px,19vw,164px);height:auto;display:block}
+.joystick{width:clamp(92px,17vw,132px);height:clamp(92px,17vw,132px);background:radial-gradient(circle,#6a795b 0,#354d3d 57%,#1c3025 63%);border:3px solid #c2b17c;box-shadow:inset 0 0 0 5px #fff2,0 4px 15px #000a,0 0 0 2px #17281f}
+.joy-ring{inset:15%;border:1px dashed #e7d9a188}.joy-knob{width:40%;height:40%;left:30%;top:30%;background:radial-gradient(circle at 35% 25%,#e6d7a6,#7b805e 55%,#35452e);border:2px solid #e6d9a6;box-shadow:0 3px 9px #000b,inset 0 2px 4px #fff8}
+.skill-wheel{position:absolute;left:50%;bottom:calc(12px + env(safe-area-inset-bottom));transform:translateX(-50%);width:auto;max-width:48vw;display:block;pointer-events:auto}
+.skill-row{display:flex;gap:clamp(3px,.65vw,8px);justify-content:center;align-items:center;padding:4px 6px;background:#171c17c9;border:1px solid #b39a60;border-radius:7px;box-shadow:0 3px 10px #0009}
+.actions{display:contents}
+.action-cluster{position:absolute;right:max(12px,env(safe-area-inset-right));bottom:calc(18px + env(safe-area-inset-bottom));width:clamp(122px,21vw,190px);height:clamp(126px,24vh,190px);pointer-events:none}
+.action-cluster button{position:absolute;display:grid;place-items:center;width:clamp(43px,7.3vw,66px);height:clamp(43px,7.3vw,66px);border-radius:50%;font-size:clamp(18px,2.5vw,26px);background:radial-gradient(circle at 32% 25%,#647e70,#263f34 62%,#12251d);border:2px solid #d0b77c;box-shadow:inset 0 2px 4px #fff4,0 4px 12px #000b;color:#fff1c7;pointer-events:auto}
+.action-cluster .hit{right:0;bottom:28px;width:clamp(60px,9vw,82px);height:clamp(60px,9vw,82px);font-size:clamp(25px,3.6vw,36px);background:radial-gradient(circle at 32% 25%,#e7b66d,#98522f 62%,#4b281f);border-color:#ffe0a1}
+.action-cluster .interact{right:72px;bottom:74px}.action-cluster .potion{right:0;bottom:112px;width:44px;height:44px;font-size:19px}.action-cluster .bag{right:74px;bottom:13px;width:42px;height:42px;font-size:18px}.action-cluster .pause{right:0;bottom:0;width:38px;height:38px;font-size:15px}.action-cluster #soundToggle{right:75px;bottom:0;width:36px;height:36px;min-width:0;padding:0;font-size:16px;border-radius:50%;background:radial-gradient(circle at 32% 25%,#637a83,#263d45 65%);border:2px solid #b9c9b3;pointer-events:auto}
+.action-cluster .skill{position:relative}
+.actions .skill{width:clamp(43px,6.3vw,60px);height:clamp(43px,6.3vw,60px);border-radius:7px;background:linear-gradient(145deg,#65533b,#292b24);border:1px solid #e0c27e;box-shadow:inset 0 1px #fff4,0 2px 7px #0009}
+.actions .skill span{font-size:clamp(17px,2.3vw,23px)}.actions .skill small{font-size:clamp(6px,.7vw,8px);color:#f8e9c0}
+#overlay{background:#08140dbd;backdrop-filter:blur(3px)}
+@media(orientation:landscape) and (max-height:430px){
+.game-hud{min-height:42px}.player-card{gap:4px}.avatar-mark{width:27px;height:30px}.bar{height:5px;margin-top:2px}.mini-map{width:78px;height:52px}.move-zone{bottom:calc(8px + env(safe-area-inset-bottom))}.joystick{width:78px;height:78px}.skill-wheel{bottom:calc(7px + env(safe-area-inset-bottom))}.skill-row{gap:3px;padding:3px}.actions .skill{width:39px;height:39px}.action-cluster{height:120px;bottom:calc(8px + env(safe-area-inset-bottom))}.action-cluster .hit{width:56px;height:56px}.action-cluster .interact{right:61px;bottom:65px}.action-cluster .potion{bottom:91px;width:38px;height:38px}.action-cluster .bag{right:62px;bottom:7px;width:34px;height:34px}.action-cluster .pause{width:32px;height:32px}.action-cluster #soundToggle{right:63px;width:32px;height:32px}
+}
+@media(max-width:700px){.stats{gap:3px}.stats span{padding:3px 6px}.player-info{min-width:110px}.bar{width:clamp(100px,24vw,150px)}.mini-map{width:76px;height:54px}.location{font-size:8px}.skill-wheel{max-width:55vw}.actions .skill{width:clamp(38px,8vw,48px);height:clamp(38px,8vw,48px)}.action-cluster{right:max(7px,env(safe-area-inset-right));width:125px}.action-cluster .interact{right:61px}.action-cluster .bag{right:62px}}
+@media(max-height:350px){.move-zone{bottom:5px}.joystick{width:68px;height:68px}.skill-wheel{bottom:5px}.actions .skill{width:35px;height:35px}.action-cluster{bottom:5px;height:100px}.action-cluster .hit{width:48px;height:48px}.action-cluster .interact{bottom:52px;right:54px;width:38px;height:38px}.action-cluster .potion{bottom:77px;width:32px;height:32px}.action-cluster .bag{right:53px;width:30px;height:30px}.action-cluster .pause{width:28px;height:28px}.action-cluster #soundToggle{right:54px;width:28px;height:28px}}
 </style>
 </head>
 <body>
 <div id="rotate">↻<br><b>Hãy xoay iPhone nằm ngang</b><br><small>PixelWorld được thiết kế để chơi ở chế độ màn hình ngang.</small></div>
 <div id="app">
-<header><div class="brand">PIXELWORLD</div><div class="stats"><span id="hp">♥ 100</span><span id="mp">✦ 40</span><span id="xp">XP 0</span><span id="lv">Lv 1</span><span id="coins">◆ 0</span></div></header>
-<div id="stage"><canvas id="game" width="480" height="270" aria-label="Thế giới game PixelWorld"></canvas><div id="location">RỪNG KHỞI NGUYÊN</div><div id="questTracker" class="hidden"></div><div id="message">Khám phá · Thu thập · Chiến đấu</div>
+<header class="game-hud"><div class="player-card"><div class="avatar-mark">✦</div><div class="player-info"><div class="brand">PIXELWORLD</div><div class="player-level"><span id="lv">Lv 1</span><span id="xp">XP 0</span></div><div class="bar hp-bar"><i></i><b id="hp">♥ 100</b></div><div class="bar mp-bar"><i></i><b id="mp">✦ 40</b></div></div></div><div class="stats"><span id="coins">◆ 0</span></div></header>
+<div id="stage"><canvas id="game" width="480" height="270" aria-label="Thế giới game PixelWorld"></canvas><div id="location">RỪNG KHỞI NGUYÊN</div><div id="questTracker" class="hidden"></div><div class="mini-map" aria-label="Bản đồ nhỏ"><div class="map-river"></div><i class="map-player"></i><span>RỪNG KHỞI NGUYÊN</span></div><div id="message">Khám phá · Thu thập · Chiến đấu</div>
 <div id="overlay"><div class="modal" id="home">
 <h1>PIXELWORLD</h1><p>Phiêu lưu trong thế giới pixel. Chọn một lớp nhân vật để bắt đầu. Tiến trình được lưu trên thiết bị này.</p>
 <div class="panelrow" id="classes">
@@ -71,16 +106,16 @@ footer{flex:none;min-height:102px;height:clamp(96px,22vh,126px);padding:6px max(
 <div class="modal hidden" id="dead"><h1>BẠN ĐÃ GỤC NGÃ</h1><p>Bạn hồi sinh tại điểm khởi đầu. Túi đồ và cấp độ được giữ lại.</p><div class="menu"><button id="revive">HỒI SINH</button></div></div>
 </div><div id="toast" class="hidden"></div>
 </div>
-<footer>
-<div class="move-zone"><div class="stick-label">DI CHUYỂN</div><div id="moveStick" class="joystick" aria-label="Cần điều khiển di chuyển"><div class="joy-ring"></div><div class="joy-knob" id="moveKnob"></div></div></div>
-<div class="actions">
-<button class="hit" data-act="attack" aria-label="Đánh">⚔<small>ĐÁNH</small></button>
-<button class="round-action" data-act="interact" aria-label="Tương tác">✋<small>TƯƠNG TÁC</small></button>
-<div class="skill-wheel"><div class="stick-label">KỸ NĂNG</div><div class="skill-row"><button class="skill" data-skill="0">Q<small>SKILL 1</small></button><button class="skill" data-skill="1">W<small>SKILL 2</small></button><button class="skill" data-skill="2">E<small>SKILL 3</small></button><button class="skill" data-skill="3">R<small>SKILL 4</small></button></div></div>
-<button class="round-action" data-act="bag" aria-label="Túi đồ">▣<small>TÚI ĐỒ</small></button>
-<button class="round-action" data-act="pause" aria-label="Tạm dừng">Ⅱ<small>DỪNG</small></button>
-<button class="round-action" data-act="potion" aria-label="Uống thuốc">♥<small>THUỐC</small></button>
-<button id="soundToggle">♪<small>ÂM THANH</small></button>
+<footer class="touch-hud">
+<div class="move-zone"><div id="moveStick" class="joystick" aria-label="Cần điều khiển di chuyển"><div class="joy-ring"></div><div class="joy-knob" id="moveKnob"></div></div></div>
+<div class="skill-wheel"><div class="skill-row"><button class="skill" data-skill="0" aria-label="Kỹ năng 1">Q<small>SKILL 1</small></button><button class="skill" data-skill="1" aria-label="Kỹ năng 2">W<small>SKILL 2</small></button><button class="skill" data-skill="2" aria-label="Kỹ năng 3">E<small>SKILL 3</small></button><button class="skill" data-skill="3" aria-label="Kỹ năng 4">R<small>SKILL 4</small></button></div></div>
+<div class="action-cluster">
+<button class="hit" data-act="attack" aria-label="Đánh">⚔</button>
+<button class="round-action interact" data-act="interact" aria-label="Tương tác">✋</button>
+<button class="round-action potion" data-act="potion" aria-label="Uống thuốc">♥</button>
+<button class="round-action bag" data-act="bag" aria-label="Túi đồ">▣</button>
+<button class="round-action pause" data-act="pause" aria-label="Tạm dừng">Ⅱ</button>
+<button id="soundToggle" aria-label="Âm thanh">♪</button>
 </div></footer>
 </div>
 <script type="module">
