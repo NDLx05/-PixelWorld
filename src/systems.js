@@ -3,7 +3,7 @@ export const SAVE_VERSION = 3;
 
 const clone = value => JSON.parse(JSON.stringify(value));
 
-function normalizeSave(raw) {
+export function normalizeSave(raw) {
   if (!raw || typeof raw !== "object" || !raw.hero) return null;
   const hero = { ...raw.hero };
   for (const key of ["wood", "stone", "crystal", "coins", "potion", "weapon", "axe", "xp", "lv"]) {
