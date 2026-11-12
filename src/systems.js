@@ -13,7 +13,7 @@ export function normalizeSave(raw) {
   return {
     version: SAVE_VERSION,
     hero,
-    world: raw.world === "cave" ? "cave" : "forest",
+    world: ["village", "forest", "cave"].includes(raw.world) ? raw.world : "village",
     nodes: Array.isArray(raw.nodes) ? raw.nodes : [],
     enemies: Array.isArray(raw.enemies) ? raw.enemies : [],
     worldStates: raw.worldStates && typeof raw.worldStates === "object" ? raw.worldStates : {},
