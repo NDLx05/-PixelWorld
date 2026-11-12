@@ -16,6 +16,7 @@ export function normalizeSave(raw) {
     world: raw.world === "cave" ? "cave" : "forest",
     nodes: Array.isArray(raw.nodes) ? raw.nodes : [],
     enemies: Array.isArray(raw.enemies) ? raw.enemies : [],
+    worldStates: raw.worldStates && typeof raw.worldStates === "object" ? raw.worldStates : {},
     savedAt: Number(raw.savedAt ?? raw.at ?? Date.now())
   };
 }
