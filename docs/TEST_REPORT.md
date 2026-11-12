@@ -29,6 +29,10 @@ Ngày ghi nhận: 2026-11-12
 - Bổ sung bốn unit tests cho vùng đánh phía trước, khoảng cách, hướng đạn và thuộc tính projectile.
 - Thêm `src/combat.js` vào app-shell cache, nâng phiên bản lên `pixelworld-shell-v42`.
 - GitHub Actions `Tests` cho commit `a90280c` hoàn tất `success`: 30 tests, 30 passed.
+- Cập nhật dữ liệu AI theo từng loại: slime phát hiện gần và rút lui khi yếu; dơi nhanh, phát hiện xa và ít rút lui; boss có tầm phát hiện rộng hơn và không rút lui.
+- Bổ sung ba unit tests kiểm tra sự khác biệt hành vi dựa trên `data/enemies.json`.
+- GitHub Actions `Tests` cho commit `b295579` hoàn tất `success`: 33 tests, 33 passed.
+- GitHub Actions `Deploy PixelWorld to GitHub Pages` cho commit `b295579` hoàn tất `success`.
 - GitHub Actions `Deploy PixelWorld to GitHub Pages` cho commit `a90280c` hoàn tất `success`.
 
 ## Chưa được xác nhận
@@ -43,4 +47,4 @@ Ngày ghi nhận: 2026-11-12
 - GitHub Actions `Deploy PixelWorld to GitHub Pages` cho commit `2d25e88` hoàn tất `success`.
 
 ## Kết luận
-Đây vẫn là alpha. CI và triển khai Pages đã thành công cho commit `a90280c`. Chưa đủ điều kiện công bố bản phát hành hoàn chỉnh vì còn thiếu kiểm thử thiết bị thật, gameplay end-to-end và cân bằng nội dung.
+Đây vẫn là alpha. CI và triển khai Pages đã thành công cho commit `b295579`. Chưa đủ điều kiện công bố bản phát hành hoàn chỉnh vì còn thiếu kiểm thử thiết bị thật, gameplay end-to-end và cân bằng nội dung.
