@@ -5,7 +5,7 @@
 - **Nền tảng web:** GitHub Pages, PWA manifest, icon ứng dụng SVG, service worker và app-shell cache.
 - **Lưu game:** IndexedDB ưu tiên, localStorage dự phòng, chuẩn hóa save v4, chuyển đổi save cũ; có pause, lưu và quay về menu.
 - **Thế giới:** ba khu vực Làng An Yên, Rừng Khởi Nguyên và Hang Pha Lê; tilemap 40×30, collision layer, lối nối, camera cuộn, respawn tài nguyên/quái và lưu trạng thái từng khu vực.
-- **Nội dung dữ liệu:** vật phẩm, công thức, kỹ năng, nhiệm vụ, NPC, cửa hàng, quái và boss được tách sang JSON; runtime đọc dữ liệu tương ứng.
+- **Nội dung dữ liệu:** vật phẩm, công thức, kỹ năng, nhiệm vụ, NPC, cửa hàng, quái và boss được tách sang JSON; runtime kiểm tra kích thước tilemap, collision, spawn và lối ra trước khi dùng.
 - **NPC/nhiệm vụ/cửa hàng:** Trưởng lão Mira giao nhiệm vụ thu thập; Nhà thám hiểm Khoa giao nhiệm vụ tiếp theo yêu cầu hạ boss; Thương nhân Tâm bán vật phẩm và nâng cấp.
 - **Chiến đấu:** Kiếm Vệ đánh cận chiến theo hướng nhìn; Linh Pháp và Du Hiệp bắn projectile; đạn bị chặn bởi tường tile; kỹ năng riêng, hiệu ứng làm chậm/độc, phòng thủ, buff và boss bắn tinh thể.
 - **Đồ họa:** sprite sheet nhân vật ba lớp, bốn hướng, bốn frame đi bộ/tấn công/bị thương/gục ngã; có sprite riêng cho slime, dơi hang, boss và hai NPC.
