@@ -12,12 +12,18 @@ export class InputManager {
       this.keys.delete(event.key.toLowerCase());
       this.keys.delete(event.key);
     };
+    this.handleBlur = () => this.clear();
+    this.handleVisibility = () => {
+      if (document.visibilityState !== "visible") this.clear();
+    };
     window.addEventListener("keydown", this.handleDown);
     window.addEventListener("keyup", this.handleUp);
+    window.addEventListener("blur", this.handleBlur);
+    document.addEventListener("visibilitychange", this.handleVisibility);
   }
 
   isDown(...keys) {
-    return keys.some(key => this.keys.has(key));
+    return keys.some(key => this.keys.has(key) || this.keys.has(String(key).toLowerCase()));
   }
 
   clear() {
@@ -27,6 +33,8 @@ export class InputManager {
   destroy() {
     window.removeEventListener("keydown", this.handleDown);
     window.removeEventListener("keyup", this.handleUp);
+    window.removeEventListener("blur", this.handleBlur);
+    document.removeEventListener("visibilitychange", this.handleVisibility);
     this.clear();
   }
 }
