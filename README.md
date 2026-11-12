@@ -17,7 +17,7 @@ Game phiêu lưu pixel 2D góc nhìn từ trên xuống, thiết kế màn hình
 - Thương nhân Tâm bán thuốc hồi phục và nâng cấp kiếm, rìu, áo giáp bằng xu.
 - Va chạm với tường tile và vật thể thu thập; quái vật cũng bị giới hạn bởi tường.
 - Kỹ năng riêng theo lớp có projectile, làm chậm, độc, phòng thủ và buff sát thương cơ bản.
-- Hiệu ứng âm thanh tổng hợp Web Audio API, có nút bật/tắt.
+- SFX và âm nền riêng cho rừng/hang bằng Web Audio API, có nút bật/tắt.
 - Kiểm thử tự động Node.js trong `tests/` và GitHub Actions.
 - PWA app shell: manifest và service worker để lưu vỏ ứng dụng sau lần tải đầu.
 
