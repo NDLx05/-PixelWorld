@@ -5,7 +5,7 @@ Game phiêu lưu pixel 2D góc nhìn từ trên xuống, thiết kế màn hình
 ## Bản hiện tại
 
 Đây vẫn là **prototype/alpha**, không phải bản phát hành hoàn chỉnh. Những phần đang có trong mã:
-- Bản đồ rừng và hang động với camera cuộn.
+- Bản đồ tile riêng cho rừng và hang, camera cuộn, lối đi và va chạm theo tile.
 - Ba lớp nhân vật và bốn nút kỹ năng.
 - Điều khiển bàn phím và nút cảm ứng.
 - Thu thập tài nguyên, chiến đấu, XP, lên cấp.
@@ -13,7 +13,7 @@ Game phiêu lưu pixel 2D góc nhìn từ trên xuống, thiết kế màn hình
 - Lưu tiến trình cục bộ bằng localStorage.
 - Danh mục dữ liệu vật phẩm, công thức, kỹ năng và nhiệm vụ trong `data/`.
 - NPC Trưởng lão Mira và nhiệm vụ thu thập đầu tiên, có lưu trạng thái hoàn thành.
-- Va chạm di chuyển cơ bản với vật thể thu thập và camera cuộn có giới hạn bản đồ.
+- Va chạm với tường tile và vật thể thu thập; quái vật cũng bị giới hạn bởi tường.
 - Kỹ năng riêng theo lớp có projectile, làm chậm, độc, phòng thủ và buff sát thương cơ bản.
 - Hiệu ứng âm thanh tổng hợp Web Audio API, có nút bật/tắt.
 - Kiểm thử tự động Node.js trong `tests/` và GitHub Actions.
