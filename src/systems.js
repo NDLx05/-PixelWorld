@@ -1,5 +1,5 @@
 export const SAVE_KEY = "pixelworld-save";
-export const SAVE_VERSION = 3;
+export const SAVE_VERSION = 4;
 
 const clone = value => JSON.parse(JSON.stringify(value));
 
