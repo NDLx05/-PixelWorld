@@ -6,6 +6,7 @@ export function updateEnemyAI(enemy, target, dt = 0, definition = {}) {
   const distance = Math.hypot(dx, dy);
   const maxHp = Math.max(1, Number(enemy.max) || Number(enemy.hp) || 1);
   const hpRatio = Math.max(0, Number(enemy.hp) || 0) / maxHp;
+  if (enemy.isBoss) enemy.phase = hpRatio <= 0.5 ? 2 : 1;
   const retreatAt = Number.isFinite(definition.retreatAt) ? definition.retreatAt : 0.2;
   const retreatDistance = Number.isFinite(definition.retreatDistance) ? definition.retreatDistance : 70;
   const attackRange = Number.isFinite(definition.attackRange) ? definition.attackRange : (enemy.isBoss ? 22 : 17);
