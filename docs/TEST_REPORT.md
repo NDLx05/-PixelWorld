@@ -10,7 +10,7 @@ Ngày ghi nhận: 2026-11-12
 - Tilemap: làng, rừng và hang đều có kích thước 40×30, collision grid khớp terrain, điểm spawn và lối đi ra/vào nằm trên ô đi được.
 - Tham chiếu nội dung: NPC trỏ đến quest/shop tồn tại; boss definition và danh sách hàng có dữ liệu.
 - DOM: tất cả ID được JavaScript truy vấn đều có phần tử tương ứng.
-- Kiểm tra logic hệ thống: camera, biên thế giới, va chạm vật thể/tile, lối đi, migration save, cooldown, phục hồi bản lưu lỗi và state machine AI quái đều đạt.
+- Kiểm tra logic hệ thống: camera, biên thế giới, va chạm vật thể/tile, lối đi, migration save, cooldown, phục hồi bản lưu lỗi, giới hạn tiến trình và state machine AI quái đều đạt.
 - Bổ sung kiểm tra tự động cho cấu trúc ba tilemap, spawn/exits, kết nối làng–rừng–hang, mọi đường dẫn app-shell trong service worker và các import module của trang game.
 - Bổ sung lối thoát tường minh từ Rừng Khởi Nguyên về Làng An Yên trong dữ liệu bản đồ.
 - Chuyển logic đổi khu vực sang đọc đúng ô exit trong tilemap; không còn đổi vùng chỉ vì đứng gần rìa bản đồ.
@@ -31,4 +31,4 @@ Ngày ghi nhận: 2026-11-12
 - Chưa có kiểm thử hiệu năng dài, cân bằng game hoặc kiểm thử end-to-end.
 
 ## Kết luận
-Đây vẫn là alpha. CI và triển khai Pages đã thành công cho commit `482af70`. Chưa đủ điều kiện công bố bản phát hành hoàn chỉnh vì còn thiếu kiểm thử thiết bị thật, gameplay end-to-end và cân bằng nội dung.
+Đây vẫn là alpha. CI và triển khai Pages đã thành công cho commit `96164f1`. Chưa đủ điều kiện công bố bản phát hành hoàn chỉnh vì còn thiếu kiểm thử thiết bị thật, gameplay end-to-end và cân bằng nội dung.
