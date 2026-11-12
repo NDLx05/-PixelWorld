@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "shops": [
+    {
+      "id": "village_market",
+      "name": "Quầy hàng của Tâm",
+      "items": [
+        {
+          "id": "potion",
+          "name": "Thuốc hồi phục",
+          "price": 8
+        },
+        {
+          "id": "sword",
+          "name": "Nâng cấp kiếm",
+          "price": 25
+        },
+        {
+          "id": "axe",
+          "name": "Nâng cấp rìu",
+          "price": 20
+        }
+      ]
+    }
+  ]
+}
