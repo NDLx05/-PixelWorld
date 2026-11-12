@@ -38,3 +38,8 @@ test("browser entry point imports existing local modules", async () => {
   assert.ok(imports.length >= 4);
   for (const path of imports) await access(resolve(root, path));
 });
+
+test("invalid tile maps are rejected", () => {
+  assert.equal(validateTileMap(null), false);
+  assert.equal(validateTileMap({ width: 1, height: 1, tileSize: 24, terrain: [[1]], collision: [[1]], spawn: { x: 12, y: 12 }, exits: [] }), false);
+});
