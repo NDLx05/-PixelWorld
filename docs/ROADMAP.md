@@ -9,7 +9,7 @@
 - **NPC/nhiệm vụ/cửa hàng:** Trưởng lão Mira với nhiệm vụ mẫu; Thương nhân Tâm bán thuốc và nâng cấp kiếm/rìu.
 - **Chiến đấu:** ba lớp có nhánh kỹ năng khác nhau; projectile; hiệu ứng làm chậm/độc; phòng thủ, buff sát thương và boss Hộ vệ Pha Lê có đòn bắn tinh thể từ xa.
 - **Đồ họa:** sprite sheet nhân vật ba lớp, bốn hướng, bốn frame đi bộ và bốn frame tấn công; có sprite pixel riêng cho slime, dơi hang, boss và hai NPC.
-- **Âm thanh:** SFX tổng hợp bằng Web Audio API, có nút bật/tắt; chưa có nhạc nền và âm thanh thu âm.
+- **Âm thanh:** SFX tổng hợp và ambient drone theo vùng rừng/hang bằng Web Audio API; có nút bật/tắt. Chưa có bản nhạc nhiều giai điệu và âm thanh thu âm.
 - **Kiểm thử:** có 7 unit tests cho camera, va chạm, cooldown và migration save; GitHub Actions kiểm tra cú pháp module, JSON và chạy tests. Trạng thái Actions cần xác nhận sau khi workflow hoàn tất.
 
 Đây vẫn là **alpha**, chưa phải game hoàn chỉnh. Đồ họa nhân vật và quái vẫn là hình khối tạm; tilemap mới là bản đầu tiên; mới có một boss, một nhiệm vụ và một cửa hàng mẫu, chưa có nội dung đủ chiều sâu để phát hành.
@@ -49,11 +49,12 @@
    - [x] Một NPC và một nhiệm vụ mẫu.
    - [x] NPC thương nhân và cửa hàng mua thuốc/nâng cấp kiếm/rìu.
    - [ ] Chuỗi nhiệm vụ, hội thoại nhiều nhánh, nhật ký nhiệm vụ và NPC chức năng khác.
-   - [x] Trang bị kiếm/rìu/áo giáp có tác dụng trong chiến đấu và khai thác.\n   - [ ] Mở rộng công thức, vật phẩm, trang bị và cây nâng cấp cân bằng.
+   - [x] Trang bị kiếm/rìu/áo giáp có tác dụng trong chiến đấu và khai thác.
+   - [ ] Mở rộng công thức, vật phẩm, trang bị và cây nâng cấp cân bằng.
 
 6. **Âm thanh và nội dung**
    - [x] SFX tổng hợp và điều khiển âm thanh.
-   - [ ] Nhạc nền theo vùng, ambience, âm thanh bước chân/công cụ/quái.
+   - [x] Ambient nền khác nhau giữa rừng và hang, có điều khiển bật/tắt.\n   - [ ] Nhạc nền có giai điệu, ambience tự nhiên và âm thanh bước chân/công cụ/quái.
    - [ ] Làng, khu vực mới, boss, sự kiện và nội dung cuối game.
 
 7. **Chất lượng và phát hành**
