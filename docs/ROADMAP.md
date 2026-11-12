@@ -20,7 +20,8 @@
    - [x] Tách hệ thống lưu, camera, va chạm và nội dung thành module.
    - [x] Save có phiên bản, IndexedDB, fallback và migration.
    - [ ] Tách toàn bộ game loop/UI/input thành module độc lập.
-   - [x] Pause/resume và lưu hành trình trước khi về menu.\n   - [ ] Hoàn thiện input đa điểm chạm, xử lý mất focus và safe-area trên iOS.
+   - [x] Pause/resume và lưu hành trình trước khi về menu.
+   - [ ] Hoàn thiện input đa điểm chạm, xử lý mất focus và safe-area trên iOS.
 
 2. **Thế giới**
    - [x] Hai khu vực rừng/hang, camera và lưu trạng thái khu vực.
@@ -48,7 +49,7 @@
    - [x] Một NPC và một nhiệm vụ mẫu.
    - [x] NPC thương nhân và cửa hàng mua thuốc/nâng cấp kiếm/rìu.
    - [ ] Chuỗi nhiệm vụ, hội thoại nhiều nhánh, nhật ký nhiệm vụ và NPC chức năng khác.
-   - [ ] Nhiều công thức, vật phẩm, trang bị và nâng cấp cân bằng.
+   - [x] Trang bị kiếm/rìu/áo giáp có tác dụng trong chiến đấu và khai thác.\n   - [ ] Mở rộng công thức, vật phẩm, trang bị và cây nâng cấp cân bằng.
 
 6. **Âm thanh và nội dung**
    - [x] SFX tổng hợp và điều khiển âm thanh.
