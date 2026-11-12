@@ -4,20 +4,58 @@ export const SAVE_VERSION = 4;
 const clone = value => JSON.parse(JSON.stringify(value));
 
 export function normalizeSave(raw) {
-  if (!raw || typeof raw !== "object" || !raw.hero) return null;
+  if (!raw || typeof raw !== "object" || Array.isArray(raw) || !raw.hero || typeof raw.hero !== "object" || Array.isArray(raw.hero)) return null;
   const hero = { ...raw.hero };
-  for (const key of ["wood", "stone", "crystal", "coins", "potion", "weapon", "axe", "armor", "xp", "lv"]) {
-    const n = Number(hero[key] ?? (key === "lv" ? 1 : 0));
-    hero[key] = Number.isFinite(n) ? Math.max(0, n) : 0;
+  const number = (value, fallback, min = 0, max = Number.MAX_SAFE_INTEGER) => {
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? Math.min(max, Math.max(min, parsed)) : fallback;
+  };
+  const cls = ["warrior", "mage", "ranger"].includes(hero.cls) ? hero.cls : "warrior";
+  const limits = {
+    warrior: { hp: 140, mp: 35 },
+    mage: { hp: 90, mp: 100 },
+    ranger: { hp: 105, mp: 65 }
+  }[cls];
+  hero.cls = cls;
+  hero.x = number(hero.x, 240, 10, 950);
+  hero.y = number(hero.y, 135, 10, 710);
+  hero.hp = number(hero.hp, limits.hp, 0, limits.hp);
+  hero.mp = number(hero.mp, limits.mp, 0, limits.mp);
+  for (const key of ["wood", "stone", "crystal", "coins", "potion", "weapon", "axe", "armor", "xp"]) {
+    hero[key] = Math.floor(number(hero[key], 0));
   }
+  hero.lv = Math.floor(number(hero.lv, 1, 1, 999));
+  hero.quests = hero.quests && typeof hero.quests === "object" && !Array.isArray(hero.quests) ? hero.quests : {};
+  hero.guardianDefeated = hero.guardianDefeated ? 1 : 0;
+
+  const cleanEntities = list => Array.isArray(list) ? list.filter(item =>
+    item && typeof item === "object" && !Array.isArray(item) &&
+    Number.isFinite(Number(item.x)) && Number.isFinite(Number(item.y))
+  ).map(item => ({
+    ...item,
+    x: number(item.x, 0, 0, 960),
+    y: number(item.y, 0, 0, 720),
+    ...(item.hp !== undefined ? { hp: number(item.hp, 0) } : {}),
+    ...(item.max !== undefined ? { max: number(item.max, 1, 1) } : {})
+  })) : [];
+  const worldStates = {};
+  if (raw.worldStates && typeof raw.worldStates === "object" && !Array.isArray(raw.worldStates)) {
+    for (const area of ["village", "forest", "cave"]) {
+      const state = raw.worldStates[area];
+      if (state && typeof state === "object" && !Array.isArray(state)) {
+        worldStates[area] = { nodes: cleanEntities(state.nodes), enemies: cleanEntities(state.enemies) };
+      }
+    }
+  }
+  const savedAt = number(raw.savedAt ?? raw.at, Date.now(), 0);
   return {
     version: SAVE_VERSION,
     hero,
     world: ["village", "forest", "cave"].includes(raw.world) ? raw.world : "village",
-    nodes: Array.isArray(raw.nodes) ? raw.nodes : [],
-    enemies: Array.isArray(raw.enemies) ? raw.enemies : [],
-    worldStates: raw.worldStates && typeof raw.worldStates === "object" ? raw.worldStates : {},
-    savedAt: Number(raw.savedAt ?? raw.at ?? Date.now())
+    nodes: cleanEntities(raw.nodes),
+    enemies: cleanEntities(raw.enemies),
+    worldStates,
+    savedAt
   };
 }
 
