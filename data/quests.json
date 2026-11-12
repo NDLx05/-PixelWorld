@@ -16,6 +16,14 @@
       "x": 230,
       "y": 220,
       "shopId": "village_market"
+    },
+    {
+      "id": "explorer_khoa",
+      "name": "Nhà thám hiểm Khoa",
+      "area": "cave",
+      "x": 145,
+      "y": 350,
+      "questId": "crystal_guardian_hunt"
     }
   ],
   "quests": [
@@ -30,6 +38,19 @@
       "reward": {
         "xp": 30,
         "coins": 15
+      }
+    },
+    {
+      "id": "crystal_guardian_hunt",
+      "title": "Mảnh Pha Lê",
+      "description": "Hộ vệ Pha Lê canh giữ khoáng thạch quý. Hãy đánh bại nó và mang về 8 pha lê.",
+      "prerequisite": "forest_supplies",
+      "objectives": {
+        "crystal": 8
+      },
+      "reward": {
+        "xp": 150,
+        "coins": 60
       }
     }
   ]
