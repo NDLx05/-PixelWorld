@@ -14,6 +14,7 @@ Game phiêu lưu pixel 2D góc nhìn từ trên xuống, thiết kế màn hình
 - Danh mục dữ liệu vật phẩm, công thức, kỹ năng và nhiệm vụ trong `data/`.
 - NPC Trưởng lão Mira và nhiệm vụ thu thập đầu tiên, có lưu trạng thái hoàn thành.
 - Boss Hộ vệ Pha Lê trong hang, có phần thưởng riêng và dữ liệu chỉ số tách riêng.
+- Thương nhân Tâm bán thuốc hồi phục, nâng cấp kiếm và rìu bằng xu.
 - Va chạm với tường tile và vật thể thu thập; quái vật cũng bị giới hạn bởi tường.
 - Kỹ năng riêng theo lớp có projectile, làm chậm, độc, phòng thủ và buff sát thương cơ bản.
 - Hiệu ứng âm thanh tổng hợp Web Audio API, có nút bật/tắt.
