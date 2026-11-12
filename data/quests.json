@@ -4,17 +4,17 @@
     {
       "id": "elder_mira",
       "name": "Trưởng lão Mira",
-      "area": "forest",
-      "x": 150,
-      "y": 150,
+      "area": "village",
+      "x": 420,
+      "y": 350,
       "questId": "forest_supplies"
     },
     {
       "id": "merchant_tam",
       "name": "Thương nhân Tâm",
-      "area": "forest",
-      "x": 230,
-      "y": 220,
+      "area": "village",
+      "x": 540,
+      "y": 350,
       "shopId": "village_market"
     },
     {
