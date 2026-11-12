@@ -39,6 +39,19 @@
         "item": "stone_axe",
         "count": 1
       }
+    },
+    {
+      "id": "leather_armor",
+      "name": "Áo giáp da",
+      "station": "hand",
+      "inputs": {
+        "wood": 4,
+        "stone": 6
+      },
+      "output": {
+        "item": "leather_armor",
+        "count": 1
+      }
     }
   ]
 }
