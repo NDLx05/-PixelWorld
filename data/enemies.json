@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "types": {
+    "slime": {
+      "name": "Slime",
+      "hp": 3,
+      "speed": 27,
+      "damage": 7,
+      "xp": 12,
+      "coins": [
+        1,
+        3
+      ]
+    },
+    "bat": {
+      "name": "Dơi hang",
+      "hp": 5,
+      "speed": 32,
+      "damage": 7,
+      "xp": 12,
+      "coins": [
+        1,
+        3
+      ]
+    },
+    "crystal_guardian": {
+      "name": "Hộ vệ Pha Lê",
+      "hp": 90,
+      "speed": 22,
+      "damage": 14,
+      "xp": 120,
+      "coins": [
+        35,
+        55
+      ],
+      "boss": true,
+      "drop": {
+        "crystal": 8
+      }
+    }
+  }
+}
