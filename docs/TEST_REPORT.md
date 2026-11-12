@@ -22,7 +22,7 @@ Ngày ghi nhận: 2026-11-12
 - Đã sửa thời điểm mở khóa AudioContext trên thao tác bắt đầu/tiếp tục game để tương thích chính sách autoplay của trình duyệt.
 - Đã gia cố `normalizeSave`: chuẩn hóa lớp nhân vật, tọa độ, HP/MP, cấp độ, tài nguyên, nhiệm vụ, timestamp và lọc entity/world-state lỗi.
 - Đã tách AI quái sang `src/enemy-ai.js` với trạng thái idle/chase/attack/retreat/dead; quái yếu có thể lùi lại khi máu thấp, boss chuyển pha hai dưới 50% HP và tăng nhịp/tốc độ đạn.
-- GitHub Actions `Tests` cho commit `653bd6a` hoàn tất với kết quả `success`: kiểm tra cú pháp browser module, source/test modules, JSON và `npm test` (20 tests, 20 passed).
+- GitHub Actions `Tests` cho commit `653bd6a` hoàn tất với kết quả `success`: kiểm tra cú pháp browser module, source/test modules, JSON và `npm test` (26 tests, 26 passed).
 - GitHub Actions `Deploy PixelWorld to GitHub Pages` cho commit `653bd6a` hoàn tất với kết quả `success`.
 
 ## Chưa được xác nhận
@@ -30,5 +30,11 @@ Ngày ghi nhận: 2026-11-12
 - Chưa chạy trực tiếp trên iPhone Safari iOS 17.6.1; cảm ứng nhiều ngón, orientation, PWA install và offline thực tế còn cần thiết bị thật.
 - Chưa có kiểm thử hiệu năng dài, cân bằng game hoặc kiểm thử end-to-end.
 
+- Tách quy tắc lên cấp và tính sát thương nhận vào thành `src/progression.js`; hai vị trí nhận sát thương (va chạm và đạn boss) dùng chung một công thức, cấp độ được kiểm soát bằng helper có giới hạn.
+- Bổ sung bốn unit tests cho ngưỡng lên cấp, giới hạn cấp, giáp/giảm sát thương và dữ liệu sát thương không hợp lệ.
+- Thêm `src/progression.js` vào app-shell cache và tăng cache lên `pixelworld-shell-v41` để module vẫn tải được khi offline.
+- GitHub Actions `Tests` cho commit `2d25e88` hoàn tất `success`: 26 tests, 26 passed.
+- GitHub Actions `Deploy PixelWorld to GitHub Pages` cho commit `2d25e88` hoàn tất `success`.
+
 ## Kết luận
-Đây vẫn là alpha. CI và triển khai Pages đã thành công cho commit `96164f1`. Chưa đủ điều kiện công bố bản phát hành hoàn chỉnh vì còn thiếu kiểm thử thiết bị thật, gameplay end-to-end và cân bằng nội dung.
+Đây vẫn là alpha. CI và triển khai Pages đã thành công cho commit `2d25e88`. Chưa đủ điều kiện công bố bản phát hành hoàn chỉnh vì còn thiếu kiểm thử thiết bị thật, gameplay end-to-end và cân bằng nội dung.
