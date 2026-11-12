@@ -8,6 +8,14 @@
       "x": 150,
       "y": 150,
       "questId": "forest_supplies"
+    },
+    {
+      "id": "merchant_tam",
+      "name": "Thương nhân Tâm",
+      "area": "forest",
+      "x": 230,
+      "y": 220,
+      "shopId": "village_market"
     }
   ],
   "quests": [
