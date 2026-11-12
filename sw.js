@@ -1,5 +1,5 @@
 /* PixelWorld offline app shell. Bump CACHE_VERSION whenever app files change. */
-const CACHE_VERSION = "pixelworld-shell-v38";
+const CACHE_VERSION = "pixelworld-shell-v39";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -54,7 +54,7 @@ self.addEventListener("fetch", event => {
           caches.open(CACHE_VERSION).then(cache => cache.put(request, copy));
         }
         return response;
-      }).catch(() => caches.match("./index.html"))
+      }).catch(() => request.mode === "navigate" ? caches.match("./index.html") : new Response("", { status: 503, statusText: "Offline" }))
     })
   );
 });
