@@ -1,5 +1,5 @@
 /* PixelWorld offline app shell. Bump CACHE_VERSION whenever app files change. */
-const CACHE_VERSION = "pixelworld-shell-v37";
+const CACHE_VERSION = "pixelworld-shell-v38";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -9,6 +9,7 @@ const APP_SHELL = [
   "./src/input.js",
   "./src/content.js",
   "./src/audio.js",
+  "./src/enemy-ai.js",
   "./assets/sprites/player.svg",
   "./assets/sprites/creatures.svg",
   "./assets/sprites/npcs.svg",
