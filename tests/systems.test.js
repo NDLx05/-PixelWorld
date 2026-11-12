@@ -37,3 +37,12 @@ test("invalid saves are rejected safely", () => {
   assert.equal(normalizeSave(null),null);
   assert.equal(normalizeSave({world:"forest"}),null);
 });
+
+test("movement respects solid map tiles and open passage tiles", () => {
+  const map={tileSize:24,collision:[[1,0],[0,0]]};
+  const hero={x:36,y:12};
+  moveWithObstacles(hero,-20,0,[],{minX:0,maxX:48,minY:0,maxY:48},5,map);
+  assert.equal(hero.x,36);
+  moveWithObstacles(hero,0,20,[],{minX:0,maxX:48,minY:0,maxY:48},5,map);
+  assert.equal(hero.y,32);
+});
