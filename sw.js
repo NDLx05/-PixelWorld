@@ -1,5 +1,5 @@
 /* PixelWorld offline app shell. Bump CACHE_VERSION whenever app files change. */
-const CACHE_VERSION = "pixelworld-shell-v52";
+const CACHE_VERSION = "pixelworld-shell-v53";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -13,6 +13,19 @@ const APP_SHELL = [
   "./src/progression.js",
   "./src/combat.js",
   "./src/vfx.js",
+  "./src/sprite-atlas.js",
+  "./assets/characters/manifest.json",
+  "./assets/characters/warrior.png",
+  "./assets/characters/mage.png",
+  "./assets/characters/archer.png",
+  "./assets/characters/slime-green.png",
+  "./assets/characters/bat.png",
+  "./assets/characters/wolf.png",
+  "./assets/characters/skeleton.png",
+  "./assets/characters/goblin.png",
+  "./assets/characters/spider.png",
+  "./assets/characters/imp.png",
+  "./assets/characters/golem.png",
   "./assets/sprites/player.svg",
   "./assets/sprites/creatures.svg",
   "./assets/sprites/npcs.svg",
