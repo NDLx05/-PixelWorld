@@ -5,8 +5,9 @@ Ngày ghi nhận: 2026-11-12
 ## Đã kiểm tra trong phiên phát triển
 - Cú pháp JavaScript của module trong `index.html`: hợp lệ khi parse.
 - Cú pháp các module `src/systems.js`, `src/content.js`, `src/audio.js`: hợp lệ khi parse.
-- JSON: vật phẩm, công thức, kỹ năng, nhiệm vụ, quái/boss, cửa hàng, hai tilemap và manifest đều parse được.
-- Tilemap: cả rừng và hang đều có kích thước 40×30, collision grid khớp terrain, điểm spawn và lối đi ra/vào nằm trên ô đi được.
+- SVG: icon PWA và sprite sheet nhân vật/quái/NPC có cấu trúc SVG hợp lệ.
+- JSON: vật phẩm, công thức, kỹ năng, nhiệm vụ, quái/boss, cửa hàng, ba tilemap và manifest đều parse được.
+- Tilemap: làng, rừng và hang đều có kích thước 40×30, collision grid khớp terrain, điểm spawn và lối đi ra/vào nằm trên ô đi được.
 - Tham chiếu nội dung: NPC trỏ đến quest/shop tồn tại; boss definition và danh sách hàng có dữ liệu.
 - DOM: tất cả ID được JavaScript truy vấn đều có phần tử tương ứng.
 - Kiểm tra logic hệ thống: 7 nhóm kiểm tra camera, biên thế giới, va chạm vật thể, va chạm tile, lối đi, migration save v4 và cooldown đều đạt.
