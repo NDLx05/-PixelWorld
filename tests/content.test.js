@@ -50,3 +50,9 @@ test("invalid tile maps are rejected", () => {
   assert.equal(validateTileMap(null), false);
   assert.equal(validateTileMap({ width: 1, height: 1, tileSize: 24, terrain: [[1]], collision: [[1]], spawn: { x: 12, y: 12 }, exits: [] }), false);
 });
+
+test("service worker only serves the app shell fallback for navigation requests", async () => {
+  const sw = await readFile(resolve(root, "sw.js"), "utf8");
+  assert.match(sw, /request\.mode === "navigate" \? caches\.match\("\.\/index\.html"\)/);
+  assert.match(sw, /new Response\("", \{ status: 503, statusText: "Offline" \}\)/);
+});
