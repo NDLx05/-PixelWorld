@@ -25,11 +25,11 @@ test("cooldown readiness uses zero threshold", () => {
 });
 
 test("legacy saves migrate into the current versioned shape", () => {
-  const migrated = normalizeSave({version:2,at:123,hero:{wood:"4",stone:2,lv:3},world:"cave",nodes:[],enemies:[]});
+  const migrated = normalizeSave({version:2,at:123,hero:{wood:"4",stone:2,lv:3},world:"cave",nodes:[],enemies:[],worldStates:{forest:{nodes:[{x:2,y:3}],enemies:[]}}});
   assert.equal(migrated.version,SAVE_VERSION);
   assert.equal(migrated.savedAt,123);
   assert.equal(migrated.hero.wood,4);
-  assert.equal(migrated.world,"cave");
+  assert.equal(migrated.world,"cave");\n  assert.equal(migrated.worldStates.forest.nodes.length,1);
 });
 
 test("invalid saves are rejected safely", () => {
