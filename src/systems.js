@@ -118,12 +118,23 @@ export class SaveStore {
 }
 
 /** Axis-separated movement against circular world props and rectangular world bounds. */
-export function moveWithObstacles(entity, dx, dy, obstacles, bounds, radius = 7) {
-  const blocked = (x, y) => obstacles.some(o => {
-    const r = radius + (o.radius ?? 9);
-    const ox = x - o.x, oy = y - o.y;
-    return ox * ox + oy * oy < r * r;
-  });
+export function moveWithObstacles(entity, dx, dy, obstacles, bounds, radius = 7, map = null) {
+  const blocked = (x, y) => {
+    if (map?.collision && map.tileSize) {
+      const minX = Math.floor((x - radius) / map.tileSize);
+      const maxX = Math.floor((x + radius) / map.tileSize);
+      const minY = Math.floor((y - radius) / map.tileSize);
+      const maxY = Math.floor((y + radius) / map.tileSize);
+      for (let ty = minY; ty <= maxY; ty++) for (let tx = minX; tx <= maxX; tx++) {
+        if (map.collision[ty]?.[tx]) return true;
+      }
+    }
+    return obstacles.some(o => {
+      const r = radius + (o.radius ?? 9);
+      const ox = x - o.x, oy = y - o.y;
+      return ox * ox + oy * oy < r * r;
+    });
+  };
   const nx = Math.max(bounds.minX, Math.min(bounds.maxX, entity.x + dx));
   if (!blocked(nx, entity.y)) entity.x = nx;
   const ny = Math.max(bounds.minY, Math.min(bounds.maxY, entity.y + dy));
