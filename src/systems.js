@@ -22,7 +22,7 @@ export function normalizeSave(raw) {
   hero.hp = number(hero.hp, limits.hp, 0, limits.hp);
   hero.mp = number(hero.mp, limits.mp, 0, limits.mp);
   for (const key of ["wood", "stone", "crystal", "coins", "potion", "weapon", "axe", "armor", "xp"]) {
-    hero[key] = Math.floor(number(hero[key], 0));
+    hero[key] = Math.floor(number(hero[key], 0, 0, key === "xp" ? 1000000 : 999999));
   }
   hero.lv = Math.floor(number(hero.lv, 1, 1, 999));
   hero.quests = hero.quests && typeof hero.quests === "object" && !Array.isArray(hero.quests) ? hero.quests : {};
@@ -77,9 +77,16 @@ export class SaveStore {
         const db = request.result;
         if (!db.objectStoreNames.contains(this.store)) db.createObjectStore(this.store);
       };
-      request.onsuccess = () => resolve(request.result);
+      request.onsuccess = () => {
+        const db = request.result;
+        db.onversionchange = () => { db.close(); this.dbPromise = null; };
+        resolve(db);
+      };
       request.onerror = () => reject(request.error || new Error("Cannot open save database"));
       request.onblocked = () => reject(new Error("Save database upgrade is blocked"));
+    }).catch(error => {
+      this.dbPromise = null;
+      throw error;
     });
     return this.dbPromise;
   }
