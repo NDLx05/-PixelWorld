@@ -1,7 +1,8 @@
 const DATA_FILES = {
   items: "./data/items.json",
   recipes: "./data/recipes.json",
-  skills: "./data/skills.json"
+  skills: "./data/skills.json",
+  quests: "./data/quests.json"
 };
 
 async function readJson(path) {
@@ -19,5 +20,6 @@ export async function loadGameContent() {
   if (content.items && !Array.isArray(content.items.items)) content.items = null;
   if (content.recipes && !Array.isArray(content.recipes.recipes)) content.recipes = null;
   if (content.skills && (!content.skills.classes || typeof content.skills.classes !== "object")) content.skills = null;
+  if (content.quests && (!Array.isArray(content.quests.npcs) || !Array.isArray(content.quests.quests))) content.quests = null;
   return content;
 }
