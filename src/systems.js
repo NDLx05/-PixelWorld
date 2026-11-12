@@ -6,7 +6,7 @@ const clone = value => JSON.parse(JSON.stringify(value));
 export function normalizeSave(raw) {
   if (!raw || typeof raw !== "object" || !raw.hero) return null;
   const hero = { ...raw.hero };
-  for (const key of ["wood", "stone", "crystal", "coins", "potion", "weapon", "axe", "xp", "lv"]) {
+  for (const key of ["wood", "stone", "crystal", "coins", "potion", "weapon", "axe", "armor", "xp", "lv"]) {
     const n = Number(hero[key] ?? (key === "lv" ? 1 : 0));
     hero[key] = Number.isFinite(n) ? Math.max(0, n) : 0;
   }
