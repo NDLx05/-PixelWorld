@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { cameraFollow, moveWithObstacles, canUseCooldown, normalizeSave, SAVE_VERSION } from "../src/systems.js";
+import { cameraFollow, moveWithObstacles, canUseCooldown, normalizeSave, SAVE_VERSION, findMapExit } from "../src/systems.js";
 
 test("camera clamps to world edges", () => {
   assert.deepEqual(cameraFollow({x:5,y:5},{width:480,height:270},{width:960,height:720}),{x:0,y:0});
@@ -46,4 +46,12 @@ test("movement respects solid map tiles and open passage tiles", () => {
   assert.equal(hero.x,36);
   moveWithObstacles(hero,0,20,[],{minX:0,maxX:48,minY:0,maxY:48},5,map);
   assert.equal(hero.y,32);
+});
+
+test("map exits activate only on their exact tile", () => {
+  const map = { tileSize: 24, exits: [{ x: 39, y: 14, to: "forest" }] };
+  assert.deepEqual(findMapExit(map, 950, 350), { x: 39, y: 14, to: "forest" });
+  assert.equal(findMapExit(map, 950, 400), null);
+  assert.equal(findMapExit(map, 920, 350), null);
+  assert.equal(findMapExit(null, 950, 350), null);
 });
