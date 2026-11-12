@@ -14,6 +14,8 @@ Game phiêu lưu pixel 2D góc nhìn từ trên xuống, thiết kế màn hình
 - Danh mục dữ liệu vật phẩm, công thức, kỹ năng và nhiệm vụ trong `data/`.
 - NPC Trưởng lão Mira và nhiệm vụ thu thập đầu tiên, có lưu trạng thái hoàn thành.
 - Va chạm di chuyển cơ bản với vật thể thu thập và camera cuộn có giới hạn bản đồ.
+- Kỹ năng riêng theo lớp có projectile, làm chậm, độc, phòng thủ và buff sát thương cơ bản.
+- Hiệu ứng âm thanh tổng hợp Web Audio API, có nút bật/tắt.
 - Kiểm thử tự động Node.js trong `tests/` và GitHub Actions.
 - PWA app shell: manifest và service worker để lưu vỏ ứng dụng sau lần tải đầu.
 
@@ -26,7 +28,7 @@ Game phiêu lưu pixel 2D góc nhìn từ trên xuống, thiết kế màn hình
 
 ## Giới hạn hiện tại
 
-- Đồ họa nhân vật/quái vật còn là hình vẽ tạm, chưa tích hợp sprite animation hoàn chỉnh.
+- Đồ họa nhân vật/quái vật còn là hình vẽ tạm, chưa tích hợp sprite animation hoặc tilemap hoàn chỉnh.
 - Chưa có hệ thống nhiệm vụ/NPC/cửa hàng/boss hoàn chỉnh.
 - Cân bằng chiến đấu, lưu trạng thái khu vực và kiểm thử Safari thực tế vẫn cần làm.
 - Offline hiện chỉ nhắm đến app shell; chưa cam kết toàn bộ nội dung game hoạt động offline cho đến khi kiểm thử.
