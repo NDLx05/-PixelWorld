@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "npcs": [
+    {
+      "id": "elder_mira",
+      "name": "Trưởng lão Mira",
+      "area": "forest",
+      "x": 150,
+      "y": 150,
+      "questId": "forest_supplies"
+    }
+  ],
+  "quests": [
+    {
+      "id": "forest_supplies",
+      "title": "Tiếp tế khu rừng",
+      "description": "Thu thập 3 gỗ và 2 đá để sửa lại cổng làng.",
+      "objectives": {
+        "wood": 3,
+        "stone": 2
+      },
+      "reward": {
+        "xp": 30,
+        "coins": 15
+      }
+    }
+  ]
+}
