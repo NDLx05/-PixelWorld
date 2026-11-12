@@ -82,3 +82,14 @@ test("save normalization repairs invalid stats and strips malformed world entiti
   assert.equal("unknown" in normalized.worldStates, false);
   assert.ok(Number.isFinite(normalized.savedAt));
 });
+
+test("save normalization caps extreme progression values", () => {
+  const normalized = normalizeSave({
+    hero: { cls: "ranger", hp: 99999, mp: 99999, lv: 99999, xp: Number.MAX_SAFE_INTEGER, coins: Number.MAX_SAFE_INTEGER }
+  });
+  assert.equal(normalized.hero.hp, 105);
+  assert.equal(normalized.hero.mp, 65);
+  assert.equal(normalized.hero.lv, 999);
+  assert.equal(normalized.hero.xp, 1000000);
+  assert.equal(normalized.hero.coins, 999999);
+});
