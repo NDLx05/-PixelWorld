@@ -1,5 +1,5 @@
 /* PixelWorld offline app shell. Bump CACHE_VERSION whenever app files change. */
-const CACHE_VERSION = "pixelworld-shell-v56";
+const CACHE_VERSION = "pixelworld-shell-v57";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -64,16 +64,33 @@ self.addEventListener("fetch", event => {
   if (request.method !== "GET") return;
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
-  event.respondWith(
-    caches.match(request).then(cached => {
-      if (cached) return cached;
-      return fetch(request).then(response => {
-        if (response && response.ok && (request.mode === "navigate" || url.pathname.endsWith(".html"))) {
+
+  // Always ask the network for the app document first. This prevents an
+  // old cached index.html from hiding newly deployed game code.
+  const isDocument = request.mode === "navigate" || url.pathname.endsWith(".html");
+  if (isDocument) {
+    event.respondWith(
+      fetch(request, { cache: "no-store" }).then(response => {
+        if (response && response.ok) {
           const copy = response.clone();
           caches.open(CACHE_VERSION).then(cache => cache.put(request, copy));
         }
         return response;
-      }).catch(() => request.mode === "navigate" ? caches.match("./index.html") : new Response("", { status: 503, statusText: "Offline" }))
+      }).catch(() => caches.match(request).then(cached => cached || caches.match("./index.html")))
+    );
+    return;
+  }
+
+  event.respondWith(
+    caches.match(request).then(cached => {
+      if (cached) return cached;
+      return fetch(request).then(response => {
+        if (response && response.ok) {
+          const copy = response.clone();
+          caches.open(CACHE_VERSION).then(cache => cache.put(request, copy));
+        }
+        return response;
+      }).catch(() => new Response("", { status: 503, statusText: "Offline" }));
     })
   );
 });
