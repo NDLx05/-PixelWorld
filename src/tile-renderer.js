@@ -1,3 +1,8 @@
+/**
+ * Deterministic, canvas-native pixel terrain.
+ * Art direction: warm hand-painted fantasy MMORPG tiles, with a clear top-left light.
+ * Every variation is derived from world coordinates so the map never flickers.
+ */
 export function tileSeed(x, y, id = 0) {
   let n = Math.imul(x + 1, 374761393) ^ Math.imul(y + 1, 668265263) ^ Math.imul(id + 1, 1442695041);
   n = Math.imul(n ^ (n >>> 13), 1274126177);
@@ -6,71 +11,99 @@ export function tileSeed(x, y, id = 0) {
 
 export function drawTile(ctx, id, world, x, y, size, tx, ty) {
   const seed = tileSeed(tx, ty, id);
-  const pick = n => (seed >>> (n * 3)) % 17;
-  const rect = (color, ox, oy, w, h) => { ctx.fillStyle = color; ctx.fillRect(Math.round(x + ox), Math.round(y + oy), w, h); };
+  const pick = n => (seed >>> ((n * 3) % 27)) % 19;
+  const s = size / 24;
+  const px = n => Math.round(n * s);
+  const box = (color, ox, oy, w, h) => {
+    ctx.fillStyle = color;
+    ctx.fillRect(Math.round(x + px(ox)), Math.round(y + px(oy)), Math.max(1, px(w)), Math.max(1, px(h)));
+  };
+  const dot = (color, ox, oy, w = 1, h = 1) => box(color, ox, oy, w, h);
+  const grass = world === "village" ? ["#527d43","#598447","#4c773e"] : ["#356b3d","#3b7541","#2f6339"];
+  const cave = world === "cave";
 
   if (world === "village") {
-    const colors = {1:"#527d43",3:"#276e91",7:"#b99b62",10:"#80503a",11:"#454b42"};
-    rect(colors[id] || "#527d43", 0, 0, size, size);
+    const colors = {1:grass[pick(0)%3],3:"#276e91",7:"#b99b62",10:"#80503a",11:"#454b42"};
+    box(colors[id] || grass[0],0,0,24,24);
   } else if (world === "forest") {
-    const colors = {1:"#356b3d",2:"#1c432e",3:"#276e91",7:"#b99b62"};
-    rect(colors[id] || "#356b3d", 0, 0, size, size);
+    const colors = {1:grass[pick(0)%3],2:"#1c432e",3:"#276e91",7:"#b99b62"};
+    box(colors[id] || grass[0],0,0,24,24);
   } else {
     const colors = {4:"#405663",5:"#243944",6:"#4d6570",8:"#77766b"};
-    rect(colors[id] || "#405663", 0, 0, size, size);
+    box(colors[id] || "#405663",0,0,24,24);
   }
 
-  // Bevelled tile edges give the ground a readable, hand-built pixel-art surface.
-  rect("#ffffff12", 1, 1, size - 2, 1);
-  rect("#00000022", 1, size - 2, size - 2, 1);
+  // Top-left sunlight and lower-right contact shade.
+  box("#ffffff12",1,1,22,1);
+  box("#ffffff0b",1,2,1,19);
+  box("#00000016",1,22,22,1);
+  box("#00000012",22,2,1,20);
 
   if (id === 1) {
-    rect("#244f32", 3 + pick(0), 5 + pick(1) % 11, 2, 2);
-    rect("#78a957", 5 + pick(2) % 14, 4 + pick(3) % 15, 2, 1);
-    rect("#a1c66b", 6 + pick(4) % 13, 5 + pick(5) % 14, 1, 1);
-    if (pick(6) % 3 === 0) {
-      rect("#244f32", 14 + pick(7) % 6, 15 + pick(8) % 5, 2, 3);
-      rect("#8ebd60", 13 + pick(9) % 7, 14 + pick(10) % 4, 2, 1);
+    // Meadow: layered grass blades, tiny flowers and ground variation.
+    for (let i=0;i<5;i++) {
+      const gx=2+pick(i+1)%19, gy=3+pick(i+7)%18;
+      dot(i%2?"#244f32":"#2e5b35",gx,gy,2,2);
+      dot(i%2?"#80ad55":"#6f9d4d",gx+1,gy-1,2,1);
+      if (pick(i+12)%4===0) dot("#d6d28a",gx+2,gy-2,1,1);
     }
-  } else if (id === 2 || id === 11 || id === 5) {
-    const foliage = world === "cave" ? "#344e58" : "#245337";
-    rect("#142b24", 2, 18, size - 4, 4);
-    rect(foliage, 2 + pick(0) % 4, 4 + pick(1) % 5, size - 6, 14);
-    rect(world === "cave" ? "#6c8589" : "#3d7948", 5 + pick(2) % 5, 4, 8, 3);
-    rect(world === "cave" ? "#1a303a" : "#173d2b", 4, 16, size - 8, 3);
-    rect("#9ab87955", 7 + pick(3) % 8, 7 + pick(4) % 6, 2, 2);
+    if (pick(15)%3===0) {
+      dot("#f0d58a",4+pick(16)%15,5+pick(17)%13,2,2);
+      dot("#fff0bd",5+pick(16)%15,5+pick(17)%13,1,1);
+    }
+    if (pick(18)%4===0) box("#254b32",2+pick(5)%18,18+pick(8)%4,3,1);
+  } else if (id === 2 || id === 11 || (id === 5 && cave)) {
+    // Dense canopy / cave wall tiles use overlapping masses instead of flat blocks.
+    const dark=cave?"#172d35":"#142d22", mid=cave?"#344e58":"#245337", light=cave?"#6c8589":"#3d7948";
+    box(dark,1,5,22,17); box(mid,2,4,20,13);
+    box(light,4+pick(0)%4,3,10,4);
+    box(cave?"#9aada7":"#5c9852",7+pick(3)%8,6+pick(4)%6,5,2);
+    box(dark,3,17,18,4);
+    dot(cave?"#8ca5a4":"#a0c56b",5+pick(9)%13,8+pick(10)%9,2,1);
+    dot(cave?"#203a43":"#183d2a",2+pick(11)%18,14+pick(12)%7,2,2);
   } else if (id === 3) {
-    rect("#1c5a7b", 0, 4 + pick(0) % 12, size, 2);
-    rect("#68b7c0", 3 + pick(1) % 15, 7 + pick(2) % 12, 7, 1);
-    rect("#b4e1cf", 5 + pick(3) % 12, 8 + pick(4) % 10, 3, 1);
-    rect("#164663", 1, 20, size - 2, 2);
+    // Shallow water: layered banks, broken ripples and reflected light.
+    box("#1c5876",0,2,24,20);
+    box("#287c9b",1,5,22,13);
+    box("#1b5b7c",0,18,24,4);
+    box("#6bb8bf",2+pick(0)%14,5+pick(1)%12,5,1);
+    box("#a8ded0",4+pick(2)%14,6+pick(3)%12,3,1);
+    dot("#d0ead2",6+pick(4)%14,4+pick(5)%14,1,1);
+    box("#164663",0,22,24,2);
   } else if (id === 7) {
-    rect("#d2b77d", 2, 2, size - 4, size - 4);
-    rect("#9d8050", 4 + pick(0) % 13, 5 + pick(1) % 13, 2, 1);
-    rect("#ead49a", 7 + pick(2) % 12, 4 + pick(3) % 14, 3, 1);
-    rect("#806b49", 5 + pick(4) % 13, 17 + pick(5) % 4, 2, 2);
-  } else if (id === 4 || id === 8 || id === 6 || id === 10) {
-    if (id === 6) {
-      rect("#1f536c", 2, 18, size - 4, 4);
-      rect("#2c8bb2", 5, 9, 5, 11);
-      rect("#73d9eb", 9, 3, 6, 17);
-      rect("#c4fbf4", 10, 5, 2, 9);
-      rect("#367fa1", 15, 11, 4, 9);
-    } else if (id === 10 && world === "village") {
-      rect("#4a302b", 1, 4, size - 2, size - 5);
-      rect("#b66a43", 2, 3, size - 4, 6);
-      rect("#e5a36a", 4, 5, 6, 2);
-      rect("#382820", 8, 13, 7, 10);
-      rect("#d4b16c", 9, 14, 2, 3);
-      rect("#523c30", 2, 22, size - 4, 2);
-    } else {
-      rect("#273c47", 3, 5, size - 6, size - 8);
-      rect("#738b91", 4 + pick(0) % 6, 5 + pick(1) % 6, 8, 2);
-      rect("#9aaba4", 6 + pick(2) % 10, 10 + pick(3) % 8, 3, 2);
-      rect("#172b35", 3, 20, size - 6, 2);
-    }
+    // Worn dirt path with compacted patches and pebbles.
+    box("#a58a58",0,0,24,24);
+    box("#c7ad75",1,2,22,19);
+    box("#d9c18a",3,3,15,2);
+    box("#92764b",2,19,19,2);
+    for(let i=0;i<5;i++) dot(i%2?"#806b49":"#ead49a",3+pick(i)%18,4+pick(i+6)%16,2,1);
+    dot("#f0dca5",5+pick(14)%14,5+pick(15)%12,2,1);
+  } else if (id === 6 && cave) {
+    // Crystal seam embedded in rock.
+    box("#243e4a",0,0,24,24);
+    box("#1f536c",2,16,20,6);
+    box("#2c8bb2",4,9,6,12);
+    box("#73d9eb",9,3,6,18);
+    box("#c4fbf4",10,5,2,11);
+    box("#367fa1",15,10,5,11);
+    dot("#efffff",11,4,2,2);
+    box("#142f3a",2,21,20,2);
+  } else if (id === 10 && world === "village") {
+    // Building floor / roof tile with timber and warm trim.
+    box("#4a302b",0,2,24,22); box("#b66a43",1,2,22,7);
+    box("#e5a36a",3,4,18,2); box("#382820",2,11,20,11);
+    box("#6f4935",4,13,16,8); box("#d4b16c",6,14,3,5);
+    box("#523c30",1,22,22,2);
+  } else if ([4,5,8].includes(id) && cave) {
+    // Cave floor and fractured stone.
+    box(id===8?"#706e65":"#2b414d",2,3,20,18);
+    box("#738b91",3+pick(0)%7,4+pick(1)%7,8,2);
+    box("#9aaba4",6+pick(2)%12,9+pick(3)%8,3,2);
+    box("#172b35",2,20,20,2);
+    dot("#b1c4bd",5+pick(6)%14,5+pick(7)%13,1,1);
+    box("#263b46",12+pick(8)%7,15+pick(9)%5,3,1);
   }
 
-  // Fine tile seams keep adjacent ground readable without a noisy grid.
-  if (id !== 3) rect("#0a171b18", size - 1, 2, 1, size - 3);
+  // Subtle seams preserve tile readability without a visible checkerboard.
+  if (id !== 3) box("#0a171b18",23,2,1,20);
 }
