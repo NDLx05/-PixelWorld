@@ -128,6 +128,7 @@ import { findMeleeTarget, createProjectile } from './src/combat.js';
 import { PixelVFX } from './src/vfx.js';
 import { SpriteAtlas, HERO_SPRITES, ENEMY_SPRITES, animationState } from './src/sprite-atlas.js';
 import { drawTile } from './src/tile-renderer.js';
+import { joystickDirections, joystickPointerKey } from './src/joystick.js';
 const content = await loadGameContent();
 (()=>{'use strict';
 const saveStore=new SaveStore();
@@ -174,7 +175,7 @@ document.querySelectorAll('[data-key]').forEach(b=>{let k=b.dataset.key;b.addEve
 const moveStick=document.getElementById('moveStick'),moveKnob=document.getElementById('moveKnob');
 if(moveStick&&moveKnob){
  const activeStick=new Map();
- const token=(id,direction)=>'stick:'+id+':'+direction;
+ const token=joystickPointerKey;
  const clearStick=id=>{for(const direction of ['up','down','left','right'])input.releaseTouch(token(id,direction));activeStick.delete(id)};
  const updateStick=e=>{
   const r=moveStick.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
@@ -182,12 +183,9 @@ if(moveStick&&moveKnob){
   if(len>limit){dx=dx/len*limit;dy=dy/len*limit}
   moveKnob.style.transform='translate('+dx+'px,'+dy+'px)';
   clearStick(e.pointerId);
-  const nx=dx/limit,ny=dy/limit,threshold=.22,pressed=[];
-  if(ny< -threshold){input.pressTouch(token(e.pointerId,'up'),'ArrowUp');pressed.push('up')}
-  if(ny> threshold){input.pressTouch(token(e.pointerId,'down'),'ArrowDown');pressed.push('down')}
-  if(nx< -threshold){input.pressTouch(token(e.pointerId,'left'),'ArrowLeft');pressed.push('left')}
-  if(nx> threshold){input.pressTouch(token(e.pointerId,'right'),'ArrowRight');pressed.push('right')}
-  activeStick.set(e.pointerId,pressed);
+  const pressed=joystickDirections(dx,dy,limit,.22);
+  for(const direction of pressed)input.pressTouch(token(e.pointerId,direction.name),direction.key);
+  activeStick.set(e.pointerId,pressed.map(direction=>direction.name));
  };
  const onDown=e=>{if(e.pointerType==='mouse'&&e.button!==0)return;audio.unlock();e.preventDefault();activeStick.set(e.pointerId,[]);try{moveStick.setPointerCapture(e.pointerId)}catch{}updateStick(e)};
  const onMove=e=>{if(activeStick.has(e.pointerId)){e.preventDefault();updateStick(e)}};
