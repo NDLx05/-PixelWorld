@@ -130,6 +130,7 @@ import { PixelVFX } from './src/vfx.js';
 import { SpriteAtlas, HERO_SPRITES, ENEMY_SPRITES, animationState } from './src/sprite-atlas.js';
 import { drawTile } from './src/tile-renderer.js';
 import { drawResourceNode, drawWorldAtmosphere } from './src/world-art.js';
+import { drawVillageLandmarks } from './src/village-art.js';
 import { joystickDirections, joystickPointerKey } from './src/joystick.js';
 const content = await loadGameContent();
 (()=>{'use strict';
@@ -208,7 +209,7 @@ g.clearRect(0,0,W,H);let camera=cameraFollow(hero,{width:W,height:H},{width:960,
 g.fillStyle=world==='forest'?'#477b48':'#3c5360';g.fillRect(0,0,W,H);
 const tileColors=world==='village'?{1:'#59844c',3:'#397c9a',7:'#b69b67',10:'#8d5542',11:'#6e6b55'}:world==='forest'?{1:'#477b48',2:'#245438',3:'#397c9a',7:'#b69b67'}:{4:'#405967',5:'#263b49',6:'#526f79',8:'#827c70'};
 if(currentMap?.terrain){const tileSize=currentMap.tileSize,startX=Math.max(0,Math.floor(camX/tileSize)),endX=Math.min(currentMap.width,Math.ceil((camX+W)/tileSize)+1),startY=Math.max(0,Math.floor(camY/tileSize)),endY=Math.min(currentMap.height,Math.ceil((camY+H)/tileSize)+1);for(let ty=startY;ty<endY;ty++)for(let tx=startX;tx<endX;tx++){const id=currentMap.terrain[ty][tx];drawTile(g,id,world,tx*tileSize-camX,ty*tileSize-camY,tileSize,tx,ty)}}
-g.strokeStyle='#b1a36a';g.lineWidth=5;g.strokeRect(2-camX,2-camY,956,716);drawWorldAtmosphere(g,world,W,H,performance.now());
+g.strokeStyle='#b1a36a';g.lineWidth=5;g.strokeRect(2-camX,2-camY,956,716);drawWorldAtmosphere(g,world,W,H,performance.now());if(world==='village')drawVillageLandmarks(g,camX,camY,performance.now());
 if(world==='village'||world==='forest'){g.fillStyle='#d6c18a';g.fillRect(943-camX,300-camY,12,90);g.fillStyle='#1b2a1c';g.font='9px monospace';g.fillText(world==='village'?'RỪNG →':'HANG →',900-camX,290-camY)}if(world==='forest'||world==='cave'){g.fillStyle='#d6c18a';g.fillRect(5-camX,300-camY,12,90);g.fillStyle='#1b2a1c';g.font='9px monospace';g.fillText(world==='forest'?'← LÀNG':'← RỪNG',20-camX,290-camY)}
 for(const n of nodes){const sx=n.x-camX,sy=n.y-camY;if(sx<-30||sy<-42||sx>W+30||sy>H+30)continue;drawResourceNode(g,n.type,sx,sy,world,(Math.floor(n.x)*31+Math.floor(n.y)*17)>>>0)}
 for(const npc of npcs){let sx=npc.x-camX,sy=npc.y-camY;if(sx<-20||sy<-20||sx>W+20||sy>H+20)continue;if(npcSpriteReady)g.drawImage(npcSprite,npc.shopId?32:0,0,32,32,sx-16,sy-16,32,32);else{g.fillStyle='#684c35';g.fillRect(sx-7,sy-5,14,15);g.fillStyle='#e6bd8e';g.fillRect(sx-5,sy-13,10,9)}g.fillStyle='#fff1a8';g.font='8px monospace';g.fillText(npc.shopId?'$':'!',sx-2,sy-19)}
@@ -225,6 +226,6 @@ for(const p of projectiles){p.x+=p.vx*dt;p.y+=p.vy*dt;p.ttl-=dt;if(!tileIsOpen(p
 for(const p of enemyProjectiles){p.x+=p.vx*dt;p.y+=p.vy*dt;p.ttl-=dt;if(!tileIsOpen(p.x,p.y)){p.ttl=0;continue}if(Math.hypot(hero.x-p.x,hero.y-p.y)<13&&invuln<=0){hero.hp=Math.max(0,hero.hp-calculateIncomingDamage(guardTimer>0?6:p.damage,hero.armor));hurtTimer=.35;invuln=.65;audio.play('hurt');say('Bạn trúng tinh thể của Hộ vệ!');p.ttl=0;if(hero.hp===0){deadAt=performance.now();running=false;$('#overlay').classList.remove('hidden');$('#home').classList.add('hidden');$('#dead').classList.remove('hidden')}}}enemyProjectiles=enemyProjectiles.filter(p=>p.ttl>0&&p.x>0&&p.x<960&&p.y>0&&p.y<720);projectiles=projectiles.filter(p=>p.ttl>0&&p.x>0&&p.x<960&&p.y>0&&p.y<720);skillTimers=skillTimers.map(t=>Math.max(0,t-dt));guardTimer=Math.max(0,guardTimer-dt);rageTimer=Math.max(0,rageTimer-dt);invuln=Math.max(0,invuln-dt);attackTimer=Math.max(0,attackTimer-dt);hurtTimer=Math.max(0,hurtTimer-dt);particles=particles.filter(p=>(p.t-=dt)>0);vfx.update(dt);if(toastTimer>0)toastTimer-=dt;statsTimer-=dt;if(statsTimer<=0){statsTimer=.2;stats()}}
 function loop(t){let dt=Math.min(.04,(t-last)/1000||0);last=t;update(dt);draw();requestAnimationFrame(loop)}
 newWorld('village');$('#overlay').classList.remove('hidden');$('#continue').style.display='none';saveStore.load().then(data=>{if(data)$('#continue').style.display='inline-block'});document.addEventListener('visibilitychange',()=>{if(document.hidden){input.clear();save()}});window.addEventListener('blur',()=>input.clear());window.addEventListener('pagehide',save);setInterval(()=>{if(running&&!inventory)save()},10000);requestAnimationFrame(loop);
-if('serviceWorker' in navigator&&location.protocol.startsWith('http')){navigator.serviceWorker.register('./sw.js?v=57',{updateViaCache:'none'}).then(reg=>reg.update()).catch(()=>{});}
+if('serviceWorker' in navigator&&location.protocol.startsWith('http')){navigator.serviceWorker.register('./sw.js?v=58',{updateViaCache:'none'}).then(reg=>reg.update()).catch(()=>{});}
 })();
 </script></body></html>
