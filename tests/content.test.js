@@ -53,6 +53,7 @@ test("invalid tile maps are rejected", () => {
 
 test("service worker only serves the app shell fallback for navigation requests", async () => {
   const sw = await readFile(resolve(root, "sw.js"), "utf8");
-  assert.match(sw, /request\.mode === "navigate" \? caches\.match\("\.\/index\.html"\)/);
+  assert.match(sw, /request\.mode === "navigate" \|\| url\.pathname\.endsWith\("\.html"\)/);
+  assert.match(sw, /fetch\(request, \{ cache: "no-store" \}\)/);
   assert.match(sw, /new Response\("", \{ status: 503, statusText: "Offline" \}\)/);
 });
